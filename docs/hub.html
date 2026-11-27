@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Киноплан · навигация по проекту</title>
+<style>
+  :root{
+    --paper:#f3efe6; --surface:#fffdf8; --ink:#17150f; --muted:#6e675a;
+    --line:#ddd6c7; --accent:#0a7aff; --accent-soft:#e7f0ff;
+    --red:#b42318; --red-soft:#fdeceb; --amber:#b54708; --amber-soft:#fff2df;
+    --green:#067647; --green-soft:#e8f5ee;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:15px/1.55 "Manrope","Inter",ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:34px 40px 72px}
+  .top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .top b{color:var(--ink);letter-spacing:.04em}
+  .top nav{display:flex;gap:18px}
+  .top nav a{text-decoration:none;font-weight:600;text-transform:none;letter-spacing:.02em}
+  .top nav a:hover{color:var(--accent)}
+  .eyebrow{margin:40px 0 12px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  h1{margin:0;font-size:clamp(38px,5vw,58px);line-height:1.03;letter-spacing:-.045em;font-weight:800;max-width:16ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{margin:16px 0 0;max-width:62ch;font-size:17px;line-height:1.5;color:#3c372e}
+  .routes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+  .route{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;min-height:156px}
+  .route:hover{border-color:var(--accent)}
+  .route small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .route b{display:block;font-size:22px;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
+  .route span{display:block;font-size:13px;color:var(--muted)}
+  h2{font-size:30px;letter-spacing:-.03em;margin:58px 0 6px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 18px;max-width:72ch}
+  .table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px}
+  .table th,.table td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .table th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;background:#faf7f0}
+  .table tr:last-child td{border-bottom:0}
+  .table td:first-child{font-weight:700;white-space:nowrap}
+  .table a{text-decoration:none;border-bottom:1px solid #c9c2b4}
+  .table a:hover{border-color:var(--accent);color:var(--accent)}
+  .yes{color:var(--green);font-weight:700}
+  .part{color:var(--amber);font-weight:700}
+  .no{color:var(--red);font-weight:700}
+  .dash{color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .chip{display:inline-block;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:11.5px;background:#faf7f0;text-decoration:none}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .scope{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .scope div{background:var(--surface);padding:14px 14px 16px}
+  .scope small{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .scope b{display:block;font-size:15px;margin-bottom:8px}
+  .scope span{display:block;font-size:11.5px;color:var(--muted);line-height:1.45}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .link{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none}
+  .link:hover{border-color:var(--accent)}
+  .link b{display:block;font-size:14.5px;margin-bottom:3px}
+  .link span{display:block;font-size:12px;color:var(--muted)}
+  .note{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.55}
+  .note b{color:var(--ink)}
+  @media(max-width:900px){
+    .wrap{padding:22px 18px 56px}
+    .routes,.links{grid-template-columns:1fr}
+    .scope{grid-template-columns:1fr 1fr}
+    .table{display:block;overflow-x:auto;white-space:nowrap}
+    .table td:first-child{white-space:normal}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <b>Киноплан · навигация</b>
+    <nav>
+      <a href="hub.html">Хаб</a>
+      <a href="empathy-map.html">Карта эмпатий</a>
+      <a href="audit-board-standalone.html">Аудит</a>
+      <a href="scope-board-standalone.html">Scope</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Один вход · 24 ноября 2026</div>
+  <h1>Все материалы <em>в одном месте</em></h1>
+  <p class="lead">Сравнительный анализ, аудит и scope связаны между собой. Начни с любого
+  блока — внутри есть ссылки на доказательства, кадры и исходные страницы Figma.</p>
+
+  <div class="routes">
+    <a class="route" href="audit-board-standalone.html">
+      <small>01 · Аудит</small>
+      <b>12 проблем по шагам</b>
+      <span>Сеансы → зал → контакты → оплата → билет. Один блокер, 7 серьёзных.</span>
+    </a>
+    <a class="route" href="#competitors">
+      <small>02 · Конкуренты</small>
+      <b>4 сервиса + наш</b>
+      <span>Яндекс Афиша, Кассир.ру, Фритаун, Киноафиша — твой набор конкурентов.</span>
+    </a>
+    <a class="route" href="scope-board-standalone.html">
+      <small>03 · Scope</small>
+      <b>13 фич MVP</b>
+      <span>Те же 5 шагов, что в аудите. Что после MVP и чего не делаем.</span>
+    </a>
+  </div>
+
+  <h2 id="competitors">Сравнительный анализ</h2>
+  <p class="sub">Один экран по каждому конкуренту: что умеет, где слаб, что забираем.
+  Полный разбор — в <a href="competitive_analysis_final.md">competitive_analysis_final.md</a>,
+  матрица — в <a href="competitor_features.md">competitor_features.md</a>.
+  Ссылки на кадры открываются локально.</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Сервис</th>
+        <th>Роль</th>
+        <th>Цена в сеансе</th>
+        <th>Зоны / цена в зале</th>
+        <th>Гость</th>
+        <th>Сбор</th>
+        <th>Что берём</th>
+        <th>Материалы</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://kinowidget.kinoplan.ru/" target="_blank" rel="noreferrer">Киноплан · наш</a></td>
+        <td>Наш виджет</td>
+        <td class="no">Нет</td>
+        <td class="part">Есть в больших залах</td>
+        <td class="yes">Да</td>
+        <td class="yes">0</td>
+        <td>Цена, читаемый тултип, один экран</td>
+        <td><a href="../audit/before/17-zones.png">зоны</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://afisha.yandex.ru/" target="_blank" rel="noreferrer">Яндекс Афиша</a></td>
+        <td>Агрегатор</td>
+        <td class="no">Нет</td>
+        <td class="part">Категория в карточке, зон нет</td>
+        <td class="yes">Да</td>
+        <td class="dash">—</td>
+        <td>Короткий путь, СБП, возвраты</td>
+        <td><a href="../audit/bench-yandex-seatcard.png">карточка</a> · <a href="../audit/bench-yandex-desktop-schedule.png">сеансы</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://kassir.ru/" target="_blank" rel="noreferrer">Кассир.ру</a></td>
+        <td>Агрегатор</td>
+        <td class="part">Диапазон</td>
+        <td class="dash">—</td>
+        <td class="dash">—</td>
+        <td class="dash">—</td>
+        <td>Автовозвраты, схема зала</td>
+        <td><a href="competitive_analysis_final.md">разбор</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://freetowncinema.ru/" target="_blank" rel="noreferrer">Фритаун Синема</a></td>
+        <td>Локальный сосед</td>
+        <td class="yes">350–470 ₽</td>
+        <td class="no">Нет легенды и цены</td>
+        <td class="no">Нет, вход обязателен</td>
+        <td class="part">Не показан</td>
+        <td>Полоса сеансов, цена в сеансе</td>
+        <td><a href="../audit/bench-freetown-afisha.png">афиша</a> · <a href="../audit/bench-freetown-hall.png">зал</a> · <a href="../audit/bench-freetown-auth.png">вход</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://www.kinoafisha.info/" target="_blank" rel="noreferrer">Киноафиша</a></td>
+        <td>Агрегатор</td>
+        <td class="yes">В расписании</td>
+        <td class="yes">POP/VIP цветом</td>
+        <td class="dash">—</td>
+        <td class="dash">—</td>
+        <td>Цена, схема, QR</td>
+        <td><a href="https://www.kinoafisha.info/" target="_blank" rel="noreferrer">сайт</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="sub" style="margin-top:8px">Зарубежные Fandango, AMC, Atom, Cineplex — отдельный контекст
+  в полном разборе, не в основной матрице.</p>
+
+  <div class="chips">
+    <a class="chip" href="competitor_swot.md">SWOT по каждому</a>
+    <a class="chip" href="competitor_features.md">Матрица фич</a>
+    <a class="chip" href="competitor_ux_patterns.md">UX-паттерны</a>
+    <a class="chip" href="BENCHMARK.md">Кадры и наблюдения</a>
+    <a class="chip" href="../audit/ИНВЕНТАРЬ.md">Инвентарь кадров</a>
+  </div>
+
+  <h2>Scope MVP</h2>
+  <p class="sub">13 фич по тем же шагам. Полная версия — в
+  <a href="scope-board-standalone.html">Scope MVP</a>, обоснование — в
+  <a href="prioritization.md">prioritization.md</a>.</p>
+
+  <div class="scope">
+    <div><small>01</small><b>Сеансы</b><span>Цена «от» в карточке; точное число при одной цене.</span></div>
+    <div><small>02</small><b>Карта зала</b><span>Зоны, цена в тултипе, крупное кресло, зум, нижний лист, конфликт.</span></div>
+    <div><small>03</small><b>Контакты</b><span>Один экран: сводка, контакты, оплата; кнопка отвечает.</span></div>
+    <div><small>04</small><b>Оплата</b><span>Статус и возврат после банка; без второго списания.</span></div>
+    <div><small>05</small><b>Билет</b><span>QR и email; события воронки.</span></div>
+  </div>
+
+  <h2>Гипотезы</h2>
+  <p class="sub">10 паттернов по одному шаблону: паттерн → гипотеза → почему верим → как проверим →
+  комментарий. Авторские формулировки сохранены; оригинальные стикеры не удалены.</p>
+  <div class="links">
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=114-44" target="_blank" rel="noreferrer">
+      <b>Гипотезы · единый паттерн</b><span>Новая секция в Figma, 10 карточек</span>
+    </a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=106-164" target="_blank" rel="noreferrer">
+      <b>Аудит · исходная страница</b><span>Стикеры автора и скриншоты экранов</span>
+    </a>
+  </div>
+
+  <h2>Материалы проекта</h2>
+  <div class="links">
+    <a class="link" href="personas-board.html"><b>Персоны</b><span>Две ситуации покупки, без демографии</span></a>
+    <a class="link" href="empathy-map.html"><b>Карта эмпатий</b><span>Два покупателя, четыре сектора, источники и пустые места</span></a>
+    <a class="link" href="benchmark-board.html"><b>Бенчмарк одним файлом</b><span>Матрица, три паттерна, выводы</span></a>
+    <a class="link" href="audit-board-standalone.html"><b>Аудит одним файлом</b><span>12 проблем, кадры, до/после тултипа</span></a>
+    <a class="link" href="scope-board-standalone.html"><b>Scope одним файлом</b><span>13 фич по шагам</span></a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=133-14" target="_blank" rel="noreferrer"><b>Бенчмарк в Figma</b><span>5 сервисов, компактная матрица, легенда, «что взяли»</span></a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=7-32" target="_blank" rel="noreferrer"><b>Текущая версия в Figma</b><span>Экраны до редизайна</span></a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=18-3" target="_blank" rel="noreferrer"><b>Десктоп и мобильный</b><span>Макеты редизайна</span></a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=17-2" target="_blank" rel="noreferrer"><b>UI Kit</b><span>Компоненты и переменные</span></a>
+    <a class="link" href="https://www.figma.com/design/vgDgIAeXyDavBWOQzSZLc4?node-id=31-3" target="_blank" rel="noreferrer"><b>Вход и оплата</b><span>Шторка, СБП, успех</span></a>
+  </div>
+
+  <footer class="note">
+    <b>Как пользоваться.</b> Эта страница — единственная точка входа. Внутри: сравнительный
+    анализ 11 сервисов, scope и аудит. Figma-ссылки открывают конкретные страницы файла;
+    локальные — борды и кадры. Дата: 24.11.2026.
+  </footer>
+
+</div>
+</body>
+</html>

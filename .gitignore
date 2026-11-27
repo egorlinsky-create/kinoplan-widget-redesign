@@ -1,0 +1,11 @@
+# Локальное состояние агента и инструментов
+.dsh/
+.prototype-studio/
+.tmp/
+node_modules/
+*.log
+
+# Служебное ОС
+Thumbs.db
+.DS_Store
+desktop.ini

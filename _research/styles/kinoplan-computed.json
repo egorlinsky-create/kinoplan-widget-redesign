@@ -1,0 +1,911 @@
+{
+ "afisha": {
+  "title": "KinoWidget",
+  "elements": 1006,
+  "fontsLoaded": [],
+  "rootVars": {},
+  "fontFamily": [
+   {
+    "v": "BlinkMacSystemFont :: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-",
+    "n": 1006
+   }
+  ],
+  "fontSizes": [
+   {
+    "v": "15px",
+    "n": 261
+   },
+   {
+    "v": "16px",
+    "n": 198
+   },
+   {
+    "v": "12px",
+    "n": 154
+   },
+   {
+    "v": "11px",
+    "n": 117
+   },
+   {
+    "v": "17px",
+    "n": 114
+   },
+   {
+    "v": "14px",
+    "n": 108
+   },
+   {
+    "v": "20px",
+    "n": 36
+   },
+   {
+    "v": "8px",
+    "n": 18
+   }
+  ],
+  "fontWeights": [
+   {
+    "v": "400",
+    "n": 838
+   },
+   {
+    "v": "600",
+    "n": 132
+   },
+   {
+    "v": "500",
+    "n": 36
+   }
+  ],
+  "lineHeights": [
+   {
+    "v": "18.4px",
+    "n": 193
+   },
+   {
+    "v": "20px",
+    "n": 172
+   },
+   {
+    "v": "13.8px",
+    "n": 118
+   },
+   {
+    "v": "14px",
+    "n": 114
+   },
+   {
+    "v": "24px",
+    "n": 114
+   },
+   {
+    "v": "16.1px",
+    "n": 108
+   },
+   {
+    "v": "17.25px",
+    "n": 43
+   },
+   {
+    "v": "34px",
+    "n": 42
+   },
+   {
+    "v": "13px",
+    "n": 39
+   },
+   {
+    "v": "23px",
+    "n": 36
+   },
+   {
+    "v": "8px",
+    "n": 18
+   },
+   {
+    "v": "normal",
+    "n": 5
+   },
+   {
+    "v": "48px",
+    "n": 4
+   }
+  ],
+  "colors": [
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 440
+   },
+   {
+    "v": "rgb(0, 0, 238)",
+    "n": 336
+   },
+   {
+    "v": "rgb(60, 60, 67)",
+    "n": 78
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 76
+   },
+   {
+    "v": "rgb(0, 0, 0)",
+    "n": 39
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 36
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 1
+   }
+  ],
+  "backgrounds": [
+   {
+    "v": "rgba(0, 0, 0, 0)",
+    "n": 833
+   },
+   {
+    "v": "rgb(231, 231, 236)",
+    "n": 55
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 41
+   },
+   {
+    "v": "rgb(242, 242, 245)",
+    "n": 39
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 37
+   },
+   {
+    "v": "rgb(10, 122, 255)",
+    "n": 1
+   }
+  ],
+  "radii": [
+   {
+    "v": "0px",
+    "n": 758
+   },
+   {
+    "v": "4px",
+    "n": 131
+   },
+   {
+    "v": "50%",
+    "n": 42
+   },
+   {
+    "v": "0px 0px 4px 4px",
+    "n": 39
+   },
+   {
+    "v": "3px",
+    "n": 36
+   }
+  ],
+  "shadows": [
+   {
+    "v": "rgba(0, 0, 0, 0.25) 0px 0px 3px 0px",
+    "n": 1
+   }
+  ],
+  "sample": {
+   "body": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "18.4px",
+    "color": "rgb(38, 38, 38)",
+    "bg": "rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(38, 38, 38) 0px"
+   },
+   "button": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "normal",
+    "color": "rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "radius": "4px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(0, 0, 0) 0px"
+   },
+   "cta": null
+  }
+ },
+ "seats": {
+  "title": "KinoWidget",
+  "elements": 30,
+  "fontsLoaded": [
+   "Manrope-Bold-Cr9wvEJH.woff2",
+   "Manrope-Regular-Y4Pyc6GS.woff2",
+   "Manrope-Light-C6HwRd54.woff2"
+  ],
+  "rootVars": {},
+  "fontFamily": [
+   {
+    "v": "BlinkMacSystemFont :: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-",
+    "n": 21
+   },
+   {
+    "v": "Manrope :: Manrope, sans-serif",
+    "n": 9
+   }
+  ],
+  "fontSizes": [
+   {
+    "v": "16px",
+    "n": 22
+   },
+   {
+    "v": "15px",
+    "n": 4
+   },
+   {
+    "v": "12px",
+    "n": 2
+   },
+   {
+    "v": "20px",
+    "n": 1
+   },
+   {
+    "v": "14px",
+    "n": 1
+   }
+  ],
+  "fontWeights": [
+   {
+    "v": "400",
+    "n": 28
+   },
+   {
+    "v": "700",
+    "n": 1
+   },
+   {
+    "v": "300",
+    "n": 1
+   }
+  ],
+  "lineHeights": [
+   {
+    "v": "18.4px",
+    "n": 17
+   },
+   {
+    "v": "normal",
+    "n": 5
+   },
+   {
+    "v": "20px",
+    "n": 4
+   },
+   {
+    "v": "13.8px",
+    "n": 2
+   },
+   {
+    "v": "24px",
+    "n": 1
+   },
+   {
+    "v": "21px",
+    "n": 1
+   }
+  ],
+  "colors": [
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 18
+   },
+   {
+    "v": "rgb(0, 0, 0)",
+    "n": 5
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 4
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 3
+   }
+  ],
+  "backgrounds": [
+   {
+    "v": "rgba(0, 0, 0, 0)",
+    "n": 24
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 3
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 2
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 1
+   }
+  ],
+  "radii": [
+   {
+    "v": "0px",
+    "n": 27
+   },
+   {
+    "v": "8px",
+    "n": 2
+   },
+   {
+    "v": "4px",
+    "n": 1
+   }
+  ],
+  "shadows": [],
+  "sample": {
+   "body": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "18.4px",
+    "color": "rgb(38, 38, 38)",
+    "bg": "rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(38, 38, 38) 0px"
+   },
+   "button": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "normal",
+    "color": "rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "radius": "4px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(0, 0, 0) 0px"
+   },
+   "cta": {
+    "font": "Manrope, sans-serif",
+    "size": "15px",
+    "weight": "400",
+    "lh": "20px",
+    "color": "rgb(255, 255, 255)",
+    "bg": "rgb(255, 59, 48)",
+    "radius": "8px",
+    "shadow": "none",
+    "padding": "10px 20px",
+    "border": "rgb(255, 255, 255) 0px"
+   }
+  }
+ },
+ "contacts": {
+  "title": "KinoWidget",
+  "elements": 30,
+  "fontsLoaded": [
+   "Manrope-Light-C6HwRd54.woff2",
+   "Manrope-Regular-Y4Pyc6GS.woff2",
+   "Manrope-Bold-Cr9wvEJH.woff2"
+  ],
+  "rootVars": {},
+  "fontFamily": [
+   {
+    "v": "BlinkMacSystemFont :: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-",
+    "n": 21
+   },
+   {
+    "v": "Manrope :: Manrope, sans-serif",
+    "n": 9
+   }
+  ],
+  "fontSizes": [
+   {
+    "v": "16px",
+    "n": 22
+   },
+   {
+    "v": "15px",
+    "n": 4
+   },
+   {
+    "v": "12px",
+    "n": 2
+   },
+   {
+    "v": "20px",
+    "n": 1
+   },
+   {
+    "v": "14px",
+    "n": 1
+   }
+  ],
+  "fontWeights": [
+   {
+    "v": "400",
+    "n": 28
+   },
+   {
+    "v": "700",
+    "n": 1
+   },
+   {
+    "v": "300",
+    "n": 1
+   }
+  ],
+  "lineHeights": [
+   {
+    "v": "18.4px",
+    "n": 17
+   },
+   {
+    "v": "normal",
+    "n": 5
+   },
+   {
+    "v": "20px",
+    "n": 4
+   },
+   {
+    "v": "13.8px",
+    "n": 2
+   },
+   {
+    "v": "24px",
+    "n": 1
+   },
+   {
+    "v": "21px",
+    "n": 1
+   }
+  ],
+  "colors": [
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 18
+   },
+   {
+    "v": "rgb(0, 0, 0)",
+    "n": 5
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 4
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 3
+   }
+  ],
+  "backgrounds": [
+   {
+    "v": "rgba(0, 0, 0, 0)",
+    "n": 24
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 3
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 2
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 1
+   }
+  ],
+  "radii": [
+   {
+    "v": "0px",
+    "n": 27
+   },
+   {
+    "v": "8px",
+    "n": 2
+   },
+   {
+    "v": "4px",
+    "n": 1
+   }
+  ],
+  "shadows": [],
+  "sample": {
+   "body": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "18.4px",
+    "color": "rgb(38, 38, 38)",
+    "bg": "rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(38, 38, 38) 0px"
+   },
+   "button": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "normal",
+    "color": "rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "radius": "4px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(0, 0, 0) 0px"
+   },
+   "cta": {
+    "font": "Manrope, sans-serif",
+    "size": "15px",
+    "weight": "400",
+    "lh": "20px",
+    "color": "rgb(255, 255, 255)",
+    "bg": "rgb(255, 59, 48)",
+    "radius": "8px",
+    "shadow": "none",
+    "padding": "10px 20px",
+    "border": "rgb(255, 255, 255) 0px"
+   }
+  }
+ },
+ "basket": {
+  "title": "KinoWidget",
+  "elements": 30,
+  "fontsLoaded": [
+   "Manrope-Light-C6HwRd54.woff2",
+   "Manrope-Regular-Y4Pyc6GS.woff2",
+   "Manrope-Bold-Cr9wvEJH.woff2"
+  ],
+  "rootVars": {},
+  "fontFamily": [
+   {
+    "v": "BlinkMacSystemFont :: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-",
+    "n": 21
+   },
+   {
+    "v": "Manrope :: Manrope, sans-serif",
+    "n": 9
+   }
+  ],
+  "fontSizes": [
+   {
+    "v": "16px",
+    "n": 22
+   },
+   {
+    "v": "15px",
+    "n": 4
+   },
+   {
+    "v": "12px",
+    "n": 2
+   },
+   {
+    "v": "20px",
+    "n": 1
+   },
+   {
+    "v": "14px",
+    "n": 1
+   }
+  ],
+  "fontWeights": [
+   {
+    "v": "400",
+    "n": 28
+   },
+   {
+    "v": "700",
+    "n": 1
+   },
+   {
+    "v": "300",
+    "n": 1
+   }
+  ],
+  "lineHeights": [
+   {
+    "v": "18.4px",
+    "n": 17
+   },
+   {
+    "v": "normal",
+    "n": 5
+   },
+   {
+    "v": "20px",
+    "n": 4
+   },
+   {
+    "v": "13.8px",
+    "n": 2
+   },
+   {
+    "v": "24px",
+    "n": 1
+   },
+   {
+    "v": "21px",
+    "n": 1
+   }
+  ],
+  "colors": [
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 18
+   },
+   {
+    "v": "rgb(0, 0, 0)",
+    "n": 5
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 4
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 3
+   }
+  ],
+  "backgrounds": [
+   {
+    "v": "rgba(0, 0, 0, 0)",
+    "n": 24
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 3
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 2
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 1
+   }
+  ],
+  "radii": [
+   {
+    "v": "0px",
+    "n": 27
+   },
+   {
+    "v": "8px",
+    "n": 2
+   },
+   {
+    "v": "4px",
+    "n": 1
+   }
+  ],
+  "shadows": [],
+  "sample": {
+   "body": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "18.4px",
+    "color": "rgb(38, 38, 38)",
+    "bg": "rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(38, 38, 38) 0px"
+   },
+   "button": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "normal",
+    "color": "rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "radius": "4px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(0, 0, 0) 0px"
+   },
+   "cta": {
+    "font": "Manrope, sans-serif",
+    "size": "15px",
+    "weight": "400",
+    "lh": "20px",
+    "color": "rgb(255, 255, 255)",
+    "bg": "rgb(255, 59, 48)",
+    "radius": "8px",
+    "shadow": "none",
+    "padding": "10px 20px",
+    "border": "rgb(255, 255, 255) 0px"
+   }
+  }
+ },
+ "payment": {
+  "title": "KinoWidget",
+  "elements": 30,
+  "fontsLoaded": [
+   "Manrope-Light-C6HwRd54.woff2",
+   "Manrope-Regular-Y4Pyc6GS.woff2",
+   "Manrope-Bold-Cr9wvEJH.woff2"
+  ],
+  "rootVars": {},
+  "fontFamily": [
+   {
+    "v": "BlinkMacSystemFont :: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-",
+    "n": 21
+   },
+   {
+    "v": "Manrope :: Manrope, sans-serif",
+    "n": 9
+   }
+  ],
+  "fontSizes": [
+   {
+    "v": "16px",
+    "n": 22
+   },
+   {
+    "v": "15px",
+    "n": 4
+   },
+   {
+    "v": "12px",
+    "n": 2
+   },
+   {
+    "v": "20px",
+    "n": 1
+   },
+   {
+    "v": "14px",
+    "n": 1
+   }
+  ],
+  "fontWeights": [
+   {
+    "v": "400",
+    "n": 28
+   },
+   {
+    "v": "700",
+    "n": 1
+   },
+   {
+    "v": "300",
+    "n": 1
+   }
+  ],
+  "lineHeights": [
+   {
+    "v": "18.4px",
+    "n": 17
+   },
+   {
+    "v": "normal",
+    "n": 5
+   },
+   {
+    "v": "20px",
+    "n": 4
+   },
+   {
+    "v": "13.8px",
+    "n": 2
+   },
+   {
+    "v": "24px",
+    "n": 1
+   },
+   {
+    "v": "21px",
+    "n": 1
+   }
+  ],
+  "colors": [
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 18
+   },
+   {
+    "v": "rgb(0, 0, 0)",
+    "n": 5
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 4
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 3
+   }
+  ],
+  "backgrounds": [
+   {
+    "v": "rgba(0, 0, 0, 0)",
+    "n": 24
+   },
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 3
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 2
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 1
+   }
+  ],
+  "radii": [
+   {
+    "v": "0px",
+    "n": 27
+   },
+   {
+    "v": "8px",
+    "n": 2
+   },
+   {
+    "v": "4px",
+    "n": 1
+   }
+  ],
+  "shadows": [],
+  "sample": {
+   "body": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "18.4px",
+    "color": "rgb(38, 38, 38)",
+    "bg": "rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(38, 38, 38) 0px"
+   },
+   "button": {
+    "font": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "size": "16px",
+    "weight": "400",
+    "lh": "normal",
+    "color": "rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "radius": "4px",
+    "shadow": "none",
+    "padding": "0px",
+    "border": "rgb(0, 0, 0) 0px"
+   },
+   "cta": {
+    "font": "Manrope, sans-serif",
+    "size": "15px",
+    "weight": "400",
+    "lh": "20px",
+    "color": "rgb(255, 255, 255)",
+    "bg": "rgb(255, 59, 48)",
+    "radius": "8px",
+    "shadow": "none",
+    "padding": "10px 20px",
+    "border": "rgb(255, 255, 255) 0px"
+   }
+  }
+ }
+}

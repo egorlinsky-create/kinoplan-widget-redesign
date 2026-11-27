@@ -1,0 +1,242 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scope MVP по шагам · Киноплан</title>
+<link rel="stylesheet" href="board.css">
+<style>
+  .stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 34px; }
+  .stepper div { background: var(--surface); padding: 14px 16px; }
+  .stepper small { display: block; font-size: 10.5px; letter-spacing: .1em; color: var(--muted); margin-bottom: 4px; }
+  .stepper b { font-size: 15px; letter-spacing: -.01em; }
+  .stage { margin-top: 56px; }
+  .stage__head { display: grid; grid-template-columns: 58px 1fr auto; gap: 16px; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 18px; }
+  .stage__num { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--muted); }
+  .stage__head h2 { margin: 0; font-size: 28px; letter-spacing: -.03em; }
+  .stage__head p { margin: 0; max-width: 36ch; text-align: right; font-size: 12.5px; color: var(--muted); }
+  .stage-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .stage-features .feature { grid-column: auto; }
+  .under { margin-top: 14px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 10px; font-size: 12.5px; color: var(--muted); }
+  .under b { color: var(--ink); }
+  @media (max-width: 980px) {
+    .stepper { grid-template-columns: 1fr 1fr; }
+    .stage__head { grid-template-columns: 40px 1fr; }
+    .stage__head p { grid-column: 2; text-align: left; }
+    .stage-features { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <strong>Киноплан · scope</strong>
+    <nav>
+      <a href="audit-board.html">Аудит</a>
+      <a href="scope-board.html">Scope MVP</a>
+      <a href="prioritization.md">MoSCoW</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Первая версия · 24 ноября 2026</div>
+  <section class="scope-hero">
+    <h1>13 фич по шагам. <em>Без входа.</em></h1>
+    <p class="lead">Тот же порядок, что в аудите: сеансы → зал → контакты → оплата → билет.
+    На каждом шаге — только то, без чего он рвётся. Ничего «заодно, пока делаем».</p>
+    <div class="stats">
+      <div class="stat"><b>13</b><span>в MVP</span></div>
+      <div class="stat"><b>11</b><span>после</span></div>
+      <div class="stat"><b>2</b><span>не делаем</span></div>
+      <div class="stat"><b>5</b><span>шагов</span></div>
+    </div>
+  </section>
+
+  <div class="stepper">
+    <div><small>01</small><b>Сеансы</b></div>
+    <div><small>02</small><b>Карта зала</b></div>
+    <div><small>03</small><b>Контакты</b></div>
+    <div><small>04</small><b>Оплата</b></div>
+    <div><small>05</small><b>Билет</b></div>
+  </div>
+
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">01</div>
+      <h2>Сеансы</h2>
+      <p>Сравнить время и цену, не заходя в зал.</p>
+    </div>
+    <div class="stage-features">
+      <article class="feature">
+        <h3>Цена «от» в сеансе</h3>
+        <p>При нескольких тарифах — «от 450 ₽», при одной цене — точное число; диапазон в подсказке.</p>
+        <div class="feature__tag">Бенчмарк: КАРО, Фритаун · данные кассы</div>
+      </article>
+    </div>
+    <div class="under"><b>Почему сейчас:</b> в живом виджете цены нет, у КАРО и Фритауна есть.
+    Это не улучшение, а table stakes.</div>
+  </section>
+
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">02</div>
+      <h2>Карта зала</h2>
+      <p>Выбрать места без промахов и без сюрприза в цене.</p>
+    </div>
+    <div class="stage-features">
+      <article class="feature">
+        <h3>Зоны в легенде</h3>
+        <p>Цвет = зона, легенда = название и цена. При одной цене — одна честная цифра.</p>
+        <div class="feature__tag">Данные кассы · ≤3 зоны</div>
+      </article>
+      <article class="feature">
+        <h3>Тултип с ценой</h3>
+        <p>Цена 25 px — главная, ряд и место — 11 px, зона подписью.</p>
+        <div class="feature__tag">Аудит · прототип</div>
+      </article>
+      <article class="feature">
+        <h3>Крупное кресло</h3>
+        <p>≥24 px, зона попадания ≥44 px, зум. Промах не должен стоить билета.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+      <article class="feature">
+        <h3>Зал на весь экран</h3>
+        <p>Авто-подгонка и зум вместо узкой полосы с пустотой.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+      <article class="feature">
+        <h3>Нижний лист мест</h3>
+        <p>Выбранные места, сумма и снятие одним тапом — в одной панели.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+      <article class="feature">
+        <h3>Конфликт мест</h3>
+        <p>Место заняли — предложить соседние, а не начинать заново.</p>
+        <div class="feature__tag">Аудит · гипотеза</div>
+      </article>
+    </div>
+    <div class="under"><b>Бенчмарк:</b> у Киноплан зоны уже есть в больших залах (430/500/530 ₽),
+    в малых — одна цена. Яндекс показывает цену в карточке места, Ticketland — зоны без цен,
+    Фритаун/p24 — ни зон, ни цены. Задача — сделать систему постоянной и читаемой.</div>
+  </section>
+
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">03</div>
+      <h2>Контакты</h2>
+      <p>Ввести данные, понимая, что покупаешь.</p>
+    </div>
+    <div class="stage-features">
+      <article class="feature">
+        <h3>Один экран оформления</h3>
+        <p>Контакты, сводка и способ оплаты вместе; гость проходит без входа.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+      <article class="feature">
+        <h3>Сводка заказа</h3>
+        <p>Фильм, сеанс, зал, места и сумма — над формой, а не на другом экране.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+      <article class="feature">
+        <h3>Кнопка отвечает</h3>
+        <p>Клик всегда ведёт к первой ошибке и объясняет, что исправить.</p>
+        <div class="feature__tag">Аудит</div>
+      </article>
+    </div>
+    <div class="under"><b>Что не делаем здесь:</b> один чекбокс согласий — только после юриста;
+    работающий вход — после провайдера СМС.</div>
+  </section>
+
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">04</div>
+      <h2>Оплата</h2>
+      <p>Не потерять человека между банком и билетом.</p>
+    </div>
+    <div class="stage-features">
+      <article class="feature">
+        <h3>Статус оплаты и возврат</h3>
+        <p>Возврат из банка, «Проверить оплату», блокировка повторной оплаты.</p>
+        <div class="feature__tag">Аудит · эквайер</div>
+      </article>
+    </div>
+    <div class="under"><b>Почему один пункт:</b> способы оплаты уже есть (карта, СБП), бренды и
+    смена дефолта — после MVP. Здесь чиним только финал: без статуса остальное не спасает.</div>
+    <div class="under"><b>Бизнес-требование:</b> таймер удержания — управляемый. Долгий блокирует
+    лучшие места, короткий тревожит. Показывать время, отпускать места при уходе, а не «чем дольше,
+    тем лучше».</div>
+  </section>
+
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">05</div>
+      <h2>Билет</h2>
+      <p>Отдать билет так, чтобы его не пришлось искать.</p>
+    </div>
+    <div class="stage-features">
+      <article class="feature">
+        <h3>«Билеты готовы»</h3>
+        <p>QR в виджете и копия на email; повторное открытие и понятный статус.</p>
+        <div class="feature__tag">Наблюдалось частично · без сеанса и мест</div>
+      </article>
+      <article class="feature">
+        <h3>События воронки</h3>
+        <p>Просмотр → место → оформление → оплата. Без них не измерить, что сработало.</p>
+        <div class="feature__tag">Под капотом · не видно</div>
+      </article>
+    </div>
+    <div class="under"><b>Честно:</b> экран успеха в живом виджете наблюдался — QR и номер заказа, без сеанса и мест. Реальный платёж не проводился, поэтому состояние после списания — проектное предложение.</div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2>Что дальше и чего нет</h2>
+      <p>Не «когда-нибудь», а конкретная причина отложить.</p>
+    </div>
+    <div class="scope-cols">
+      <div>
+        <ul class="list">
+          <li><b>v1.1</b><div><strong>Восстановление покупки</strong> <span>— самый ценный следующий шаг, но нужен серверный заказ.</span></div></li>
+          <li><b>v1.1</b><div><strong>Сохранение выбора</strong> <span>— зависит от тех же правил удержания.</span></div></li>
+          <li><b>v1.1</b><div><strong>Поделиться выбором</strong> <span>— ссылка на выбранные места для компании; нужна серверная бронь.</span></div></li>
+          <li><b>v1.1</b><div><strong>Клавиатура в зале</strong> <span>— обязательна до масштабирования, но это переделка движка.</span></div></li>
+          <li><b>v1.1</b><div><strong>Виджет в контексте сайта</strong> <span>— нужен сайт и проверка iframe-оплаты.</span></div></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="list">
+          <li><b>Нет</b><div><strong>Бонусы</strong> <span>— это уровень кинотеатра, не виджета.</span></div></li>
+          <li><b>Нет</b><div><strong>«Как в прошлый раз»</strong> <span>— нет профиля и истории заказов.</span></div></li>
+          <li><b>Сайт</b><div><strong>Поиск, фильтры, площадка</strong> <span>— выбор фильма происходит до виджета.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2>Без чего не собрать</h2>
+      <p>Зависимости — не «риски», а конкретные люди и данные.</p>
+    </div>
+    <div class="deps">
+      <div class="dep"><b>Касса</b>цены, зоны, занятость</div>
+      <div class="dep"><b>Бэкенд</b>заказ, удержание, статус</div>
+      <div class="dep"><b>Эквайер</b>вебхук, возврат, идемпотентность</div>
+      <div class="dep"><b>Юрист</b>согласия, Пушкинская карта</div>
+      <div class="dep"><b>Аналитика</b>события по шагам</div>
+    </div>
+  </section>
+
+  <p class="quote">MVP — это не «первая фаза продукта», а <b>минимальный набор, при котором покупка
+  не рвётся</b>. Всё остальное — после того, как этот путь работает.</p>
+
+  <footer class="note">
+    <div><b>Основание.</b> UX-аудит по шагам и бенчмарк 10 сервисов. Полное обоснование и MoSCoW —
+    в <a href="prioritization.md">prioritization.md</a>.</div>
+    <div><b>Проверка.</b> Пройти на 390 и 1280 px: сеанс → зал → места → оформление → оплата → билет.
+    Сверить с <a href="audit-board.html">аудитом</a>.</div>
+  </footer>
+
+</div>
+</body>
+</html>

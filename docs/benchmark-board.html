@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бенчмарк · Киноплан</title>
+<style>
+  :root{
+    --bg:#f9fafb; --surface:#fff; --ink:#262626; --secondary:#3c3c43; --muted:#727276;
+    --line:#e7e7ec; --line-2:#d9d9df; --accent:#0a7aff; --accent-soft:#eaf2ff;
+    --green:#0b8a5f; --green-soft:#eaf7f0; --amber:#cf7900; --amber-soft:#fff6e8;
+    --red:#ff3b30; --red-soft:#ffeeed;
+  }
+  *{box-sizing:border-box}html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 40px 64px}
+  .top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .top b{color:var(--ink);font-weight:600}.top nav{display:flex;gap:18px}
+  .top nav a{text-decoration:none;text-transform:none;letter-spacing:0;font-weight:600}
+  .eyebrow{margin:38px 0 10px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  h1{margin:0;font-size:clamp(34px,4.6vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:600;max-width:18ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{margin:14px 0 0;max-width:66ch;font-size:17px;line-height:1.5;color:var(--secondary)}
+  .shots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+  .shot{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .shot img{width:100%;height:170px;object-fit:cover;object-position:50% 35%;border-bottom:1px solid var(--line)}
+  .shot figcaption{padding:10px 12px;font-size:12px;color:var(--muted)}
+  .shot b{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+  h2{font-size:24px;line-height:1.2;letter-spacing:-.02em;font-weight:600;margin:46px 0 6px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px;max-width:74ch}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px}
+  .legend b{font-size:14px}
+  .yes{color:var(--green);font-weight:600}.part{color:var(--amber);font-weight:600}.no{color:var(--red);font-weight:600}.dash{color:var(--muted)}
+  .matrix{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  .matrix th,.matrix td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+  .matrix th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#fcfcfd}
+  .matrix tr:last-child td{border-bottom:0}
+  .matrix td:first-child{font-weight:600;color:var(--ink);width:220px}
+  .matrix td:not(:first-child){text-align:center;font-size:17px;font-weight:600}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .pattern{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .pattern small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .pattern h3{margin:0 0 6px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+  .pattern p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+  .pattern .take{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);color:var(--ink);font-size:13px}
+  .concl{background:var(--ink);color:#f5f5f7;border-radius:16px;padding:22px 24px;margin-top:16px}
+  .concl h3{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8ec0ff}
+  .concl ol{margin:0;padding:0;list-style:none;counter-reset:c}
+  .concl li{counter-increment:c;display:flex;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14.5px;line-height:1.45}
+  .concl li:last-child{border-bottom:0}
+  .concl li::before{content:counter(c,decimal-leading-zero);font-size:12px;font-weight:600;color:#8ec0ff;min-width:22px}
+  .no-take{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:14px;font-size:13px;color:var(--muted)}
+  .no-take b{color:var(--ink)}
+  .refs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .ref{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;font-size:13px}
+  .ref:hover{border-color:var(--accent)}
+  .ref b{display:block;font-weight:600;margin-bottom:2px}
+  .ref span{display:block;color:var(--muted);font-size:12px}
+  .note{margin-top:46px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.55}
+  .note b{color:var(--ink)}
+  @media(max-width:900px){.wrap{padding:20px 16px 48px}.shots{grid-template-columns:1fr 1fr}.cards,.refs{grid-template-columns:1fr}.matrix{display:block;overflow-x:auto;white-space:nowrap}.matrix td:first-child{white-space:normal}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <b>Киноплан · бенчмарк</b>
+    <nav><a href="hub.html">Хаб</a><a href="audit-board-standalone.html">Аудит</a><a href="scope-board-standalone.html">Scope</a></nav>
+  </header>
+
+  <div class="eyebrow">5 сервисов · 24 ноября 2026</div>
+  <h1>Что рынок уже делает <em>без нас</em></h1>
+  <p class="lead">Шесть сервисов из конкурентного набора и наш. Один сценарий: цена → зал → оформление → оплата → билет. Сравниваем
+  не «кто красивее», а какие ожидания надо закрыть и где можно отличиться.</p>
+
+  <div class="shots">
+    <figure class="shot">
+      <img src="../audit/bench-yandex-seatcard.png" alt="Яндекс: карточка места с ценой" style="object-position:50% 72%">
+      <figcaption><b>Яндекс</b>цена и категория в карточке места</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="../audit/bench-kassir.png" alt="Кассир.ру: диапазон цен" style="object-position:50% 40%">
+      <figcaption><b>Кассир.ру</b>диапазон цен, театр</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="../audit/before/17-zones.png" alt="Киноплан: зоны в большом зале" style="object-position:50% 8%">
+      <figcaption><b>Киноплан</b>зоны 430/500/530 ₽ уже есть</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="../audit/bench-freetown-auth.png" alt="Фритаун: обязательный вход" style="object-position:50% 45%">
+      <figcaption><b>Фритаун</b>коротко, но вход обязателен</figcaption>
+    </figure>
+  </div>
+
+  <h2>Матрица</h2>
+  <p class="sub">5 сервисов: наш, Яндекс Афиша, Кассир.ру, Фритаун, Киноафиша. Зарубежные
+  (Fandango, AMC, Atom, Cineplex) — отдельный контекст, не в матрице.</p>
+  <div class="legend">
+    <span><b class="yes">●</b> есть</span>
+    <span><b class="part">◐</b> частично</span>
+    <span><b class="no">○</b> нет</span>
+    <span><b class="dash">—</b> не проверял</span>
+  </div>
+  <p class="sub" style="margin:-4px 0 10px">● — проверил вживую и есть. ◐ — частично: только в части залов,
+  на театре или после входа. ○ — проверил, отсутствует. — — не проверял; это не значит «нет».</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Критерий</th><th>Наш</th><th>Я.Афиша</th><th>Кассир.ру</th><th>Фритаун</th><th>Киноафиша</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Цена в сеансе</td><td class="no">○</td><td class="no">○</td><td class="part">◐</td><td class="yes">●</td><td class="yes">●</td></tr>
+      <tr><td>Цена / категория в зале</td><td class="yes">●</td><td class="yes">●</td><td class="dash">—</td><td class="no">○</td><td class="part">◐</td></tr>
+      <tr><td>Зоны</td><td class="yes">●</td><td class="no">○</td><td class="dash">—</td><td class="no">○</td><td class="yes">●</td></tr>
+      <tr><td>Гость</td><td class="yes">●</td><td class="yes">●</td><td class="dash">—</td><td class="no">○</td><td class="dash">—</td></tr>
+      <tr><td>Один экран</td><td class="yes">●</td><td class="no">○</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Таймер</td><td class="no">○</td><td class="part">◐</td><td class="dash">—</td><td class="no">○</td><td class="dash">—</td></tr>
+      <tr><td>Сбор прозрачен</td><td class="yes">●</td><td class="part">◐</td><td class="dash">—</td><td class="part">◐</td><td class="dash">—</td></tr>
+      <tr><td>Места рядом</td><td class="yes">●</td><td class="no">○</td><td class="no">○</td><td class="no">○</td><td class="no">○</td></tr>
+    </tbody>
+  </table>
+  <p class="sub" style="margin-top:8px">Кассир.ру: кино-раздел с 2026, схема зала и оплата есть;
+  интерфейс кино вживую не смотрел. Киноафиша: расписание с ценами, схема зала, QR, категории POP/VIP.</p>
+
+  <h2>Три паттерна</h2>
+  <p class="sub">Не список фич, а три решения, которые определяют сценарий.</p>
+  <div class="cards">
+    <article class="pattern">
+      <small>Паттерн 1</small>
+      <h3>Цена в сеансе</h3>
+      <p>Фритаун и Киноафиша показывают цену в расписании; Кассир.ру — диапазон. У нас цены нет.</p>
+      <div class="take">Берём: «от» в карточке, точное число при одной цене.</div>
+    </article>
+    <article class="pattern">
+      <small>Паттерн 2</small>
+      <h3>Тултип места</h3>
+      <p>Цена есть у всех, включая нас. Проблема не в наличии, а в иерархии: цена одного веса с местом и рядом.</p>
+      <div class="take">Берём: цена 25 px, ряд и место 11 px, зона подписью.</div>
+    </article>
+    <article class="pattern">
+      <small>Паттерн 3</small>
+      <h3>Гость</h3>
+      <p>Яндекс пускает гостя, Фритаун требует вход. Наш гостевой путь — преимущество против локального соседа.</p>
+      <div class="take">Берём: гость по умолчанию, вход только выгодой.</div>
+    </article>
+  </div>
+
+  <h2>Выводы</h2>
+  <div class="concl">
+    <h3>Что это значит для продукта</h3>
+    <ol>
+      <li>Цена в сеансе — стандарт рынка. Закрыть разрыв важнее, чем добавить новую фичу.</li>
+      <li>Тултип с ценой — гигиена. Выигрываем не наличием, а иерархией: цена главная, место вторично.</li>
+      <li>Зоны у нас уже есть в больших залах. Нужна система и постоянство, а не «добавить зоны».</li>
+      <li>Гость — преимущество против Фритауна. Вход не должен ломать покупку.</li>
+      <li>Сбор и статус оплаты — доверие. Один экран оформления — свободная ниша: его нет у конкурентов.</li>
+      <li>Места рядом не делает никто. Это гипотеза для проверки, а не обещание.</li>
+    </ol>
+  </div>
+
+  <div class="no-take"><b>Что не берём:</b> пять шагов Яндекса · обязательный вход · сбор в конце ·
+  цену одной цифрой · зал, вписанный в экран любой ценой.</div>
+
+  <h2>Что взяли в интерфейс и почему</h2>
+  <p class="sub">Не «все так делают», а конкретное решение и причина.</p>
+  <table class="matrix">
+    <thead><tr><th>Решение</th><th>Откуда</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td>Цена «от» в сеансе</td><td>Фритаун, Киноафиша, Кассир.ру</td><td>Сравнить до зала; table stakes.</td></tr>
+      <tr><td>Тултип с ценой</td><td>Яндекс, Киноафиша</td><td>Цена до подтверждения; наша иерархия 25/11.</td></tr>
+      <tr><td>Цветовые зоны</td><td>Киноафиша, наши большие залы</td><td>Понятно, за что платишь.</td></tr>
+      <tr><td>Гость</td><td>Яндекс</td><td>Фритаун режет входом; гость не должен упираться.</td></tr>
+      <tr><td>Один экран</td><td>Ни у кого</td><td>Контекст и меньше шагов — свободная ниша.</td></tr>
+      <tr><td>Таймер</td><td>Яндекс</td><td>Мотивация + управление местами; авто-релиз.</td></tr>
+      <tr><td>Сбор</td><td>Яндекс, наш</td><td>Доверие, без сюрприза в конце.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Как оформлены бенчмарки</h2>
+  <p class="sub">Смотрел шаблоны Figma и FigJam. Общий паттерн: критерии × сервисы, доказательства,
+  короткие выводы, «что берём / что не берём».</p>
+  <div class="refs">
+    <a class="ref" href="https://www.figma.com/community/file/1483390062693148011/competitive-analysis-benchmarking-toolkit-for-ux-ui-designers" target="_blank" rel="noreferrer"><b>Competitive Analysis & Benchmarking Toolkit</b><span>Чек-лист, шаблон, аннотированные скриншоты</span></a>
+    <a class="ref" href="https://www.figma.com/community/file/1418229932974005119/benchmark-presentation-template" target="_blank" rel="noreferrer"><b>Benchmark presentation Template</b><span>Цель, конкуренты, критерии, выводы</span></a>
+    <a class="ref" href="https://www.figma.com/community/file/1250572969822845002/benchmarking-template" target="_blank" rel="noreferrer"><b>Benchmarking Template</b><span>Визуал, взаимодействие, функции</span></a>
+    <a class="ref" href="https://www.figma.com/community/file/1232135578141573273/competitive-analysis-competitor-feature-comparison-template" target="_blank" rel="noreferrer"><b>Feature Comparison</b><span>Таблица фич без лишнего</span></a>
+  </div>
+
+  <footer class="note">
+    <b>Источники:</b> наблюдения 20–24.11.2026, справки сервисов, судебные документы Fandango/AMC;
+    зарубежные интерфейсы — по документам. Полный разбор — в <a href="competitive_analysis_final.md">competitive_analysis_final.md</a>.
+    <br><b>Figma:</b> страница «6. Бенчмарк» — матрица и выводы; страница «5. Персоны и джобы» — персоны.
+  </footer>
+
+</div>
+</body>
+</html>

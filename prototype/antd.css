@@ -1,0 +1,203 @@
+/* Ant Design 5 token layer for the prototype.
+   Values mirror the Ant Design seed/map tokens; the prototype's local aliases
+   point at them so existing components inherit the system without a rebuild. */
+
+:root {
+  /* Ant Design color tokens */
+  --ant-color-primary: #1677ff;
+  --ant-color-primary-hover: #4096ff;
+  --ant-color-primary-active: #0958d9;
+  --ant-color-primary-bg: #e6f4ff;
+  --ant-color-primary-border: #91caff;
+  --ant-color-success: #52c41a;
+  --ant-color-success-bg: #f6ffed;
+  --ant-color-warning: #faad14;
+  --ant-color-warning-bg: #fffbe6;
+  --ant-color-error: #ff4d4f;
+  --ant-color-error-bg: #fff2f0;
+  --ant-color-info: #1677ff;
+
+  --ant-color-text: rgba(0, 0, 0, .88);
+  --ant-color-text-secondary: rgba(0, 0, 0, .65);
+  --ant-color-text-tertiary: rgba(0, 0, 0, .45);
+  --ant-color-text-quaternary: rgba(0, 0, 0, .25);
+  --ant-color-border: #d9d9d9;
+  --ant-color-border-secondary: #f0f0f0;
+  --ant-color-split: rgba(5, 5, 5, .06);
+
+  --ant-color-bg-container: #ffffff;
+  --ant-color-bg-elevated: #ffffff;
+  --ant-color-bg-layout: #f5f5f5;
+  --ant-color-fill-secondary: #fafafa;
+  --ant-color-fill-tertiary: #f5f5f5;
+  --ant-color-fill-quaternary: #fafafa;
+
+  /* Ant Design geometry and type */
+  --ant-border-radius-sm: 4px;
+  --ant-border-radius: 6px;
+  --ant-border-radius-lg: 8px;
+  --ant-control-height-sm: 24px;
+  --ant-control-height: 32px;
+  --ant-control-height-lg: 40px;
+  --ant-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --ant-font-size: 14px;
+  --ant-line-height: 1.5714285714285714;
+  --ant-box-shadow: 0 6px 16px 0 rgba(0, 0, 0, .08),
+    0 3px 6px -4px rgba(0, 0, 0, .12), 0 9px 28px 8px rgba(0, 0, 0, .05);
+  --ant-box-shadow-secondary: 0 6px 16px 0 rgba(0, 0, 0, .08),
+    0 3px 6px -4px rgba(0, 0, 0, .12), 0 9px 28px 8px rgba(0, 0, 0, .05);
+
+  /* Local aliases used by the existing prototype */
+  --bg-0: var(--ant-color-bg-layout);
+  --bg-1: var(--ant-color-bg-container);
+  --surface: var(--ant-color-bg-container);
+  --surface-2: var(--ant-color-fill-secondary);
+  --surface-3: var(--ant-color-fill-tertiary);
+
+  --ink: var(--ant-color-text);
+  --ink-2: var(--ant-color-text-secondary);
+  --muted: var(--ant-color-text-tertiary);
+  --muted-2: var(--ant-color-text-quaternary);
+
+  --line: var(--ant-color-border-secondary);
+  --line-2: var(--ant-color-border);
+  --line-strong: #bfbfbf;
+
+  --accent: var(--ant-color-primary);
+  --accent-hover: var(--ant-color-primary-hover);
+  --accent-active: var(--ant-color-primary-active);
+  --accent-soft: var(--ant-color-primary-bg);
+  --accent-line: var(--ant-color-primary-border);
+
+  --ok: var(--ant-color-success);
+  --ok-soft: var(--ant-color-success-bg);
+  --err: var(--ant-color-error);
+  --err-soft: var(--ant-color-error-bg);
+  --warn: #d48806;
+  --warn-soft: var(--ant-color-warning-bg);
+
+  --z-side: #d9d9d9;
+  --z-center: #91caff;
+  --z-vip: #ffd591;
+
+  --radius-sm: var(--ant-border-radius);
+  --radius-md: var(--ant-border-radius-lg);
+  --radius-lg: var(--ant-border-radius-lg);
+
+  --shadow-device: 0 20px 48px -28px rgba(0, 0, 0, .25);
+  --shadow-overlay: 0 12px 32px -16px rgba(0, 0, 0, .2);
+
+  --font-ui: var(--ant-font-family);
+  --font-display: var(--ant-font-family);
+}
+
+html, body { background: var(--ant-color-bg-layout); color: var(--ant-color-text); }
+body { font-family: var(--ant-font-family); font-size: var(--ant-font-size); }
+a { color: var(--ant-color-primary); }
+
+/* Buttons follow Ant's default / primary / text geometry. */
+.btn {
+  min-height: 44px;
+  border-radius: var(--ant-border-radius);
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: none;
+}
+.btn--primary {
+  border-color: var(--ant-color-primary);
+  background: var(--ant-color-primary);
+  box-shadow: 0 2px 0 rgba(5, 145, 255, .1);
+}
+.btn--primary:hover {
+  border-color: var(--ant-color-primary-hover);
+  background: var(--ant-color-primary-hover);
+  box-shadow: none;
+}
+.btn--primary:active:not([data-muted="true"]):not(:disabled) {
+  border-color: var(--ant-color-primary-active);
+  background: var(--ant-color-primary-active);
+}
+.btn--ghost {
+  border-color: var(--ant-color-border);
+  background: var(--ant-color-bg-container);
+  color: var(--ant-color-text);
+  font-weight: 400;
+}
+.btn--ghost:hover {
+  border-color: var(--ant-color-primary-hover);
+  background: var(--ant-color-bg-container);
+  color: var(--ant-color-primary);
+}
+
+/* Inputs: Ant control height and focus shadow. */
+.field input,
+.phone-field {
+  min-height: 44px;
+  border-color: var(--ant-color-border);
+  border-radius: var(--ant-border-radius);
+  background: var(--ant-color-bg-container);
+}
+.field input:hover,
+.phone-field:hover { border-color: var(--ant-color-primary-hover); }
+.field input:focus,
+.phone-field:focus-within {
+  border-color: var(--ant-color-primary);
+  box-shadow: 0 0 0 2px rgba(5, 145, 255, .1);
+}
+.field__label { color: var(--ant-color-text); font-weight: 400; }
+
+/* Cards and surfaces. */
+.card {
+  border-color: var(--ant-color-border-secondary);
+  border-radius: var(--ant-border-radius-lg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .03);
+}
+.device { border-radius: var(--ant-border-radius-lg); }
+.topbar, .screen-head, .sessionbar { background: var(--ant-color-bg-container); }
+
+/* Selection controls. */
+.date {
+  border-radius: var(--ant-border-radius);
+  background: var(--ant-color-fill-tertiary);
+  border-color: transparent;
+}
+.date[aria-pressed="true"] {
+  background: var(--ant-color-primary);
+  color: #fff;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, .1);
+}
+.session {
+  border-radius: var(--ant-border-radius);
+  background: var(--ant-color-fill-tertiary);
+  border-color: transparent;
+}
+.session[aria-pressed="true"] {
+  background: var(--ant-color-primary-bg);
+  border-color: var(--ant-color-primary-border);
+}
+.badge { border-radius: var(--ant-border-radius-sm); }
+.seat { border-radius: 3px; }
+
+/* Modals / bottom panel. */
+.modal, .sheet, .resume {
+  border-radius: var(--ant-border-radius-lg);
+  box-shadow: var(--ant-box-shadow);
+}
+.overlay, .switch-confirm { border-radius: var(--ant-border-radius-lg); }
+.sheet { border-color: var(--ant-color-border-secondary); }
+.sheet__head strong { font-weight: 600; }
+.timer { color: var(--ant-color-warning); background: var(--ant-color-warning-bg); }
+
+/* Icons inherit Ant's 1em sizing and stroke discipline. */
+.ant-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  stroke: none;
+  vertical-align: -.125em;
+  flex: 0 0 auto;
+}
+svg { stroke-width: 1.6; }
+.icon-btn svg, .btn svg, .link-btn svg { stroke-width: 1.5; }

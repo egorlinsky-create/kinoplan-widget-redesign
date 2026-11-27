@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<title>Киноплан · Assets 3D</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:1600px;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#0F1D33;
+    background:#0B1627;-webkit-font-smoothing:antialiased}
+  .page{width:1600px;padding:56px 64px 48px;background:#0B1627}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;color:#fff}
+  .head h1{margin:0;font-size:40px;font-weight:650;letter-spacing:-.02em}
+  .head p{margin:10px 0 0;color:#8FB0D4;font-size:17px;max-width:760px;line-height:1.45}
+  .head .mark{text-align:right;font-size:13px;letter-spacing:.16em;color:#5E86AD;text-transform:uppercase}
+  .head .mark img{width:150px;display:block;margin:0 0 12px auto}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .a{background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+  .a .shot{height:296px;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(120% 100% at 30% 0%,#F7FAFE 0%,#E7EFF9 70%)}
+  .a.dark .shot{background:radial-gradient(120% 100% at 30% 0%,#1A3050 0%,#0C1A2D 72%)}
+  .a .shot img{width:74%;display:block;filter:drop-shadow(0 16px 24px rgba(11,26,46,.22))}
+  .a .txt{padding:20px 24px 22px;border-top:1px solid #E7EEF7}
+  .a h2{margin:0 0 6px;font-size:20px;font-weight:650;letter-spacing:-.01em}
+  .a .use{margin:0 0 14px;color:#4A6A8C;font-size:14.5px;line-height:1.4}
+  .rows{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:12.5px;color:#6B839D}
+  .rows b{color:#1F76D1;font-weight:600;letter-spacing:.02em}
+  .foot{display:flex;gap:26px;margin-top:30px;color:#93B1D1;font-size:13.5px;align-items:flex-start;
+    border-top:1px solid rgba(255,255,255,.12);padding-top:22px}
+  .foot div{flex:1}
+  .foot h3{margin:0 0 8px;color:#fff;font-size:14px;font-weight:600;letter-spacing:.02em}
+  .sw{display:flex;gap:8px;margin-top:10px}
+  .sw span{width:42px;height:26px;border-radius:7px;display:block;border:1px solid rgba(255,255,255,.16)}
+  .tag{display:inline-block;padding:3px 9px;border-radius:999px;background:#EAF3FF;color:#1F76D1;
+    font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+</style></head><body>
+<div class="page">
+  <div class="head">
+    <div>
+      <h1>Assets · 3D-инфографика</h1>
+      <p>Набор для акцентных блоков бланков тестового задания и презентации кейса. Один свет, один материал, прозрачный фон — собираются в композиции без перерисовки.</p>
+    </div>
+    <div class="mark"><img src="svg/kinoplan-logo-white.svg" alt="Киноплан">Ноябрь 2026</div>
+  </div>
+
+  <div class="grid">
+    <div class="a"><div class="shot"><img src="png/ticket.png" alt=""></div>
+      <div class="txt"><h2>Билет и QR</h2>
+        <p class="use">Акцент блока «Что получает зритель»: билет, цена, ряд и место, код входа.</p>
+        <div class="rows"><b>файл</b><span>ticket.png · 1600×1600</span><b>где</b><span>титул, блок «билет»</span><b>фон</b><span>прозрачный / тёмный</span></div></div></div>
+
+    <div class="a"><div class="shot"><img src="png/phone.png" alt=""></div>
+      <div class="txt"><h2>Экран выбора мест</h2>
+        <p class="use">Акцент блока «Схема зала»: сетка кресел, выбранные места, сумма и кнопка оплаты.</p>
+        <div class="rows"><b>файл</b><span>phone.png · 1600×1600</span><b>где</b><span>блок «схема зала»</span><b>фон</b><span>тёмный / светлый</span></div></div></div>
+
+    <div class="a"><div class="shot"><img src="png/seat.png" alt=""></div>
+      <div class="txt"><h2>Кресло кинозала</h2>
+        <p class="use">Акцент блока «Цена и зоны»: одно кресло как единица выбора и цены.</p>
+        <div class="rows"><b>файл</b><span>seat.png · 1600×1600</span><b>где</b><span>блок «цена / зоны»</span><b>фон</b><span>светлый</span></div></div></div>
+
+    <div class="a"><div class="shot"><img src="png/card.png" alt=""></div>
+      <div class="txt"><h2>Оплата картой</h2>
+        <p class="use">Акцент блока «Оформление и оплата»: карта, цена, сеанс, брендовая полоса.</p>
+        <div class="rows"><b>файл</b><span>card.png · 1600×1600</span><b>где</b><span>блок «оплата»</span><b>фон</b><span>тёмный / светлый</span></div></div></div>
+
+    <div class="a dark"><div class="shot"><img src="png/hero.png" alt=""></div>
+      <div class="txt"><h2>Экран и зал</h2>
+        <p class="use">Обложки разделов и разделители 16:9: экран, луч, три кресла переднего ряда.</p>
+        <div class="rows"><b>файл</b><span>hero.png · 1600×1600</span><b>где</b><span>обложки, разделители</span><b>фон</b><span>тёмный</span></div></div></div>
+
+    <div class="a"><div class="shot"><img src="png/popcorn.png" alt=""></div>
+      <div class="txt"><h2>Попкорн</h2>
+        <p class="use">Декор титула и блока про бар: не смысловой блок, ставится только в композицию.</p>
+        <div class="rows"><b>файл</b><span>popcorn.png · 1600×1600</span><b>где</b><span>только декор</span><b>фон</b><span>любой</span></div></div></div>
+  </div>
+
+  <div class="foot">
+    <div><h3>Правила</h3>
+      Свет сверху-слева, мягкая контактная тень, без обводок и свечений. На тёмной подложке — без подложки, на светлой — панель #F2F7FD. Минимальный размер в макете — 120 px по короткой стороне.</div>
+    <div><h3>Палитра</h3>
+      Синий бренда, глубокий navy и два акцента; серый металл только для опор и шарниров.
+      <div class="sw"><span style="background:#1F76D1"></span><span style="background:#2E9BF6"></span><span style="background:#0F1D33"></span><span style="background:#D9E4F3"></span><span style="background:#F2543D"></span><span style="background:#FFDDA1"></span></div></div>
+    <div><h3>Куда кладём</h3>
+      Страница <b>Assets</b> в этом файле: карточки с подписями, PNG в оригинале 1600 px. Композиции бланков — на странице <b>Бланки</b>, превью файла — фрейм <b>Превью</b>.</div>
+  </div>
+</div>
+</body></html>

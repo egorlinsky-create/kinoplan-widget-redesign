@@ -1,0 +1,317 @@
+{
+  "$description": "Дизайн-токены виджета Киноплан. Источник: вычисленные стили и CSS-декларации живого виджета kinowidget.kinoplan.ru (20.11.2026). Формат DTCG (Design Tokens Community Group). Значения, помеченные «наше расширение», добавлены для редизайна и в исходном виджете не встречаются.",
+  "color": {
+    "primitive": {
+      "white": { "$type": "color", "$value": "#FFFFFF", "$description": "Поверхность, текст на акценте" },
+      "black": { "$type": "color", "$value": "#000000" },
+      "gray": {
+        "25": { "$type": "color", "$value": "#F9FAFB", "$description": "Самый светлый фон (плейсхолдеры, disabled-поля)" },
+        "50": { "$type": "color", "$value": "#F2F2F5", "$description": "Фон disabled-кнопок, тултип сеанса" },
+        "75": { "$type": "color", "$value": "#EFEFF4", "$description": "Фон блока заказа" },
+        "100": { "$type": "color", "$value": "#E7E7EC", "$description": "Вторичная кнопка, границы, инсет-ринг календаря" },
+        "200": { "$type": "color", "$value": "#D9D9DF", "$description": "Hover вторичной кнопки, спиннер" },
+        "300": { "$type": "color", "$value": "#B0B0B6", "$description": "Текст disabled-кнопки, заголовки таблиц" },
+        "400": { "$type": "color", "$value": "#818C99", "$description": "Плейсхолдер (тема vkgid), подписи" },
+        "500": { "$type": "color", "$value": "#727276", "$description": "Вторичный текст, плейсхолдер полей" },
+        "600": { "$type": "color", "$value": "#3C3C43", "$description": "Подписи, описания сеансов" },
+        "800": { "$type": "color", "$value": "#262626", "$description": "Основной текст" },
+        "900": { "$type": "color", "$value": "#0A0A0A", "$description": "Заголовки в теме vkgid" }
+      },
+      "blue": {
+        "50": { "$type": "color", "$value": "#EAF3FF", "$description": "Наше расширение: подложка акцента" },
+        "100": { "$type": "color", "$value": "#D6E8FF", "$description": "Наше расширение: выбранная зона" },
+        "400": { "$type": "color", "$value": "#3A88D0", "$description": "Нажатие основной кнопки (rgba(55,136,208,.9) на белом)" },
+        "500": { "$type": "color", "$value": "#0A7AFF", "$description": "Акцент: основная кнопка, активная дата" },
+        "600": { "$type": "color", "$value": "#0077FF", "$description": "Акцент темы vkgid" }
+      },
+      "red": {
+        "50": { "$type": "color", "$value": "#FDECEB", "$description": "Наше расширение: фон ошибки" },
+        "500": { "$type": "color", "$value": "#FF3B30", "$description": "Ошибка: текст, границы полей" }
+      },
+      "amber": {
+        "50": { "$type": "color", "$value": "#FDF3E3", "$description": "Наше расширение: фон предупреждения" },
+        "500": { "$type": "color", "$value": "#CF7900", "$description": "Предупреждение: поле в состоянии warning" }
+      },
+      "green": {
+        "50": { "$type": "color", "$value": "#E8F6EF", "$description": "Наше расширение: успех, бонусы" },
+        "500": { "$type": "color", "$value": "#0B8A5F", "$description": "Наше расширение: успех, свободное место в зале" }
+      },
+      "zone": {
+        "$description": "Наше расширение: ценовые зоны зала",
+        "side": { "$type": "color", "$value": "#CCD6E5" },
+        "center": { "$type": "color", "$value": "#A6C1F1" },
+        "vip": { "$type": "color", "$value": "#E6C489" }
+      }
+    },
+
+    "text": {
+      "primary": { "$type": "color", "$value": "{color.primitive.gray.800}" },
+      "secondary": { "$type": "color", "$value": "{color.primitive.gray.500}" },
+      "tertiary": { "$type": "color", "$value": "{color.primitive.gray.600}" },
+      "disabled": { "$type": "color", "$value": "{color.primitive.gray.300}" },
+      "inverse": { "$type": "color", "$value": "{color.primitive.white}" },
+      "link": { "$type": "color", "$value": "{color.primitive.blue.500}" },
+      "error": { "$type": "color", "$value": "{color.primitive.red.500}" },
+      "warning": { "$type": "color", "$value": "{color.primitive.amber.500}" },
+      "success": { "$type": "color", "$value": "{color.primitive.green.500}" }
+    },
+
+    "bg": {
+      "canvas": { "$type": "color", "$value": "{color.primitive.white}" },
+      "surface": { "$type": "color", "$value": "{color.primitive.white}" },
+      "subtle": { "$type": "color", "$value": "{color.primitive.gray.25}" },
+      "muted": { "$type": "color", "$value": "{color.primitive.gray.100}" },
+      "order": { "$type": "color", "$value": "{color.primitive.gray.75}" },
+      "disabled": { "$type": "color", "$value": "{color.primitive.gray.50}" },
+      "overlay": { "$type": "color", "$value": "#00000080" }
+    },
+
+    "border": {
+      "default": { "$type": "color", "$value": "{color.primitive.gray.100}" },
+      "strong": { "$type": "color", "$value": "{color.primitive.gray.200}" },
+      "focus": { "$type": "color", "$value": "{color.primitive.blue.500}" },
+      "error": { "$type": "color", "$value": "{color.primitive.red.500}" }
+    },
+
+    "accent": {
+      "default": { "$type": "color", "$value": "{color.primitive.blue.500}" },
+      "hover": { "$type": "color", "$value": "{color.primitive.blue.500}" },
+      "pressed": { "$type": "color", "$value": "{color.primitive.blue.400}" },
+      "subtle": { "$type": "color", "$value": "{color.primitive.blue.50}" },
+      "onAccent": { "$type": "color", "$value": "{color.primitive.white}" }
+    },
+
+    "feedback": {
+      "error": { "$type": "color", "$value": "{color.primitive.red.500}" },
+      "errorSurface": { "$type": "color", "$value": "{color.primitive.red.50}" },
+      "warning": { "$type": "color", "$value": "{color.primitive.amber.500}" },
+      "warningSurface": { "$type": "color", "$value": "{color.primitive.amber.50}" },
+      "success": { "$type": "color", "$value": "{color.primitive.green.500}" },
+      "successSurface": { "$type": "color", "$value": "{color.primitive.green.50}" }
+    },
+
+    "seat": {
+      "$description": "Наше расширение: состояния места на схеме зала",
+      "availableSide": { "$type": "color", "$value": "{color.primitive.zone.side}" },
+      "availableCenter": { "$type": "color", "$value": "{color.primitive.zone.center}" },
+      "availableVip": { "$type": "color", "$value": "{color.primitive.zone.vip}" },
+      "taken": { "$type": "color", "$value": "{color.primitive.gray.50}" },
+      "takenBorder": { "$type": "color", "$value": "{color.primitive.gray.100}" },
+      "selected": { "$type": "color", "$value": "{color.primitive.blue.500}" },
+      "selectedMark": { "$type": "color", "$value": "{color.primitive.white}" },
+      "screen": { "$type": "color", "$value": "{color.primitive.gray.200}" }
+    }
+  },
+
+  "font": {
+    "family": {
+      "base": {
+        "$type": "fontFamily",
+        "$value": ["Manrope", "BlinkMacSystemFont", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        "$description": "Manrope подключён в виджете (woff2, Light/Regular/Bold). Системный стек — фолбэк для legacy-экранов, где Manrope не применяется"
+      },
+      "vkgid": {
+        "$type": "fontFamily",
+        "$value": ["VK Sans Display", "system-ui", "sans-serif"],
+        "$description": "Тема g-vkgid: тултип зала и часть компонентов"
+      },
+      "mono": { "$type": "fontFamily", "$value": ["monospace"] }
+    },
+    "weight": {
+      "light": { "$type": "fontWeight", "$value": 300 },
+      "regular": { "$type": "fontWeight", "$value": 400 },
+      "medium": { "$type": "fontWeight", "$value": 500 },
+      "semibold": { "$type": "fontWeight", "$value": 600 },
+      "bold": { "$type": "fontWeight", "$value": 700 },
+      "black": { "$type": "fontWeight", "$value": 800 }
+    },
+    "size": {
+      "xxs": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
+      "xs": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+      "sm": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
+      "md": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+      "base": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+      "lg": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+      "xl": { "$type": "dimension", "$value": { "value": 17, "unit": "px" } },
+      "2xl": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
+      "3xl": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
+      "4xl": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
+      "5xl": { "$type": "dimension", "$value": { "value": 34, "unit": "px" } }
+    },
+    "lineHeight": {
+      "tight": { "$type": "number", "$value": 1.15 },
+      "snug": { "$type": "number", "$value": 1.25 },
+      "normal": { "$type": "number", "$value": 1.4 },
+      "relaxed": { "$type": "number", "$value": 1.5 }
+    },
+    "letterSpacing": {
+      "tight": { "$type": "dimension", "$value": { "value": -0.2, "unit": "px" } },
+      "normal": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+      "wide": { "$type": "dimension", "$value": { "value": 0.4, "unit": "px" } }
+    }
+  },
+
+  "typography": {
+    "caption": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.xxs}", "fontWeight": "{font.weight.regular}", "lineHeight": "{font.lineHeight.normal}", "letterSpacing": "{font.letterSpacing.normal}" }
+    },
+    "captionStrong": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.xs}", "fontWeight": "{font.weight.semibold}", "lineHeight": "{font.lineHeight.normal}", "letterSpacing": "{font.letterSpacing.wide}" }
+    },
+    "body": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.base}", "fontWeight": "{font.weight.regular}", "lineHeight": "{font.lineHeight.normal}", "letterSpacing": "{font.letterSpacing.normal}" }
+    },
+    "bodyStrong": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.base}", "fontWeight": "{font.weight.semibold}", "lineHeight": "{font.lineHeight.snug}", "letterSpacing": "{font.letterSpacing.tight}" }
+    },
+    "title": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.xl}", "fontWeight": "{font.weight.semibold}", "lineHeight": "{font.lineHeight.snug}", "letterSpacing": "{font.letterSpacing.tight}" }
+    },
+    "heading": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.3xl}", "fontWeight": "{font.weight.bold}", "lineHeight": "{font.lineHeight.snug}", "letterSpacing": "{font.letterSpacing.tight}" }
+    },
+    "display": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.base}", "fontSize": "{font.size.5xl}", "fontWeight": "{font.weight.bold}", "lineHeight": "{font.lineHeight.tight}", "letterSpacing": "{font.letterSpacing.tight}" }
+    }
+  },
+
+  "motion": {
+    "$description": "Длительности и кривые. Три кривые на всю систему, см. STYLE-AUDIT.md раздел «Движение».",
+    "duration": {
+      "press": { "$type": "duration", "$value": { "value": 120, "unit": "ms" }, "$description": ":active, сжатие" },
+      "hover": { "$type": "duration", "$value": { "value": 160, "unit": "ms" }, "$description": "фон, цвет, обводка" },
+      "pop": { "$type": "duration", "$value": { "value": 180, "unit": "ms" }, "$description": "меню, тултип, карточка места" },
+      "state": { "$type": "duration", "$value": { "value": 200, "unit": "ms" }, "$description": "смена состояния, затемнение фона" },
+      "sheet": { "$type": "duration", "$value": { "value": 300, "unit": "ms" }, "$description": "шторка входа, нижний лист" },
+      "enter": { "$type": "duration", "$value": { "value": 360, "unit": "ms" }, "$description": "появление экрана и блоков" },
+      "draw": { "$type": "duration", "$value": { "value": 700, "unit": "ms" }, "$description": "отрисовка галочки, линии" },
+      "stagger": { "$type": "duration", "$value": { "value": 40, "unit": "ms" }, "$description": "шаг очереди карточек" }
+    },
+    "easing": {
+      "out": { "$type": "cubicBezier", "$value": [0.22, 1, 0.36, 1], "$description": "появления: enter, pop, draw" },
+      "inOut": { "$type": "cubicBezier", "$value": [0.65, 0, 0.25, 1], "$description": "изменение размера, поворот" },
+      "spring": { "$type": "cubicBezier", "$value": [0.34, 1.3, 0.64, 1], "$description": "перескок: кноб, ползунок" }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "0": { "$value": { "value": 0, "unit": "px" } },
+    "1": { "$value": { "value": 2, "unit": "px" } },
+    "2": { "$value": { "value": 4, "unit": "px" } },
+    "3": { "$value": { "value": 6, "unit": "px" } },
+    "4": { "$value": { "value": 8, "unit": "px" } },
+    "5": { "$value": { "value": 10, "unit": "px" } },
+    "6": { "$value": { "value": 12, "unit": "px" } },
+    "7": { "$value": { "value": 16, "unit": "px" } },
+    "8": { "$value": { "value": 20, "unit": "px" } },
+    "9": { "$value": { "value": 24, "unit": "px" } },
+    "10": { "$value": { "value": 32, "unit": "px" } }
+  },
+
+  "radius": {
+    "$type": "dimension",
+    "xs": { "$value": { "value": 4, "unit": "px" } },
+    "sm": { "$value": { "value": 6, "unit": "px" } },
+    "md": { "$value": { "value": 8, "unit": "px" }, "$description": "Основной радиус кнопок и карточек" },
+    "lg": { "$value": { "value": 12, "unit": "px" } },
+    "xl": { "$value": { "value": 16, "unit": "px" } },
+    "2xl": { "$value": { "value": 24, "unit": "px" } },
+    "full": { "$value": { "value": 999, "unit": "px" } }
+  },
+
+  "borderWidth": {
+    "$type": "dimension",
+    "thin": { "$value": { "value": 1, "unit": "px" } },
+    "thick": { "$value": { "value": 1.5, "unit": "px" } }
+  },
+
+  "size": {
+    "$type": "dimension",
+    "control": {
+      "sm": { "$value": { "value": 32, "unit": "px" } },
+      "md": { "$value": { "value": 40, "unit": "px" } },
+      "lg": { "$value": { "value": 48, "unit": "px" }, "$description": "Высота основной кнопки и поля ввода" },
+      "xl": { "$value": { "value": 56, "unit": "px" } }
+    },
+    "icon": {
+      "sm": { "$value": { "value": 16, "unit": "px" } },
+      "md": { "$value": { "value": 20, "unit": "px" } },
+      "lg": { "$value": { "value": 24, "unit": "px" } },
+      "xl": { "$value": { "value": 30, "unit": "px" } }
+    },
+    "seat": {
+      "sm": { "$value": { "value": 16, "unit": "px" }, "$description": "Место на схеме на мобильном" },
+      "md": { "$value": { "value": 23, "unit": "px" } },
+      "lg": { "$value": { "value": 32, "unit": "px" }, "$description": "Место на схеме на десктопе" }
+    },
+    "touchTarget": { "$value": { "value": 44, "unit": "px" }, "$description": "Минимальная зона нажатия" }
+  },
+
+  "shadow": {
+    "$type": "shadow",
+    "sm": { "$value": { "color": "#00000033", "offsetX": "0px", "offsetY": "2px", "blur": "4px", "spread": "0px" } },
+    "md": {
+      "$value": [
+        { "color": "#00000014", "offsetX": "0px", "offsetY": "4px", "blur": "16px", "spread": "0px" },
+        { "color": "#00000014", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" }
+      ]
+    },
+    "lg": {
+      "$value": [
+        { "color": "#00000014", "offsetX": "0px", "offsetY": "8px", "blur": "24px", "spread": "0px" },
+        { "color": "#00000014", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" }
+      ]
+    },
+    "popover": {
+      "$value": [
+        { "color": "#00000024", "offsetX": "0px", "offsetY": "24px", "blur": "38px", "spread": "0px" },
+        { "color": "#0000001F", "offsetX": "0px", "offsetY": "9px", "blur": "46px", "spread": "0px" },
+        { "color": "#00000033", "offsetX": "0px", "offsetY": "11px", "blur": "15px", "spread": "0px" }
+      ]
+    },
+    "focusRing": { "$value": { "color": "{color.accent.default}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" } }
+  },
+
+  "component": {
+    "button": {
+      "primary": {
+        "bg": { "$type": "color", "$value": "{color.accent.default}" },
+        "bgHover": { "$type": "color", "$value": "{color.accent.hover}" },
+        "bgPressed": { "$type": "color", "$value": "{color.accent.pressed}" },
+        "bgDisabled": { "$type": "color", "$value": "{color.bg.disabled}" },
+        "text": { "$type": "color", "$value": "{color.accent.onAccent}" },
+        "textDisabled": { "$type": "color", "$value": "{color.text.disabled}" },
+        "height": { "$type": "dimension", "$value": "{size.control.lg}" },
+        "radius": { "$type": "dimension", "$value": "{radius.md}" },
+        "paddingX": { "$type": "dimension", "$value": "{space.8}" }
+      },
+      "secondary": {
+        "bg": { "$type": "color", "$value": "{color.bg.muted}" },
+        "bgHover": { "$type": "color", "$value": "{color.primitive.gray.200}" },
+        "text": { "$type": "color", "$value": "{color.text.primary}" }
+      }
+    },
+    "input": {
+      "bg": { "$type": "color", "$value": "{color.bg.surface}" },
+      "border": { "$type": "color", "$value": "{color.border.default}" },
+      "borderFocus": { "$type": "color", "$value": "{color.border.focus}" },
+      "borderError": { "$type": "color", "$value": "{color.border.error}" },
+      "placeholder": { "$type": "color", "$value": "{color.text.secondary}" },
+      "height": { "$type": "dimension", "$value": "{size.control.lg}" },
+      "radius": { "$type": "dimension", "$value": "{radius.md}" }
+    },
+    "sheet": {
+      "bg": { "$type": "color", "$value": "{color.bg.surface}" },
+      "border": { "$type": "color", "$value": "{color.border.default}" },
+      "radius": { "$type": "dimension", "$value": "{radius.xl}" }
+    }
+  }
+}
+

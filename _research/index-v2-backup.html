@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Киноплан — виджет продажи билетов: редизайн</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="stage" id="stage" data-mode="mobile">
+
+  <div class="stage__bar">
+    <strong>Виджет продажи билетов — редизайн</strong>
+    <span>·</span>
+    <div class="seg" role="group" aria-label="Режим просмотра">
+      <button type="button" data-mode-btn="mobile" aria-pressed="true">Мобильный</button>
+      <button type="button" data-mode-btn="desktop" aria-pressed="false">Десктоп</button>
+    </div>
+    <span>·</span>
+    <button type="button" class="seg" id="restart" style="padding:6px 14px;border-radius:999px;border:1px solid #2a3245;background:#1b2130;color:#b9c3d4;font:inherit;font-size:12.5px;cursor:pointer">Начать заново</button>
+    <button type="button" class="seg" id="directEntry">Открыть из сеанса 17:05</button>
+    <label class="demo-outcome">Исход демо <select id="demoOutcome"><option value="success">Успех</option><option value="auth-error">Яндекс ID недоступен</option><option value="pending">Ответ банка задерживается</option><option value="error-pay">Отказ банка</option><option value="error-seat">Место заняли</option><option value="expired">Бронь истекла</option></select></label>
+  </div>
+
+  <div class="device">
+    <div class="app">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="icon-wallet" viewBox="0 0 24 24">
+      <rect x="3" y="6" width="18" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/>
+      <circle cx="16.5" cy="14.5" r="1.4" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24">
+      <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-card" viewBox="0 0 24 24">
+      <rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M2.5 10h19" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M6 15h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+      <div class="overlay purchase-auth" id="authOverlay" data-open="false" hidden>
+        <div class="overlay__backdrop" data-auth-close></div>
+        <section class="overlay__sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle" tabindex="-1">
+          <header class="purchase-auth__header">
+            <div><h2 id="authTitle">Вход</h2><p id="authContext" hidden>Места и заказ сохранятся</p></div>
+            <button class="icon-btn" type="button" data-auth-close aria-label="Закрыть вход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+          </header>
+          <div class="purchase-auth__body">
+            <div class="auth-step" data-auth-step="start">
+              <p class="auth-intro">После входа подставим контакты для билетов и покажем сохранённую карту, если она есть.</p>
+              <button class="auth-provider" type="button" id="authProvider"><b aria-hidden="true">Я</b> Войти с Яндекс ID</button>
+              <div class="auth-divider"><span>или</span></div>
+              <button class="btn btn--ghost btn--block" type="button" data-auth-to="credentials">Войти по почте и паролю</button>
+              <button class="link-btn" type="button" data-auth-to="phone">Получить код по СМС</button>
+              <p class="form-feedback" id="providerError" role="alert" hidden>Не удалось войти через Яндекс ID. Попробуйте ещё раз или выберите другой способ.</p>
+            </div>
+            <div class="auth-step" data-auth-step="credentials" hidden>
+              <form id="credentialForm" class="auth-step" novalidate>
+                <div class="field"><label class="field__label" for="authEmail">Электронная почта</label><input id="authEmail" type="email" autocomplete="username" placeholder="viewer@example.com" required></div>
+              <div class="field"><label class="field__label" for="authPass">Пароль</label><div class="auth-password"><input id="authPass" type="password" autocomplete="current-password" placeholder="Пароль" aria-describedby="demoPassword" required><button class="link-btn" type="button" id="passToggle" aria-pressed="false">Показать</button></div><span id="demoPassword" class="field__hint">Пароль для демо — demo</span></div>
+                <p class="form-feedback" id="credentialError" role="alert" hidden></p>
+                <button class="btn btn--primary btn--block" type="submit">Войти</button>
+              </form>
+              <button class="link-btn" type="button" data-auth-to="phone">Войти по СМС</button>
+              <button class="link-btn" type="button" data-auth-to="start">Другие способы входа</button>
+            </div>
+            <form class="auth-step" data-auth-step="phone" id="authPhoneForm" hidden novalidate>
+              <div class="field"><label class="field__label" for="authPhone">Номер телефона</label><div class="phone-field"><span class="phone-field__prefix" aria-hidden="true">+7</span><input id="authPhone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="900 000-00-00" aria-describedby="phoneAuthError"></div></div>
+              <p class="form-feedback" id="phoneAuthError" role="alert" hidden>Введите 10 цифр номера.</p>
+              <button class="btn btn--primary btn--block" type="submit">Получить код</button>
+              <button class="link-btn" type="button" data-auth-to="start">Другие способы входа</button>
+            </form>
+            <form class="auth-step" data-auth-step="code" id="authCodeForm" hidden novalidate>
+              <p class="auth-intro">Код отправлен на <strong id="authPhoneEcho"></strong>.</p>
+              <div class="field"><label class="field__label" for="authCode">Код из СМС</label><input id="authCode" inputmode="numeric" autocomplete="one-time-code" maxlength="4" placeholder="0000" aria-describedby="codeDemo codeError"><span class="field__hint" id="codeDemo">Код для демо 1234</span></div>
+              <p class="form-feedback" id="codeError" role="alert" hidden>Код не подошёл. Проверьте его или запросите новый.</p>
+              <button class="btn btn--primary btn--block" type="submit">Подтвердить</button>
+              <div class="auth-step__links"><button class="link-btn" id="resendCode" type="button">Отправить код снова</button><button class="link-btn" type="button" data-auth-to="phone">Изменить номер</button></div>
+            </form>
+            <div class="auth-step" data-auth-step="profile" hidden>
+              <p class="auth-intro" id="profileContact"></p>
+              <button class="btn btn--ghost btn--block" type="button" id="logoutBtn">Выйти из профиля</button>
+            </div>
+          </div>
+          <footer class="purchase-auth__footer"><button class="link-btn" type="button" id="authGuest" data-auth-close>Продолжить без входа</button></footer>
+        </section>
+      </div>
+
+      <!-- ============================================================
+           S1. Афиша и выбор сеанса
+           ============================================================ -->
+      <section class="screen" data-screen="afisha" data-active="true">
+        <header class="topbar">
+          <div class="topbar__text">
+            <div class="topbar__title">Выбор сеанса</div>
+            <div class="topbar__meta">Горизонт Cinema &amp; Emotion · Ростов-на-Дону</div>
+          </div>
+          <button class="auth-btn" type="button" id="authBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.4"/><path d="M5 19.5c1.4-3 3.9-4.5 7-4.5s5.6 1.5 7 4.5"/></svg>
+            <span id="authBtnLabel">Войти</span>
+          </button>
+          <button class="icon-btn" type="button" aria-label="Закрыть виджет">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </header>
+
+        <div class="datebar" role="group" aria-label="Дата сеанса">
+          <button class="date" type="button" aria-pressed="true"><span class="date__dow">пт</span><span class="date__num">20</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" aria-pressed="false"><span class="date__dow">сб</span><span class="date__num">21</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" aria-pressed="false"><span class="date__dow">вс</span><span class="date__num">22</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" data-empty="true" aria-pressed="false"><span class="date__dow">пн</span><span class="date__num">23</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" aria-pressed="false"><span class="date__dow">вт</span><span class="date__num">24</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" aria-pressed="false"><span class="date__dow">ср</span><span class="date__num">25</span><span class="date__mon">ноя</span></button>
+          <button class="date" type="button" aria-pressed="false"><span class="date__dow">чт</span><span class="date__num">26</span><span class="date__mon">ноя</span></button>
+        </div>
+
+        <div class="screen__scroll">
+          <div class="screen__body">
+
+            <div class="empty-state" id="emptyDates" hidden>
+              <div class="empty-state__art" aria-hidden="true">
+                <svg viewBox="0 0 120 72" fill="none"><rect x="8" y="14" width="104" height="44" rx="8" stroke="currentColor" stroke-width="2"/><line x1="8" y1="28" x2="112" y2="28" stroke="currentColor" stroke-width="2"/><circle cx="22" cy="21" r="2" fill="currentColor"/><circle cx="32" cy="21" r="2" fill="currentColor"/><line x1="30" y1="40" x2="90" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="48" x2="66" y2="48" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h2 class="empty-state__title">На 23 ноября сеансов нет</h2>
+              <p class="empty-state__text">Ближайший день с сеансами — 24 ноября. Можно выбрать его или другую дату в ленте сверху.</p>
+              <button class="btn btn--primary" type="button" id="emptyGoNext">Показать 24 ноября</button>
+            </div>
+
+            <div class="film-list" id="filmList">
+
+              <article class="film">
+                <img class="film__poster" src="img/rocky.jpg" alt="Постер фильма «Рокки — это я»">
+                <div class="film__body">
+                  <div class="film__info">
+                    <div class="film__badges"><span class="badge badge--accent">Премьера</span></div>
+                    <h2 class="film__title">Рокки — это я</h2>
+                    <div class="film__meta">18+ · драма · 1 ч 48 мин</div>
+                  </div>
+                  <div class="sessions" data-sessions>
+                    <button class="session session--vip" type="button" data-session="14:00" data-hall="Зал 1 IMAX" data-price="400" data-film="rocky">
+                      <span class="session__time">14:00</span><span class="session__meta"><span class="session__hall">Зал 1 IMAX</span><span class="session__price">от 400 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="15:10" data-hall="Зал 3" data-price="350" data-film="rocky">
+                      <span class="session__time">15:10</span><span class="session__meta"><span class="session__hall">Зал 3</span><span class="session__price">от 350 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="17:05" data-hall="Зал 5" data-price="450" data-film="rocky">
+                      <span class="session__time">17:05</span><span class="session__meta"><span class="session__hall">Зал 5</span><span class="session__price">от 450 ₽</span></span>
+                    </button>                    <button class="session session--vip" type="button" data-session="16:00" data-hall="Зал 7" data-price="1050" data-film="rocky">
+                      <span class="session__time">16:00</span><span class="session__meta"><span class="session__hall">Зал 7</span><span class="session__price">от 1050 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="18:40" data-hall="Зал 7" data-price="1050" data-film="rocky">
+                      <span class="session__flag">мало мест</span><span class="session__time">18:40</span><span class="session__meta"><span class="session__hall">Зал 7</span><span class="session__price">от 1050 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="19:45" data-hall="Зал 5" data-price="450" data-film="rocky">
+                      <span class="session__time">19:45</span><span class="session__meta"><span class="session__hall">Зал 5</span><span class="session__price">от 450 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="21:25" data-hall="Зал 7" data-price="1050" data-film="rocky" data-extra>
+                      <span class="session__time">21:25</span><span class="session__meta"><span class="session__hall">Зал 7</span><span class="session__price">от 1050 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="22:30" data-hall="Зал 5" data-price="450" data-film="rocky" data-extra>
+                      <span class="session__time">22:30</span><span class="session__meta"><span class="session__hall">Зал 5</span><span class="session__price">от 450 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="23:55" data-hall="Зал 10" data-price="760" data-film="rocky" data-extra>
+                      <span class="session__time">23:55</span><span class="session__meta"><span class="session__hall">Зал 10</span><span class="session__price">от 760 ₽</span></span>
+                    </button>                    <button class="sessions__more" type="button" data-sessions-more>Ещё <span data-sessions-count>3</span> сеанса</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="film">
+                <img class="film__poster" src="img/kolotun.jpg" alt="Постер фильма «Колотун и Волшебное королевство»">
+                <div class="film__body">
+                  <div class="film__info">
+                    <div class="film__badges"><span class="badge badge--accent">Премьера</span><span class="badge badge--soft">Пушкинская карта</span></div>
+                    <h2 class="film__title">Колотун и Волшебное королевство</h2>
+                    <div class="film__meta">6+ · фэнтези, приключения · 1 ч 42 мин</div>
+                  </div>
+                  <div class="sessions" data-sessions>
+                    <button class="session" type="button" data-session="15:00" data-hall="Зал 3" data-price="350" data-film="kolotun" data-pushkin="true">
+                      <span class="session__time">15:00</span><span class="session__meta"><span class="session__hall">Зал 3</span><span class="session__price">от 350 ₽</span></span>
+                    </button>                    <button class="session session--vip" type="button" data-session="16:05" data-hall="Зал 11" data-price="900" data-film="kolotun" data-pushkin="true">
+                      <span class="session__time">16:05</span><span class="session__meta"><span class="session__hall">Зал 11</span><span class="session__price">от 900 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="18:35" data-hall="Зал 15" data-price="350" data-film="kolotun" data-pushkin="true">
+                      <span class="session__time">18:35</span><span class="session__meta"><span class="session__hall">Зал 15</span><span class="session__price">от 350 ₽</span></span>
+                    </button>                  </div>
+                </div>
+              </article>
+
+              <article class="film">
+                <img class="film__poster" src="img/dedmobil.jpg" alt="Постер фильма «Дедмобиль»">
+                <div class="film__body">
+                  <div class="film__info">
+                    <div class="film__badges"><span class="badge badge--soft">Пушкинская карта</span></div>
+                    <h2 class="film__title">Дедмобиль</h2>
+                    <div class="film__meta">12+ · комедия, семейный · 1 ч 36 мин</div>
+                  </div>
+                  <div class="sessions" data-sessions>
+                    <button class="session" type="button" data-session="17:25" data-hall="Зал 3" data-price="380" data-film="dedmobil" data-pushkin="true">
+                      <span class="session__time">17:25</span><span class="session__meta"><span class="session__hall">Зал 3</span><span class="session__price">от 380 ₽</span></span>
+                    </button>                    <button class="session session--vip" type="button" data-session="18:30" data-hall="Зал 11" data-price="900" data-film="dedmobil">
+                      <span class="session__time">18:30</span><span class="session__meta"><span class="session__hall">Зал 11</span><span class="session__price">от 900 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="19:20" data-hall="Зал 3" data-price="380" data-film="dedmobil">
+                      <span class="session__time">19:20</span><span class="session__meta"><span class="session__hall">Зал 3</span><span class="session__price">от 380 ₽</span></span>
+                    </button>                  </div>
+                </div>
+              </article>
+
+              <article class="film">
+                <img class="film__poster" src="img/tiger.jpg" alt="Постер фильма «Бумажный тигр»">
+                <div class="film__body">
+                  <div class="film__info">
+                    <div class="film__badges"><span class="badge">Премьера</span></div>
+                    <h2 class="film__title">Бумажный тигр</h2>
+                    <div class="film__meta">18+ · триллер, драма · 2 ч 05 мин</div>
+                  </div>
+                  <div class="sessions" data-sessions>
+                    <button class="session" type="button" data-session="16:15" data-hall="Зал 15" data-price="420" data-film="tiger">
+                      <span class="session__time">16:15</span><span class="session__meta"><span class="session__hall">Зал 15</span><span class="session__price">от 420 ₽</span></span>
+                    </button>                    <button class="session session--vip" type="button" data-session="20:25" data-hall="Зал 11" data-price="950" data-film="tiger">
+                      <span class="session__time">20:25</span><span class="session__meta"><span class="session__hall">Зал 11</span><span class="session__price">от 950 ₽</span></span>
+                    </button>                    <button class="session" type="button" data-session="22:10" data-hall="Зал 14" data-price="420" data-film="tiger">
+                      <span class="session__time">22:10</span><span class="session__meta"><span class="session__hall">Зал 14</span><span class="session__price">от 420 ₽</span></span>
+                    </button>                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="seats">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-back="afisha" aria-label="Вернуться к сеансам">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title" data-bind="filmTitle">Рокки — это я</div>
+            <div class="screen-head__meta" data-bind="sessionMeta">20 ноября, 17:05 · Зал 5 · 2D</div>
+          </div>
+          <span class="timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+            <span data-timer>14:32</span>
+          </span>
+        </header>
+
+        <div class="sessionbar" id="sessionBar" aria-label="Другие сеансы этого фильма"></div>
+
+        <div class="switch-confirm" id="switchConfirm" hidden>
+          <span class="switch-confirm__text" id="switchConfirmText"></span>
+          <div class="switch-confirm__actions">
+            <button class="btn btn--primary btn--sm" type="button" id="switchConfirmYes">Перейти</button>
+            <button class="btn btn--ghost btn--sm" type="button" id="switchConfirmNo">Остаться</button>
+          </div>
+        </div>
+
+        <div class="soldout" id="seatSoldOut" hidden>
+          <div class="state__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <h2 class="soldout__title">На этот сеанс мест нет</h2>
+          <p class="soldout__text">Все места проданы. Рядом есть свободные места на соседних сеансах — они отмечены в полосе выше.</p>
+          <div class="soldout__actions">
+            <button class="btn btn--primary" type="button" data-back="afisha">Другой сеанс</button>
+            <button class="btn btn--ghost" type="button" id="soldoutNext">Ближайший со свободными местами</button>
+          </div>
+        </div>
+
+        <div class="seats-layout">
+          <div class="hall-wrap">
+            <div class="hall__legend hall__legend--prices">
+              <button class="legend-price" type="button" data-zone="side" aria-pressed="false"><i class="zone-dot--side"></i><span data-zone-price="side">450 ₽</span></button>
+              <button class="legend-price" type="button" data-zone="center" aria-pressed="false"><i class="zone-dot--center"></i><span data-zone-price="center">650 ₽</span></button>
+              <button class="legend-price" type="button" data-zone="vip" aria-pressed="false"><i class="zone-dot--vip"></i><span data-zone-price="vip">1 050 ₽</span></button>
+              <span class="legend-taken"><i>×</i>Занято</span>
+            </div>
+
+            <div class="hall hall--card">
+              <div class="hall__screen"><span>ЭКРАН</span></div>
+              <div class="hall__grid" id="hallGrid" role="group" aria-label="Схема зала. Кресла выбираются нажатием."></div>
+              <div class="hall__zoom-row" role="group" aria-label="Масштаб схемы">
+                <button type="button" data-zoom="out" aria-label="Уменьшить схему зала">−</button>
+                <button type="button" data-zoom="in" aria-label="Увеличить схему зала">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet sheet--side">
+            <div class="sheet__head">
+              <strong data-bind="selTitle">Выберите места</strong>
+              <span data-bind="selCount" id="selCount">0 из 6</span>
+            </div>
+            <div class="adjacent" role="group" aria-label="Подобрать места рядом">
+              <span class="adjacent__label">Сесть рядом:</span>
+              <button type="button" data-adjacent="2">2</button>
+              <button type="button" data-adjacent="3">3</button>
+              <button type="button" data-adjacent="4">4</button>
+            </div>
+            <div class="limit-hint" id="hallHint" role="status" aria-live="polite" hidden></div>
+            <div class="selchips" id="selChips"></div>
+            <button class="btn btn--primary btn--block" type="button" id="toCheckout" data-muted="true">
+              <span data-bind="ctaLabel">Выберите места</span>
+            </button>
+            <p class="field__hint">Места держим 15 минут. За один заказ — до 6 мест.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="checkout">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-back="seats" aria-label="Вернуться к выбору мест">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Оформление</div>
+            <div class="screen-head__meta">Шаг 3 из 3 · осталось оплатить</div>
+          </div>
+          <span class="timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+            <span data-timer>14:32</span>
+          </span>
+        </header>
+
+        <div class="screen__scroll">
+          <div class="checkout-layout">
+            <div class="col">
+
+              <section class="card">
+                <div class="summary">
+                  <img class="summary__poster" src="img/rocky.jpg" alt="" data-bind="poster">
+                  <div>
+                    <div class="summary__title" data-bind="filmTitle">Рокки — это я</div>
+                    <div class="summary__meta" data-bind="sessionMeta">20 ноября, 17:05 · Зал 5</div>
+                    <div class="summary__seats" data-bind="seatsLine">Ряд 4, места 6, 7</div>
+                  </div>
+                  <button class="link-btn" type="button" data-back="seats">Изменить</button>
+                </div>
+              </section>
+
+              <section class="card">
+                <h2 class="card__title">Куда отправить билеты</h2>
+                <div class="auth-strip" id="authStrip"></div>
+                <div id="contactFields">
+                <div class="field" data-field="email">
+                  <label class="field__label" for="email">Электронная почта</label>
+                  <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@mail.ru" value="">
+                  <div class="field__hint">Сюда придут билеты и чек — сразу после оплаты.</div>
+                  <div class="field__error">Адрес выглядит неполным. Проверьте — билеты придут на него.</div>
+                </div>
+                <div class="field" data-field="phone">
+                  <label class="field__label" for="phone">Телефон</label>
+                  <div class="phone-field">
+                    <span class="phone-field__prefix" aria-hidden="true">+7</span>
+                    <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="900 000-00-00" value="">
+                  </div>
+                  <div class="field__hint">По нему вернём билет и свяжемся по заказу.</div>
+                  <div class="field__error">Нужно 10 цифр номера — без них не сможем вернуть билет.</div>
+                </div>
+                </div>
+                <div class="checkout-recipient" id="savedContacts" hidden>
+                  <span class="checkout-recipient__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span>
+                  <div><strong id="recipientEmail"></strong><span id="recipientPhone"></span></div>
+                  <button class="link-btn" type="button" id="editContacts">Изменить</button>
+                </div>
+                <button class="btn btn--ghost btn--sm" type="button" id="saveContacts" hidden>Готово</button>
+              </section>
+
+              <section class="card">
+                <h2 class="card__title">Способ оплаты</h2>
+                <div class="paylist" role="radiogroup" aria-label="Способ оплаты">
+                  <button class="payopt" type="button" role="radio" aria-checked="false" data-pay="saved" hidden>
+                    <span class="payopt__radio" aria-hidden="true"></span>
+                    <span class="payopt__text"><span class="payopt__name">Карта •••• 4242</span><span class="payopt__meta">Сохранена в профиле</span></span>
+                    <svg class="pay-icon pay-icon--muted" aria-hidden="true"><use href="#icon-card"/></svg>
+                  </button>
+                  <button class="payopt" type="button" role="radio" aria-checked="true" data-pay="card">
+                    <span class="payopt__radio"></span>
+                    <span class="payopt__text">
+                      <span class="payopt__name">Банковская карта</span>
+                      <span class="payopt__meta" id="cardMeta">Оплата на стороне банка</span>
+                    </span>
+                    <span class="payopt__brands"><svg class="pay-icon pay-icon--muted" aria-hidden="true"><use href="#icon-card"/></svg></span>
+                  </button>
+                  <button class="payopt" type="button" role="radio" aria-checked="false" data-pay="sbp">
+                    <span class="payopt__radio"></span>
+                    <span class="payopt__text">
+                      <span class="payopt__name">СБП</span>
+                      <span class="payopt__meta">QR-код или приложение банка</span>
+                    </span>
+                    <span class="payopt__brands"><img class="pay-icon" src="img/pay/sbp.svg" alt="" width="24" height="24"></span>
+                  </button>
+                  <button class="payopt" type="button" role="radio" aria-checked="false" data-pay="pushkin" id="pushkinOption">
+                    <span class="payopt__radio"></span>
+                    <span class="payopt__text">
+                      <span class="payopt__name">Пушкинская карта</span>
+                      <span class="payopt__meta" id="pushkinMeta">Зрителям 14–22 лет, фильмы 6+–16+</span>
+                    </span>
+                    <span class="payopt__brands"><img class="pay-icon" src="img/pay/pushkin_badge.svg" alt="" width="24" height="24"></span>
+                  </button>
+                  <button class="payopt" type="button" role="radio" aria-checked="false" data-pay="cert">
+                    <span class="payopt__radio"></span>
+                    <span class="payopt__text">
+                      <span class="payopt__name">Сертификат или промокод</span>
+                      <span class="payopt__meta">Гасится сразу, остаток — картой</span>
+                    </span>
+                    <span></span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="card" style="padding:12px 14px">
+                <label class="consent" data-consent>
+                  <input type="checkbox" id="consent">
+                  <span class="consent__text">Согласен с <a href="#" onclick="return false">условиями покупки и возврата</a> и <a href="#" onclick="return false">обработкой персональных данных</a></span>
+                </label>
+              </section>
+
+            </div>
+
+            <div class="col" style="display:grid;gap:12px;align-content:start">
+              <div class="card" style="margin-top:0">
+                <h2 class="card__title">Ваш заказ</h2>
+                <div data-bind="seatsList" style="display:grid;gap:6px"></div>
+<div class="alt-row" style="margin-top:10px"><span>Сбор за сервис</span><span>0 ₽</span></div>
+                <div style="border-top:1px solid var(--line-2);margin:10px 0 8px"></div>
+                <div class="alt-row" style="font-weight:600;font-size:15px"><span>Итого</span><span data-bind="total">900 ₽</span></div>
+              </div>
+              <div class="assure" style="margin:0 2px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>Данные передаются по защищённому соединению. Билет вернётся на почту, даже если закрыть виджет.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="sticky-cta">
+          <div class="sticky-cta__sum">
+            <span class="sticky-cta__label" data-bind="seatsCountLabel">2 места</span>
+            <span class="sticky-cta__value" data-bind="total">900 ₽</span>
+          </div>
+          <button class="btn btn--primary" type="button" id="toPayment">Оплатить</button>
+        </footer>
+      </section>
+
+      <!-- ============================================================
+           S4. Оплата
+           ============================================================ -->
+      <section class="screen pay-screen" data-screen="payment">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-back="checkout" aria-label="Вернуться к оформлению">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Оплата</div>
+            <div class="screen-head__meta" data-bind="filmSessionShort">Рокки — это я · 17:05</div>
+          </div>
+          <span class="timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+            <span data-timer>14:32</span>
+          </span>
+        </header>
+
+        <div class="screen__scroll">
+          <div class="screen__body">
+            <div class="payment-grid">
+              <div class="payment-main" aria-busy="false">
+                <section class="payment-hero">
+                  <div class="payment-hero__top"><span id="payMethodName">Банковская карта</span><button class="link-btn" id="changePayMethod" type="button" data-back="checkout">Изменить</button></div>
+                  <strong class="payment-hero__amount" data-bind="total">900 ₽</strong>
+                  <span class="payment-hero__detail" data-bind="amountMeta">2 билета · Ряд 4, места 6, 7</span>
+                </section>
+                <section class="card payment-instruction" data-paypanel="card"><h2>Оплата на стороне банка</h2><p>Введите данные карты на странице оплаты. После подтверждения откроется заказ с билетами.</p></section>
+                <section class="card payment-instruction" data-paypanel="saved" hidden><h2>Оплата сохранённой картой</h2><p>Банк может запросить подтверждение платежа.</p></section>
+                <section class="card payment-instruction" data-paypanel="pushkin" hidden><h2>Оплата Пушкинской картой</h2><p>Откроется страница оплаты Пушкинской картой.</p></section>
+                <section class="card payment-instruction" data-paypanel="cert" hidden><h2>Сертификат</h2><p>Откроется страница применения сертификата.</p></section>
+                <section class="card payment-instruction" data-paypanel="sbp" hidden>
+                  <h2>Оплата через СБП</h2><p>Откройте приложение банка на телефоне. Если оплачиваете с другого устройства, отсканируйте QR.</p>
+                  <details class="payment-qr"><summary>Показать QR-код</summary><div class="qr__frame" id="qrCode"></div></details>
+                </section>
+                <section class="card payment-instruction checking" id="checking" hidden aria-live="polite">
+                  <span class="payment-check-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>
+                  <h2 id="paymentStatusTitle" tabindex="-1">Проверяем оплату</h2>
+                  <p id="paymentStatusText">Ждём подтверждение банка. Повторно платить не нужно.</p>
+                  <button class="btn btn--ghost btn--block" type="button" id="checkPayment" hidden>Проверить статус</button>
+                </section>
+              </div>
+              <aside class="card payment-progress">
+                <h2>Статус заказа</h2>
+                <ol><li data-payment-stage="pay" aria-current="step">Оплата</li><li data-payment-stage="verify">Подтверждение банка</li><li>Билеты и чек</li></ol>
+                <p>Билеты придут на <strong data-bind="emailEcho">viewer@example.com</strong></p>
+              </aside>
+            </div>
+
+          </div>
+        </div>
+
+        <footer class="sticky-cta">
+          <div class="sticky-cta__sum">
+            <span class="sticky-cta__label">К оплате</span>
+            <span class="sticky-cta__value" data-bind="total">900 ₽</span>
+          </div>
+          <button class="btn btn--primary" type="button" id="doPay">Оплатить</button>
+        </footer>
+      </section>
+
+      <section class="screen" data-screen="expired">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-nav="afisha" aria-label="К афише">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Бронь истекла</div>
+            <div class="screen-head__meta">Места освободились — 15 минут прошли</div>
+          </div>
+        </header>
+        <div class="screen__scroll">
+          <div class="state">
+            <div class="state__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>
+            </div>
+            <h1 class="state__title">Бронь истекла, но заказ сохранён</h1>
+            <p class="state__text">Места снова в продаже. Данные из формы остались — можно выбрать места заново и не вводить контакты.</p>
+            <div class="alts">
+              <div class="alt-row"><span>Рокки — это я · 20 ноября, 17:05</span><span>Зал 5</span></div>
+              <div style="display:grid;gap:8px;margin-top:4px">
+                <button class="btn btn--primary btn--block" type="button" id="expiredRetry">Выбрать места заново</button>
+                <button class="btn btn--ghost btn--block" type="button" data-nav="afisha">К афише</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           S5. Успех
+           ============================================================ -->
+      <section class="screen" data-screen="success">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-nav="afisha" aria-label="К афише">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Заказ оплачен</div>
+            <div class="screen-head__meta">Билеты и чек отправили на почту</div>
+          </div>
+          <span class="screen-head__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+          </span>
+        </header>
+        <div class="screen__scroll">
+          <div class="success">
+            <div class="illu illu--success" aria-hidden="true">
+              <svg viewBox="0 0 200 120">
+                <rect x="26" y="28" width="148" height="64" rx="12" class="illu__ticket" />
+                <line x1="130" y1="28" x2="130" y2="92" class="illu__perf" />
+                <rect x="42" y="42" width="14" height="14" rx="3" class="illu__qr" />
+                <rect x="60" y="42" width="14" height="14" rx="3" class="illu__qr" />
+                <rect x="42" y="60" width="14" height="14" rx="3" class="illu__qr" />
+                <rect x="78" y="42" width="8" height="8" rx="2" class="illu__qr-soft" />
+                <rect x="78" y="56" width="8" height="8" rx="2" class="illu__qr-soft" />
+                <rect x="90" y="64" width="8" height="8" rx="2" class="illu__qr-soft" />
+                <circle cx="152" cy="84" r="21" class="illu__badge" />
+                <path d="M143 84.5l6.5 6.5 11-12" class="illu__check" />
+              </svg>
+            </div>
+            <h1 class="success__title">Билеты готовы</h1>
+            <p class="success__meta">Отправили на <a href="#" onclick="return false"><span data-bind="emailEcho">name@mail.ru</span></a>. Покажите QR на входе — распечатывать не нужно.</p>
+
+            <div class="ticket">
+              <div>
+                <div class="ticket__film" data-bind="filmTitle">Рокки — это я</div>
+                <div class="ticket__meta" data-bind="sessionMeta">20 ноября, 17:05 · Зал 5</div>
+                <div class="ticket__seats" data-bind="seatsLine">Ряд 4, места 6, 7</div>
+              </div>
+              <div class="ticket__qr" id="qrTicket"></div>
+            </div>
+
+            <div class="card" style="width:100%;margin-top:0">
+              <div class="alt-row"><span>Оплачено</span><span data-bind="total">900 ₽</span></div>
+              <div class="alt-row" style="margin-top:8px"><span>Способ</span><span data-bind="payMethodEcho">Карта · 2 202</span></div>
+              <div class="alt-row" style="margin-top:8px"><span>Чек</span><button class="link-btn" type="button">Скачать PDF</button></div>
+            </div>
+
+            <section class="card share">
+              <h2 class="card__title">Передать участникам</h2>
+              <div class="share__list" id="shareList"></div>
+              <p class="field__hint">Каждый получит свой билет по ссылке — на входе достаточно QR.</p>
+            </section>
+
+            <div class="actions-row">
+              <button class="btn btn--ghost btn--sm" type="button"><svg class="btn__icon" aria-hidden="true"><use href="#icon-wallet"/></svg>Добавить в Wallet</button>
+              <button class="btn btn--ghost btn--sm" type="button"><svg class="btn__icon" aria-hidden="true"><use href="#icon-share"/></svg>Отправить в мессенджер</button>
+            </div>
+
+            <button class="btn btn--ghost btn--block" type="button" data-nav="afisha" style="margin-top:6px">Купить ещё билеты</button>
+
+            <button class="btn btn--ghost btn--block" type="button" id="toProfile" hidden>Профиль</button>
+
+            <p class="field__hint" style="text-align:center;max-width:290px">Если билет не пришёл за 5 минут — напишите в поддержку: найдём заказ по номеру телефона.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           S6. Ошибка: места заняли
+           ============================================================ -->
+      <section class="screen" data-screen="error-seat">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-back="seats" aria-label="Вернуться к выбору мест">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Места заняли</div>
+            <div class="screen-head__meta">20 ноября, 17:05 · Зал 5</div>
+          </div>
+        </header>
+        <div class="screen__scroll">
+          <div class="state">
+            <div class="state__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h1 class="state__title">Ряд 4, места 6 и 7 только что купили</h1>
+            <p class="state__text">Так бывает на популярных сеансах. Подобрали ближайшие свободные места рядом — цена та же.</p>
+            <div class="alts">
+              <div class="alts__title">Ближайшие варианты</div>
+              <div class="alt-row"><span>Ряд 4, места 8 и 9</span><button class="btn btn--ghost btn--sm" type="button" data-nav="seats">Выбрать</button></div>
+              <div class="alt-row"><span>Ряд 5, места 6 и 7</span><button class="btn btn--ghost btn--sm" type="button" data-nav="seats">Выбрать</button></div>
+              <div class="alt-row"><span>Сеанс 18:40 · Зал 7</span><button class="btn btn--ghost btn--sm" type="button" data-nav="afisha">К сеансам</button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           S7. Ошибка: платёж не прошёл
+           ============================================================ -->
+      <section class="screen" data-screen="error-pay">
+        <header class="screen-head">
+          <button class="icon-btn" type="button" data-back="payment" aria-label="Вернуться к оплате">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="screen-head__text">
+            <div class="screen-head__title">Платёж не прошёл</div>
+            <div class="screen-head__meta">Получили ответ от банка</div>
+          </div>
+          <span class="timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+            <span data-timer>15:00</span>
+          </span>
+        </header>
+        <div class="screen__scroll">
+          <div class="state">
+            <div class="state__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h1 class="state__title">Банк отклонил платёж</h1>
+            <p class="state__text">Можно повторить оплату или выбрать другой способ, пока действует бронь.</p>
+            <div class="alts">
+              <div class="alt-row" style="padding-bottom:4px"><span>Итого к оплате</span><strong data-bind="total">900 ₽</strong></div>
+              <div style="display:grid;gap:8px">
+                <button class="btn btn--primary btn--block" type="button" data-nav="payment">Повторить оплату</button>
+                <button class="btn btn--ghost btn--block" type="button" data-back="checkout">Выбрать другой способ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="stage__bar" style="font-size:12px;color:#8b94a3;max-width:720px;text-align:center">
+    Демо покупки. Платежи, СМС, отправка билетов и QR имитируются. Для оформления введи тестовые контакты.
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

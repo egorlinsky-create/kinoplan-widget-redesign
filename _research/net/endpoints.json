@@ -1,0 +1,23 @@
+[
+ "GET /afisha/6440",
+ "GET /favicon.ico",
+ "GET /locales/ru/main.json",
+ "GET /pwa/app.webmanifest",
+ "GET /seats/6440/24563/6b0021f4400000a900b147fc",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/app",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/cinema/analytics",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/release/24563",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/release/playbill",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/release/playbill/info",
+ "GET https://kinokassa.kinoplan24.ru/api/v2/seance/6b0021f4400000a900b147fc",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/app",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/cinema/analytics",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/release/24563",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/release/playbill",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/release/playbill/info",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v2/seance/6b0021f4400000a900b147fc",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v3/sale/create",
+ "OPTIONS https://kinokassa.kinoplan24.ru/api/v6/sale/predict",
+ "POST https://kinokassa.kinoplan24.ru/api/v3/sale/create",
+ "POST https://kinokassa.kinoplan24.ru/api/v6/sale/predict"
+]

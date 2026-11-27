@@ -1,0 +1,294 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UX-аудит по шагам · Киноплан</title>
+<link rel="stylesheet" href="board.css">
+<style>
+  .stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 34px; }
+  .stepper div { background: var(--surface); padding: 14px 16px; }
+  .stepper small { display: block; font-size: 10.5px; letter-spacing: .1em; color: var(--muted); margin-bottom: 4px; }
+  .stepper b { font-size: 15px; letter-spacing: -.01em; }
+  .stage { margin-top: 64px; }
+  .stage__head { display: grid; grid-template-columns: 58px 1fr auto; gap: 16px; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 20px; }
+  .stage__num { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--muted); }
+  .stage__head h2 { margin: 0; font-size: 30px; letter-spacing: -.03em; }
+  .stage__head p { margin: 0; max-width: 34ch; text-align: right; font-size: 12.5px; color: var(--muted); }
+  .stage__lead { max-width: 62ch; color: #3c372e; font-size: 15.5px; margin: -6px 0 22px 74px; }
+  .session-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .session { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .session img { width: 100%; height: 210px; object-fit: cover; object-position: 50% 30%; border-bottom: 1px solid var(--line); }
+  .session figcaption { padding: 10px 12px 12px; font-size: 12px; color: var(--muted); }
+  .session b { display: block; color: var(--ink); font-size: 13.5px; margin-bottom: 2px; }
+  .session--ours { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .finding { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--red); border-radius: 12px; padding: 16px 18px; margin-top: 16px; }
+  .finding--major { border-left-color: var(--amber); }
+  .finding--ok { border-left-color: var(--green); }
+  .finding__label { font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--red); }
+  .finding--major .finding__label { color: var(--amber); }
+  .finding--ok .finding__label { color: var(--green); }
+  .finding h3 { margin: 6px 0 6px; font-size: 19px; letter-spacing: -.02em; }
+  .finding p { margin: 0; color: var(--muted); font-size: 13.5px; max-width: 78ch; }
+  .finding p b { color: var(--ink); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .split--wide { grid-template-columns: 1.1fr .9fr; }
+  .split img { border: 1px solid var(--line); border-radius: 12px; width: 100%; height: 390px; object-fit: cover; object-position: 50% 45%; }
+  .notes { margin: 0; padding: 0; list-style: none; }
+  .notes li { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+  .notes li:last-child { border-bottom: 0; }
+  .notes b { color: var(--ink); }
+  .notes .sev { display: inline-block; min-width: 52px; margin-right: 8px; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+  .notes .sev--red { color: var(--red); }
+  .notes .sev--grey { color: var(--muted); }
+  .proposal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+  .proposal div { border-top: 2px solid var(--accent); padding-top: 12px; }
+  .proposal b { display: block; font-size: 15px; margin-bottom: 4px; }
+  .proposal span { font-size: 13px; color: var(--muted); }
+  .honest { margin-top: 16px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 10px; font-size: 12.5px; color: var(--muted); }
+  @media (max-width: 980px) {
+    .stepper { grid-template-columns: 1fr 1fr; }
+    .stage__head { grid-template-columns: 40px 1fr; }
+    .stage__head p { grid-column: 2; text-align: left; }
+    .stage__lead { margin-left: 0; }
+    .session-grid { grid-template-columns: 1fr 1fr; }
+    .split, .split--wide { grid-template-columns: 1fr; }
+    .proposal { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <strong>Киноплан · аудит</strong>
+    <nav>
+      <a href="audit-board.html">Аудит</a>
+      <a href="scope-board.html">Scope MVP</a>
+      <a href="AUDIT-HEURISTIC.md">Короткая версия</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Живой виджет · 20 ноября 2026</div>
+  <section class="hero">
+    <div>
+      <h1>Путь к билету: <em>где рвётся</em></h1>
+      <p class="lead">Смотрю по порядку, как идёт зритель: сеансы → карта зала → контакты →
+      способы оплаты → билет. На каждом шаге — как у конкурентов и что чинить. Оплата — финал,
+      поэтому блокер стоит там, где он и происходит.</p>
+      <div class="stats">
+        <div class="stat"><b>5</b><span>шагов</span></div>
+        <div class="stat"><b>12</b><span>проблем</span></div>
+        <div class="stat stat--red"><b>1</b><span>блокер</span></div>
+      </div>
+    </div>
+    <aside class="critical">
+      <div class="critical__label">Как читать</div>
+      <h2>Не список багов, а сценарий</h2>
+      <p>На каждом шаге сначала сравнение с рынком, потом проблемы этого шага, потом решение.
+      Ничего не перескакиваем через два экрана.</p>
+      <img src="../audit/before/02-seats.png" alt="Карта зала" style="object-position:50% 50%">
+      <div class="critical__fix"><b>Итог:</b> 1 блокер в оплате, 7 серьёзных проблем,
+      4 мелких. Всё остальное — в короткой версии по ссылке.</div>
+    </aside>
+  </section>
+
+  <div class="stepper">
+    <div><small>01</small><b>Сеансы</b></div>
+    <div><small>02</small><b>Карта зала</b></div>
+    <div><small>03</small><b>Контакты</b></div>
+    <div><small>04</small><b>Способы оплаты</b></div>
+    <div><small>05</small><b>Билет</b></div>
+  </div>
+
+  <!-- 01 -->
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">01</div>
+      <h2>Сеансы</h2>
+      <p>Сначала список — с него всё начинается.</p>
+    </div>
+    <p class="stage__lead">Сравнил, как показывают сеансы четыре сервиса. Разница не в вёрстке,
+    а в том, что человек понимает до входа в зал: сколько стоит и какой это зал.</p>
+
+    <div class="session-grid">
+      <figure class="session">
+        <img src="../audit/bench-karo-schedule.png" alt="КАРО: сеанс с ценой" style="object-position:50% 78%">
+        <figcaption><b>КАРО</b>22:10 · от 360 ₽ · зал «Комфорт+»</figcaption>
+      </figure>
+      <figure class="session">
+        <img src="../audit/bench-freetown-afisha.png" alt="Фритаун: сеанс с ценой" style="object-position:50% 55%">
+        <figcaption><b>Фритаун</b>23:40 · 350 ₽ / от 350 ₽</figcaption>
+      </figure>
+      <figure class="session">
+        <img src="../audit/bench-yandex-desktop-schedule.png" alt="Яндекс: сеансы без цены" style="object-position:50% 45%">
+        <figcaption><b>Яндекс Афиша</b>время без цены; цена — в зале</figcaption>
+      </figure>
+      <figure class="session session--ours">
+        <img src="../audit/before/01-afisha.png" alt="Киноплан: сеансы без цены" style="object-position:50% 45%">
+        <figcaption><b>Киноплан сейчас</b>время без цены; VIP — только короной</figcaption>
+      </figure>
+    </div>
+
+    <div class="finding finding--major">
+      <div class="finding__label">Проблема шага</div>
+      <h3>Цены нет там, где выбирают</h3>
+      <p>В карточке сеанса — только время. Чтобы сравнить, человек должен зайти в зал и вернуться.
+      <b>Решение:</b> «от 450 ₽» при нескольких тарифах, точное число при одной цене; диапазон —
+      в подсказке.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">02</div>
+      <h2>Карта зала</h2>
+      <p>Главный экран виджета. Здесь выбирают.</p>
+    </div>
+    <p class="stage__lead">Сравнил карты Яндекса, Ticketland, Фритауна/p24 и нашего виджета.
+    Схема у всех узнаваема; разница — в цене, размере кресла и слоях поверх зала.</p>
+
+    <div class="split split--wide">
+      <div>
+        <img src="../audit/before/03-seats-selected.png" alt="Киноплан: выбранные места и слои">
+        <div class="finding finding--major" style="margin-top:12px">
+          <div class="finding__label">Что болит</div>
+          <h3>Цена тонет, зал перекрыт</h3>
+          <p>В тултипе цена одного веса с рядом и местом. Сверху — тултип, чипсы и список,
+          схема уходит под них. Кресло ≈13–14 px на 390.</p>
+        </div>
+      </div>
+      <div>
+        <ul class="notes">
+          <li><span class="sev">Серьёзно</span><b>Цена в тултипе не читается.</b> У Яндекса карточка «Премиум · 970 ₽»; у нас цена сливается с адресом места.</li>
+          <li><span class="sev">Серьёзно</span><b>Кресло меньше пальца.</b> Промах добавляет лишний билет и возврат.</li>
+          <li><span class="sev sev--grey">Мешает</span><b>Три слоя поверх зала.</b> Схема не видна, соседей не проверить.</li>
+          <li><span class="sev">Серьёзно</span><b>Зоны есть, но не везде.</b> В больших залах — 430/500/530 ₽ и легенда; в проверенном Зале 5 — одна цена. Нужна система, а не разовое состояние.</li>
+        </ul>
+        <div class="finding finding--ok" style="margin-top:12px">
+          <div class="finding__label">Решение</div>
+          <h3>Цена — главная, место — вторично</h3>
+          <p>Цена 25 px, ряд и место — 11 px, зона — подписью. Кресло ≥24 px, зона ≥44 px,
+          одна нижняя панель вместо трёх слоёв.</p>
+        </div>
+      </div>
+    </div>
+
+    <figure style="margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+      <img src="../audit/before/17-zones.png" alt="Цветовые зоны в большом зале" style="width:100%;max-height:460px;object-fit:cover;object-position:50% 0%">
+      <figcaption style="padding:12px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)">
+        <b style="color:var(--ink);display:block;margin-bottom:2px">Зоны уже есть</b>
+        430 / 500 / 530 ₽ и легенда в большом зале. Задача — сделать это системой и не терять
+        в залах с одной ценой.
+      </figcaption>
+    </figure>
+
+    <div class="compare" style="margin-top:18px">
+      <figure>
+        <img src="../audit/before/04-seat-list.png" alt="Тултип до" style="object-position:50% 28%">
+        <figcaption><b>Было</b>Ряд, место и цена — один вес. Взгляд не находит главное.</figcaption>
+      </figure>
+      <figure>
+        <img src="../audit/after/69-seat-tooltip-price.png" alt="Тултип после" style="object-position:50% 30%">
+        <figcaption><b>Стало</b>Цена 25 px — первое, что видно. Ряд и место — 11 px.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">03</div>
+      <h2>Контакты</h2>
+      <p>Первый шаг, где человек вводит данные.</p>
+    </div>
+    <p class="stage__lead">У Яндекса это отдельный шаг с проверкой заказа; у нас — два экрана,
+    между которыми теряется контекст. Сравнение с рынком: гостевой путь есть у Яндекса,
+    у Фритауна — стена входа.</p>
+
+    <div class="split">
+      <div>
+        <img src="../audit/before/05-contacts.png" alt="Контакты" style="object-position:50% 58%">
+      </div>
+      <div>
+        <ul class="notes">
+          <li><span class="sev">Серьёзно</span><b>Нет фильма, мест и суммы.</b> Человек вводит данные вслепую.</li>
+          <li><span class="sev">Серьёзно</span><b>«Продолжить» молчит.</b> Кнопка серая, клик ничего не объясняет.</li>
+          <li><span class="sev sev--grey">Мешает</span><b>Три чекбокса</b> без пометки обязательности; один текст противоречит себе.</li>
+          <li><span class="sev sev--grey">Мешает</span><b>«Войти» ведёт в афишу.</b> Обещание без функции — убрать в MVP.</li>
+        </ul>
+        <div class="finding finding--ok" style="margin-top:12px">
+          <div class="finding__label">Решение</div>
+          <h3>Один экран: сводка + контакты + оплата</h3>
+          <p>Сводка заказа над формой, кнопка всегда активна и ведёт к первой ошибке,
+          гость проходит без входа.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">04</div>
+      <h2>Способы оплаты</h2>
+      <p>Финал покупки — и единственный блокер.</p>
+    </div>
+    <p class="stage__lead">Здесь виджет просит «вернуться на этот экран» после банка. Если человек
+    не вернулся — билет не пришёл, деньги списаны. Это не «мелкая ошибка», а конец сценария.</p>
+
+    <div class="split split--wide">
+      <div>
+        <img src="../audit/before/08-payment.png" alt="Оплата" style="object-position:50% 42%">
+      </div>
+      <div>
+        <ul class="notes">
+          <li><span class="sev sev--red">Блокер</span><b>«Вернитесь на этот экран».</b> Нет статуса и проверки оплаты; билет не гарантирован.</li>
+          <li><span class="sev">Серьёзно</span><b>СБП выбрана за человека,</b> карта — серый прямоугольник без брендов.</li>
+          <li><span class="sev sev--grey">Мешает</span><b>«14:56» без подписи:</b> непонятно, что истекает.</li>
+          <li><span class="sev sev--grey">Мешает</span><b>Нет фильма и мест</b> на экране оплаты — только сумма.</li>
+        </ul>
+        <div class="finding finding--ok" style="margin-top:12px">
+          <div class="finding__label">Решение</div>
+          <h3>Вернуть в виджет и показать статус</h3>
+          <p>Возврат из банка, «Проверить оплату», блокировка повторной оплаты, затем билет.
+          Способы оплаты с брендами — после MVP.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="stage">
+    <div class="stage__head">
+      <div class="stage__num">05</div>
+      <h2>Билет</h2>
+      <p>То, ради чего всё делалось.</p>
+    </div>
+    <p class="stage__lead">Экран успеха в живом виджете наблюдался: QR и номер заказа, без сеанса и мест. Реальный платёж не проводился.
+    Поэтому ниже — проектное предложение, а не «как сейчас».</p>
+
+    <div class="proposal">
+      <div><b>QR в виджете</b><span>Билет видно сразу, не нужно искать письмо.</span></div>
+      <div><b>Копия на email</b><span>Если закрыл вкладку — билет всё равно есть.</span></div>
+      <div><b>Понятный статус</b><span>«Оплата обрабатывается» и «Билеты готовы» — разные экраны.</span></div>
+    </div>
+    <div class="honest">Проектное предложение. В живом виджете после оплаты наблюдалась только
+    просьба вернуться на экран; успех и доставка билета не проверены без реального платежа.</div>
+  </section>
+
+  <p class="quote">Системность — это не «все экраны подряд», а <b>один порядок: как идёт зритель</b>.
+  Тогда видно, где рвётся сценарий, а не просто список замечаний.</p>
+
+  <footer class="note">
+    <div><b>Метод.</b> Экспертный проход по 10 эвристикам Нильсена и когнитивному обходу,
+    кадры 390 × 844 и 1280 × 900. Это гипотезы, не тест с людьми: следующий шаг — 3–5 участников
+    на заданиях «купить два соседних места» и «исправить почту».</div>
+    <div><b>Дальше.</b> 13 фич по этим же шагам — в <a href="scope-board.html">Scope MVP</a>.
+    Короткая текстовая версия — в <a href="AUDIT-HEURISTIC.md">отчёте</a>.</div>
+  </footer>
+
+</div>
+</body>
+</html>

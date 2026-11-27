@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Персоны · Киноплан</title>
+<style>
+  :root{--paper:#f9fafb;--surface:#ffffff;--ink:#262626;--muted:#727276;--line:#e7e7ec;--accent:#0a7aff;--accent-soft:#eaf2ff;--amber:#cf7900;--amber-soft:#fff6e8;--red:#ff3b30;--red-soft:#ffeeed;--green:#0b8a5f;--green-soft:#eaf7f0}
+  *{box-sizing:border-box}html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 40px 72px}
+  .top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .top b{color:var(--ink);letter-spacing:.04em}.top nav{display:flex;gap:18px}
+  .top nav a{text-decoration:none;font-weight:600;text-transform:none;letter-spacing:.02em}
+  .top nav a:hover{color:var(--accent)}
+  .eyebrow{margin:40px 0 12px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  h1{margin:0;font-size:clamp(38px,5vw,60px);line-height:1.03;letter-spacing:-.045em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{margin:16px 0 0;max-width:64ch;font-size:17px;line-height:1.5;color:#3c372e}
+  .rule{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .tag{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+  .persona{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .persona__band{padding:12px 20px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0a7aff;background:var(--accent-soft);border-bottom:1px solid #d6e6ff}
+  .persona__head{display:grid;grid-template-columns:72px 1fr;gap:14px;padding:20px 20px 14px;align-items:center}
+  .avatar{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:26px;font-weight:600;color:#fff;background:var(--ink)}
+  .persona--b .avatar{background:var(--accent)}
+  .persona__name{font-size:28px;line-height:1;letter-spacing:-.03em;font-weight:600;margin:0 0 4px}
+  .persona__role{font-size:13px;color:var(--muted);margin:0}
+  .quote{margin:0 20px;padding:14px 16px;border-left:3px solid var(--accent);background:#f2f2f5;font-size:17px;line-height:1.4;letter-spacing:-.01em}
+  .persona--b .quote{border-left-color:var(--ink)}
+  .blocks{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .block h3{margin:0 0 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .block p{margin:0;font-size:13.5px;line-height:1.5}
+  .block--wide{grid-column:1/-1}
+  .need{margin:0 20px 16px;padding:12px 14px;background:var(--green-soft);border:1px solid #bfe3cf;border-radius:12px}
+  .need h3{margin:0 0 6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+  .need p{margin:0;font-size:13px;line-height:1.5}
+  .checks{margin:auto 20px 18px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .checks b{color:var(--ink)}
+  .edge{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  .edge div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .edge b{display:block;font-size:16px;margin-bottom:4px}
+  .edge span{font-size:13px;color:var(--muted)}
+  .biz{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .biz div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .biz b{display:block;font-size:15.5px;margin-bottom:4px}
+  .biz span{font-size:13px;color:var(--muted)}
+  h2{font-size:24px;line-height:1.2;letter-spacing:-.02em;font-weight:600;margin:46px 0 6px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+  .matrix{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px}
+  .matrix th,.matrix td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .matrix th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#f2f2f5}
+  .matrix tr:last-child td{border-bottom:0}
+  .matrix td:first-child{font-weight:600;width:160px}
+  .refs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ref{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none}
+  .ref:hover{border-color:var(--accent)}
+  .ref b{display:block;font-size:14.5px;margin-bottom:3px}
+  .ref span{display:block;font-size:12px;color:var(--muted)}
+  .note{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.55}
+  .note b{color:var(--ink)}
+  @media(max-width:900px){.wrap{padding:22px 18px 56px}.cards,.edge,.biz,.refs{grid-template-columns:1fr}.blocks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <b>Киноплан · персоны</b>
+    <nav><a href="hub.html">Хаб</a><a href="audit-board-standalone.html">Аудит</a><a href="scope-board-standalone.html">Scope</a></nav>
+  </header>
+
+  <div class="eyebrow">Два покупателя · без демографии</div>
+  <h1>Не портреты, <em>а ситуации</em></h1>
+  <p class="lead">Персона здесь — инструмент решения: в какой ситуации человек покупает,
+  что для него важно и что виджет обязан сделать. Без возраста, процентов и «любит кино».</p>
+  <div class="rule">
+    <span class="tag">A · определённый сеанс</span>
+    <span class="tag">B · сравнение сеансов</span>
+    <span class="tag">гость — крайний случай</span>
+    <span class="tag">прерывание — сквозное</span>
+  </div>
+
+  <div class="cards">
+    <article class="persona persona--a">
+      <div class="persona__band">A · покупатель определённого сеанса</div>
+      <div class="persona__head">
+        <div class="avatar">М</div>
+        <div>
+          <h2 class="persona__name" style="margin:0">Марина</h2>
+          <p class="persona__role">Собирает компанию на конкретный сеанс</p>
+        </div>
+      </div>
+      <blockquote class="quote">«Мне нужно взять несколько мест рядом и показать их компании, пока мы не передумали».</blockquote>
+      <div class="blocks">
+        <div class="block block--wide">
+          <h3>Ситуация</h3>
+          <p>Фильм и время согласованы в чате. Она открывает ссылку с телефона — часто в транспорте
+          или на ходу. Компания ждёт подтверждения, а разговор уже начат.</p>
+        </div>
+        <div class="block block--wide">
+          <h3>Работа</h3>
+          <p>Когда группа выбрала фильм и время, купить соседние места и закрыть организацию похода,
+          чтобы не возвращаться к вопросу в чате.</p>
+        </div>
+        <div class="block">
+          <h3>Что важно</h3>
+          <p>Соседние места, одобрение компании, цена до выбора, понятный статус брони.</p>
+        </div>
+        <div class="block">
+          <h3>Что мешает</h3>
+          <p>Компания не видит, какие места выбраны; места заняли, пока выбирала; тултип закрывает зал; цена появляется поздно.</p>
+        </div>
+        <div class="block">
+          <h3>Триггер</h3>
+          <p>Ссылка из чата или сайт кинотеатра. Цена видна сразу — значит, можно решать.</p>
+        </div>
+        <div class="block">
+          <h3>Страх</h3>
+          <p>«Возьму неудобные места: компании не понравится боковой ряд или проход, а переиграть уже нельзя».</p>
+        </div>
+      </div>
+      <div class="need">
+        <h3>Виджет должен</h3>
+        <p>Взять несколько мест рядом, дать ссылку на выбор компании, показать цену, удержать места,
+        пустить гостя, выдать QR и письмо.</p>
+      </div>
+      <div class="checks"><b>Проверка:</b> задание «купи несколько мест, отправь выбор компании, дождись ответа».</div>
+    </article>
+
+    <article class="persona persona--b">
+      <div class="persona__band">B · покупатель, сравнивающий сеансы</div>
+      <div class="persona__head">
+        <div class="avatar">Д</div>
+        <div>
+          <h2 class="persona__name" style="margin:0">Денис</h2>
+          <p class="persona__role">Выбирает между сеансами по цене и месту</p>
+        </div>
+      </div>
+      <blockquote class="quote">«Я готов подождать, но не готов переплатить за кресло у стены».</blockquote>
+      <div class="blocks">
+        <div class="block block--wide">
+          <h3>Ситуация</h3>
+          <p>Открывает несколько сеансов одного фильма, сравнивает цену, зал и места. Бюджет ограничен,
+          решение принимает сам; может вернуться к первому варианту.</p>
+        </div>
+        <div class="block block--wide">
+          <h3>Работа</h3>
+          <p>Когда выбираю между сеансами, сравнить цену и места и вернуться к варианту,
+          не начиная выбор заново.</p>
+        </div>
+        <div class="block">
+          <h3>Что важно</h3>
+          <p>Цена в расписании, зоны, честная доступность, сохранение выбора при смене сеанса.</p>
+        </div>
+        <div class="block">
+          <h3>Что мешает</h3>
+          <p>Цена только в зале; при смене сеанса выбор теряется; легенда одна, а цены разные.</p>
+        </div>
+        <div class="block">
+          <h3>Триггер</h3>
+          <p>Цена «от» в карточке сеанса и понятная зона: видно, за что платишь.</p>
+        </div>
+        <div class="block">
+          <h3>Страх</h3>
+          <p>«Цена в виджете не совпала с ожиданием» — тогда уходит в агрегатор.</p>
+        </div>
+      </div>
+      <div class="need">
+        <h3>Виджет должен</h3>
+        <p>Показать «от» в сеансе, зоны и цену в тултипе, сохранить выбор при переключении,
+        не врать о доступности.</p>
+      </div>
+      <div class="checks"><b>Проверка:</b> задание «сравни два сеанса по бюджету и вернись к первому».</div>
+    </article>
+  </div>
+
+  <div class="edge">
+    <div>
+      <b>Ольга · гость по ссылке</b>
+      <span>Не третья персона, а крайний случай: покупает по просьбе, без аккаунта, читает каждый
+      текст. Проверяет гостевой путь, один чекбокс и понятный билет.</span>
+    </div>
+    <div>
+      <b>Сквозное условие · прервали</b>
+      <span>Относится к обеим: сохранить выбор или заказ, показать статус, не платить дважды.
+      Это не сегмент — это условие сценария.</span>
+    </div>
+  </div>
+
+  <h2>Боли бизнеса</h2>
+  <p class="sub">Не персона, а ограничение: таймер, данные и поддержка. Таймер — не только
+  мотивация, но и управление местами.</p>
+  <div class="biz">
+    <div>
+      <b>Удержание и выручка</b>
+      <span>Долгая бронь блокирует лучшие места: человек «играется», зал не продаётся.
+      Короткая — тревожит и рождает отказы. В Яндекс Афише таймер виден и мотивирует купить
+      быстрее; для кинотеатра это ещё и управление тем, сколько мест остаётся в продаже.
+      Нужен управляемый срок и авто-релиз при уходе.</span>
+    </div>
+    <div>
+      <b>Конверсия без данных</b>
+      <span>Нет событий по шагам — не видно, где теряются деньги и как влияет длина удержания.</span>
+    </div>
+    <div>
+      <b>Поддержка и возвраты</b>
+      <span>«Деньги списались, билета нет», повторные списания и возвраты — ручная работа кассы.</span>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:12px"><b style="color:var(--ink)">Что меняем:</b> таймер с авто-релизом
+  и понятной подписью; события воронки; ссылка «поделиться выбором» на оформлении, чтобы компания
+  одобрила места до оплаты; билет сразу после оплаты.</p>
+
+  <h2>Чем A отличается от B</h2>
+  <p class="sub">Одна таблица, чтобы не спорить «кто главный»: разные ситуации — разные решения.</p>
+  <table class="matrix">
+    <tr><th></th><th>Марина · A</th><th>Денис · B</th></tr>
+    <tr><td>Ситуация</td><td>Компания уже ждёт; фильм и время выбраны</td><td>Ещё выбирает между сеансами</td></tr>
+    <tr><td>Решение</td><td>Соседние места, цена, билет</td><td>Цена «от», зоны, сохранение выбора</td></tr>
+    <tr><td>Главный риск</td><td>Потерять выбор и не получить билет</td><td>Переплатить или потерять прошлый вариант</td></tr>
+    <tr><td>Что проверяем</td><td>Завершение покупки на несколько мест</td><td>Возврат к сеансу без потери выбора</td></tr>
+  </table>
+
+  <h2>Примеры оформления для Figma</h2>
+  <p class="sub">Что брать: одна карточка на персону, цитата, 4 блока, сравнение рядом.
+  Что не брать: таблицу демографии и проценты.</p>
+  <div class="refs">
+    <a class="ref" href="https://www.figma.com/community/diagramming/user-persona" target="_blank" rel="noreferrer">
+      <b>Figma · User Persona Templates</b><span>Подборка шаблонов и FigJam-вариантов</span>
+    </a>
+    <a class="ref" href="https://www.figma.com/community/file/881830156311997001/user-persona-template" target="_blank" rel="noreferrer">
+      <b>Figma · User Persona Template</b><span>Компонентные секции, можно скрывать блоки</span>
+    </a>
+    <a class="ref" href="https://www.figma.com/community/file/1461160655599566005/user-personas-figma-templates-brix-agency" target="_blank" rel="noreferrer">
+      <b>BRIX · User Personas</b><span>Три раскладки: карточка, профиль, сравнение</span>
+    </a>
+    <a class="ref" href="https://www.figma.com/community/file/1157605740900013882/user-persona-figma-uxchunks-com" target="_blank" rel="noreferrer">
+      <b>UX Chunks · User Persona</b><span>Чистая типографика и блоки без лишнего</span>
+    </a>
+    <a class="ref" href="https://dribbble.com/shots/26768747-Modern-User-Persona-Template-for-UI-UX-Projects" target="_blank" rel="noreferrer">
+      <b>Dribbble · Modern Persona</b><span>Минимальная карточка для кейса</span>
+    </a>
+    <a class="ref" href="https://dribbble.com/shots/7503773-Proto-Persona-sample-layout" target="_blank" rel="noreferrer">
+      <b>Dribbble · Proto Persona</b><span>Человечный layout вместо таблицы</span>
+    </a>
+    <a class="ref" href="https://ixdf.org/literature/article/free-persona-template-step-by-step-guide" target="_blank" rel="noreferrer">
+      <b>IxDF · Persona Template</b><span>Формула истории: роль → цель → результат</span>
+    </a>
+  </div>
+
+  <footer class="note">
+    <b>Правило.</b> Никаких возраста, дохода и процентов, если они не меняют решение.
+    Персона отвечает на вопрос «что человек пытается сделать и что ему мешает», а не «сколько ему лет».
+    <br><b>Дальше.</b> Эти две карточки — макет для Figma: 1440×1020, две колонки, без фотографий
+    и стоковых лиц. Ольга и прерывание — отдельные полосы, не третья персона.
+  </footer>
+
+</div>
+</body>
+</html>

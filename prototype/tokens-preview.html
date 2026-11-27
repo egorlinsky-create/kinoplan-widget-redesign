@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Токены виджета Киноплан — превью для UI-кита</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root {
+    --page-bg: var(--color-bg-subtle);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 24px 64px;
+    background: var(--page-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  header { max-width: 1040px; margin: 0 auto 28px; display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); letter-spacing: -0.02em; }
+  .lead { margin: 6px 0 0; color: var(--color-text-secondary); font-size: var(--font-size-md); max-width: 620px; }
+  .toggle {
+    margin-left: auto;
+    display: inline-flex;
+    gap: 4px;
+    padding: 3px;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+  }
+  .toggle button {
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    font: inherit; font-size: var(--font-size-sm); color: var(--color-text-secondary);
+    padding: 7px 12px; border-radius: var(--radius-sm);
+  }
+  .toggle button[aria-pressed="true"] { background: var(--color-accent-subtle); color: var(--color-accent-default); font-weight: var(--font-weight-semibold); }
+
+  main { max-width: 1040px; margin: 0 auto; display: grid; gap: 20px; }
+  section {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    padding: 20px 22px;
+  }
+  h2 {
+    margin: 0 0 4px;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-semibold);
+  }
+  .note { margin: 0 0 16px; font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+  .sw { display: grid; gap: 6px; }
+  .sw i {
+    display: block; height: 52px; border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-default);
+  }
+  .sw b { font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); }
+  .sw span { font-size: 10.5px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+
+  table { width: 100%; border-collapse: collapse; font-size: var(--font-size-md); }
+  th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--color-border-default); vertical-align: middle; }
+  th { font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-text-secondary); font-weight: var(--font-weight-semibold); }
+  td code { font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    height: var(--size-control-lg);
+    padding: 0 var(--space-8);
+    border-radius: var(--radius-md);
+    font: inherit; font-size: var(--font-size-base); font-weight: var(--font-weight-semibold);
+    background: var(--component-button-primary-bg); color: var(--component-button-primary-text);
+    transition: background .16s ease;
+  }
+  .btn:hover { background: var(--component-button-primary-bgHover); }
+  .btn:active { background: var(--component-button-bgPressed, var(--color-accent-pressed)); }
+  .btn[disabled] { background: var(--component-button-bgDisabled); color: var(--component-button-textDisabled); cursor: default; }
+  .btn--sec { background: var(--component-button-secondary-bg); color: var(--component-button-secondary-text); }
+  .btn--sec:hover { background: var(--component-button-secondary-bgHover); }
+
+  .field {
+    height: var(--component-input-height);
+    width: 260px;
+    border: 1px solid var(--component-input-border);
+    border-radius: var(--component-input-radius);
+    background: var(--component-input-bg);
+    padding: 0 13px;
+    font: inherit;
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+  }
+  .field::placeholder { color: var(--component-input-placeholder); }
+  .field:focus { outline: 0; border-color: var(--component-input-borderFocus); box-shadow: 0 0 0 3px var(--color-accent-subtle); }
+  .field[data-invalid="true"] { border-color: var(--component-input-borderError); box-shadow: 0 0 0 3px var(--color-feedback-errorSurface); }
+
+  .seats { display: flex; gap: 8px; align-items: center; }
+  .seat {
+    width: var(--size-seat-md); height: var(--size-seat-md);
+    border-radius: 5px 5px 3px 3px;
+    display: inline-block;
+  }
+  .seat--side { background: var(--color-seat-availableSide); }
+  .seat--center { background: var(--color-seat-availableCenter); }
+  .seat--vip { background: var(--color-seat-availableVip); }
+  .seat--taken { background: var(--color-seat-taken); box-shadow: inset 0 0 0 1px var(--color-seat-takenBorder); }
+  .seat--sel { background: var(--color-seat-selected); position: relative; }
+  .seat--sel::after {
+    content: ""; position: absolute; left: 50%; top: 46%;
+    width: 8px; height: 4px; border-left: 1.8px solid var(--color-seat-selectedMark);
+    border-bottom: 1.8px solid var(--color-seat-selectedMark);
+    transform: translate(-50%, -60%) rotate(-45deg);
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; height: 20px; padding: 0 7px;
+    border-radius: var(--radius-xs);
+    font-size: 10.5px; font-weight: var(--font-weight-semibold);
+    text-transform: uppercase; letter-spacing: 0.02em;
+    background: var(--color-bg-muted); color: var(--color-text-primary);
+  }
+  .badge--accent { background: var(--color-accent-default); color: var(--color-accent-onAccent); }
+  .badge--error { background: var(--color-feedback-errorSurface); color: var(--color-feedback-error); }
+  .badge--success { background: var(--color-feedback-successSurface); color: var(--color-feedback-success); }
+
+  .stack { display: grid; gap: 10px; }
+  .shadow-demo { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .shadow-box {
+    height: 64px; border-radius: var(--radius-lg); background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    display: grid; place-items: center; font-size: var(--font-size-xs); color: var(--color-text-secondary);
+  }
+  .radius-demo { display: flex; gap: 10px; flex-wrap: wrap; }
+  .radius-box {
+    width: 64px; height: 64px; background: var(--color-accent-subtle); border: 1px solid var(--color-accent-default);
+    display: grid; place-items: end center; padding-bottom: 6px;
+    font-size: 10.5px; color: var(--color-accent-default);
+  }
+  .space-demo { display: grid; gap: 6px; }
+  .space-line { display: flex; align-items: center; gap: 10px; font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+  .space-line i { height: 10px; background: var(--color-accent-default); border-radius: 2px; display: inline-block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Токены виджета Киноплан</h1>
+    <p class="lead">Собраны из вычисленных стилей и CSS-деклараций живого виджета 20.11.2026. Это основа UI-кита: каждый элемент ниже должен собираться только из переменных.</p>
+  </div>
+  <div class="toggle" role="group" aria-label="Тема">
+    <button type="button" data-theme-btn="light" aria-pressed="true">Светлая</button>
+    <button type="button" data-theme-btn="dark" aria-pressed="false">Тёмная</button>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2>Примитивы · серый</h2>
+    <p class="note">Серая шкала из виджета: 25…900. Совпадает с системной палитрой iOS, которую Киноплан использует напрямую.</p>
+    <div class="swatches" id="grays"></div>
+  </section>
+
+  <section>
+    <h2>Примитивы · акцент и статусы</h2>
+    <p class="note">Акцент основной кнопки #0A7AFF, в теме vkgid — #0077FF. Ошибка #FF3B30, предупреждение #CF7900. Зелёный и зоны зала — расширение для редизайна.</p>
+    <div class="swatches" id="accents"></div>
+  </section>
+
+  <section>
+    <h2>Семантика</h2>
+    <p class="note">То, чем пользуются компоненты. Переключите тему — значения подменяются, имена остаются.</p>
+    <table>
+      <thead><tr><th>Токен</th><th>Светлая</th><th>Тёмная</th><th>Применение</th></tr></thead>
+      <tbody id="semantic"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Типографика</h2>
+    <p class="note">Шрифт Manrope (Light / Regular / SemiBold / Bold) подключён в самом виджете. Стек с BlinkMacSystemFont — фолбэк для старых экранов, где Manrope не применяется.</p>
+    <div class="stack" id="type"></div>
+  </section>
+
+  <section>
+    <h2>Кнопки и поля</h2>
+    <p class="note">Высота 48 px — как у основной кнопки виджета. Радиус 8 px — самый частый радиус в их CSS (42 объявления).</p>
+    <div class="row" style="margin-bottom:16px">
+      <button class="btn">Оплатить 1 300 ₽</button>
+      <button class="btn btn--sec">Назад</button>
+      <button class="btn" disabled>Места не выбраны</button>
+    </div>
+    <div class="row">
+      <input class="field" placeholder="Ваша электронная почта">
+      <input class="field" placeholder="Неверный адрес" data-invalid="true">
+    </div>
+  </section>
+
+  <section>
+    <h2>Состояния места</h2>
+    <p class="note">Заливка доступного места — конвенция рынка (Яндекс Афиша, Ticketland, seats.io). Цвет = ценовая зона.</p>
+    <div class="row" style="margin-bottom:14px">
+      <span class="seats"><i class="seat seat--side"></i><span>боковое</span></span>
+      <span class="seats"><i class="seat seat--center"></i><span>центр</span></span>
+      <span class="seats"><i class="seat seat--vip"></i><span>VIP</span></span>
+      <span class="seats"><i class="seat seat--taken"></i><span>занято</span></span>
+      <span class="seats"><i class="seat seat--sel"></i><span>выбрано</span></span>
+    </div>
+    <div class="row">
+      <span class="badge badge--accent">Премьера</span>
+      <span class="badge">Пушкинская карта</span>
+      <span class="badge badge--error">Мало мест</span>
+      <span class="badge badge--success">Бонусы</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Радиусы</h2>
+    <p class="note">В CSS виджета одновременно живут 12 разных радиусов. В токенах оставлено семь.</p>
+    <div class="radius-demo" id="radii"></div>
+  </section>
+
+  <section>
+    <h2>Тени</h2>
+    <p class="note">Собраны из тех, что реально используются: кнопка зума, тултип, попап, карточка.</p>
+    <div class="shadow-demo" id="shadows"></div>
+  </section>
+
+  <section>
+    <h2>Отступы</h2>
+    <p class="note">Шаг 2/4/8/16/20/24/32. В виджете встречаются 15 и 30 px — выравниваем к сетке.</p>
+    <div class="space-demo" id="spaces"></div>
+  </section>
+
+</main>
+
+<script>
+  const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  const hex = (v) => {
+    const m = v.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+    if (!m) return v.toUpperCase();
+    const to = (n) => Number(n).toString(16).padStart(2, "0");
+    return "#" + to(m[1]) + to(m[2]) + to(m[3]);
+  };
+
+  function swatch(host, name, label) {
+    const value = cssVar(name);
+    const el = document.createElement("div");
+    el.className = "sw";
+    el.innerHTML = `<i style="background:var(${name})"></i><b>${label}</b><span>${hex(value)}</span>`;
+    host.appendChild(el);
+  }
+
+  const grays = document.getElementById("grays");
+  ["25", "50", "75", "100", "200", "300", "400", "500", "600", "800", "900"].forEach((g) =>
+    swatch(grays, `--color-primitive-gray-${g}`, `gray.${g}`)
+  );
+
+  const accents = document.getElementById("accents");
+  [
+    ["--color-primitive-blue-500", "blue.500"],
+    ["--color-primitive-blue-600", "blue.600"],
+    ["--color-primitive-blue-400", "blue.400"],
+    ["--color-primitive-blue-50", "blue.50"],
+    ["--color-primitive-red-500", "red.500"],
+    ["--color-primitive-amber-500", "amber.500"],
+    ["--color-primitive-green-500", "green.500"],
+    ["--color-primitive-zone-side", "zone.side"],
+    ["--color-primitive-zone-center", "zone.center"],
+    ["--color-primitive-zone-vip", "zone.vip"],
+  ].forEach(([v, l]) => swatch(accents, v, l));
+
+  const semantic = [
+    ["--color-text-primary", "текст основной"],
+    ["--color-text-secondary", "текст вторичный"],
+    ["--color-text-disabled", "текст недоступный"],
+    ["--color-bg-canvas", "фон виджета"],
+    ["--color-bg-surface", "поверхность карточек"],
+    ["--color-bg-muted", "вторичная кнопка"],
+    ["--color-border-default", "границы"],
+    ["--color-accent-default", "акцент"],
+    ["--color-feedback-error", "ошибка"],
+    ["--color-feedback-success", "успех"],
+  ];
+  const sbody = document.getElementById("semantic");
+
+  // значения тёмной темы читаем из скрытого поддерева с data-theme="dark"
+  const probe = document.createElement("div");
+  probe.setAttribute("data-theme", "dark");
+  probe.style.cssText = "position:absolute;left:-9999px;top:0;";
+  document.body.appendChild(probe);
+  function darkVar(name) {
+    return getComputedStyle(probe).getPropertyValue(name).trim();
+  }
+
+  function renderSemantic() {
+    sbody.innerHTML = semantic
+      .map(([name, use]) => {
+        const v = cssVar(name);
+        const d = darkVar(name) || v;
+        return `<tr><td><code>${name.replace("--color-", "")}</code></td>
+          <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;border:1px solid var(--color-border-default);background:var(${name});vertical-align:-3px;margin-right:6px"></span>${hex(v)}</td>
+          <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;border:1px solid var(--color-border-default);background:${d};vertical-align:-3px;margin-right:6px"></span>${hex(d)}</td>
+          <td>${use}</td></tr>`;
+      })
+      .join("");
+  }
+  renderSemantic();
+
+  const types = [
+    ["display", "Заголовок-дисплей"],
+    ["heading", "Заголовок раздела"],
+    ["title", "Заголовок экрана"],
+    ["bodyStrong", "Текст акцентный"],
+    ["body", "Основной текст"],
+    ["captionStrong", "Подпись акцентная"],
+    ["caption", "Подпись"],
+  ];
+  document.getElementById("type").innerHTML = types
+    .map(([t, label]) => `<div class="text-${t}">${label} · ${t}</div>`)
+    .join("");
+
+  const radii = [
+    ["xs", "4"], ["sm", "6"], ["md", "8"], ["lg", "12"], ["xl", "16"], ["2xl", "24"], ["full", "999"],
+  ];
+  document.getElementById("radii").innerHTML = radii
+    .map(([n, px]) => `<div class="radius-box" style="border-radius:var(--radius-${n})">${n} · ${px}</div>`)
+    .join("");
+
+  const shadows = [
+    ["sm", "тень кнопки зума"], ["md", "карточка"], ["lg", "тултип"], ["popover", "попап"],
+  ];
+  document.getElementById("shadows").innerHTML = shadows
+    .map(([n, label]) => `<div class="shadow-box" style="box-shadow:var(--shadow-${n})">${label}</div>`)
+    .join("");
+
+  const spaces = [2, 4, 6, 8, 10, 12, 16, 20, 24, 32];
+  document.getElementById("spaces").innerHTML = spaces
+    .map((s) => `<div class="space-line"><i style="width:${s * 4}px;min-width:${s * 4}px"></i>space.${s} = ${s}px</div>`)
+    .join("");
+
+  document.querySelectorAll("[data-theme-btn]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const t = b.dataset.themeBtn;
+      document.documentElement.dataset.theme = t === "dark" ? "dark" : "";
+      document.querySelectorAll("[data-theme-btn]").forEach((x) =>
+        x.setAttribute("aria-pressed", String(x === b))
+      );
+      renderSemantic();
+    })
+  );
+</script>
+</body>
+</html>
+

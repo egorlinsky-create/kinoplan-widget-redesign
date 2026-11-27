@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+</head><body style="margin:0;background:#0B1220">
+<div id="out" style="color:#fff;font:14px monospace;padding:20px">loading…</div>
+<script type="module">
+try {
+  const THREE = await import('three');
+  const { RoundedBoxGeometry } = await import('three/addons/geometries/RoundedBoxGeometry.js');
+  const g = new RoundedBoxGeometry(1,1,1,4,0.12);
+  document.getElementById('out').textContent = 'OK three ' + THREE.REVISION + ' verts ' + g.attributes.position.count;
+} catch (e) {
+  document.getElementById('out').textContent = 'FAIL ' + e.message;
+}
+</script></body></html>

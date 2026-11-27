@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карта эмпатий · Киноплан</title>
+<link rel="stylesheet" href="board.css">
+<style>
+  h1 { max-width: 21ch; }
+  .notice {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 16px 18px;
+    background: var(--amber-soft);
+    border: 1px solid #f0d9b3;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .notice b { color: var(--amber); }
+  .notice__label {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding-top: 2px;
+  }
+  .notice p { margin: 0; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot--audit { background: var(--ink); }
+  .dot--hyp { background: var(--amber); }
+  .dot--sim { background: #8a6d3b; }
+  .dot--rev { background: var(--accent); }
+
+  .maps { margin-top: 26px; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .map {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .map__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 26px;
+    padding: 20px 22px 18px;
+    border-bottom: 1px solid var(--line);
+    background: #faf7f0;
+  }
+  .map__id {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .map__name {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.05;
+    letter-spacing: -.035em;
+    font-weight: 800;
+  }
+  .map__role { margin: 5px 0 0; font-size: 13px; color: var(--muted); }
+  .map__job { margin: 0; max-width: 48ch; font-size: 13.5px; line-height: 1.5; color: #3c372e; }
+  .map__job b { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+
+  .quads { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .quad {
+    --q: var(--ink);
+    padding: 17px 18px 18px;
+    border-right: 1px solid var(--line);
+    border-top: 3px solid var(--q);
+    min-width: 0;
+  }
+  .quad:last-child { border-right: 0; }
+  .quad--says { --q: var(--accent); }
+  .quad--thinks { --q: var(--amber); }
+  .quad--does { --q: var(--green); }
+  .quad--feels { --q: var(--red); }
+  .quad h3 {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--q);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .quad h3 span {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-transform: none;
+    color: var(--muted);
+  }
+  .quad__hint { margin: 0 0 10px; font-size: 11px; line-height: 1.4; color: var(--muted); }
+
+  .items { list-style: none; margin: 0; padding: 0; }
+  .items li { padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .items li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .items li:first-child { padding-top: 0; }
+  .items p { margin: 0 0 5px; font-size: 13px; line-height: 1.45; }
+  .items .src { font-size: 10.5px; line-height: 1.4; color: var(--muted); }
+
+  .review { margin: 0 0 6px; font-size: 14.5px; line-height: 1.4; letter-spacing: -.01em; }
+  .review cite { display: block; margin-top: 5px; font-size: 11px; font-style: normal; color: var(--muted); }
+
+  .tag-src {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 10px;
+    line-height: 1.5;
+    white-space: nowrap;
+    color: var(--muted);
+    background: #faf7f0;
+    text-decoration: none;
+  }
+  .tag-src:hover { border-color: var(--ink); color: var(--ink); }
+  .tag-src--hyp { border-color: #f0d9b3; background: var(--amber-soft); color: #8a4a05; }
+  .tag-src--rev { border-color: #b9d3ff; background: var(--accent-soft); color: #064ba6; }
+  .tag-src--sim { border-color: #e2d3c2; background: #f4eee5; color: #6b5a44; }
+
+  .empty {
+    border: 1px dashed #c9c1b1;
+    border-radius: 10px;
+    padding: 10px 11px;
+    background: repeating-linear-gradient(135deg, #faf7f0, #faf7f0 6px, #f6f1e6 6px, #f6f1e6 12px);
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: #6e675a;
+  }
+  .empty b { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); margin-bottom: 3px; }
+
+  .pg { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+  .pg__col { background: var(--surface); padding: 18px 20px 20px; }
+  .pg__label { display: flex; align-items: center; gap: 7px; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+  .pg__label i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .pg--pains .pg__label { color: var(--red); }
+  .pg--gains .pg__label { color: var(--green); }
+  .pg ul { list-style: none; margin: 0; padding: 0; }
+  .pg li { padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 13px; line-height: 1.45; }
+  .pg li:first-child { padding-top: 0; }
+  .pg li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .pg .src { margin-top: 4px; font-size: 10.5px; line-height: 1.4; color: var(--muted); }
+  .say { padding-left: 12px; border-left: 2px solid var(--accent); }
+  .say p { font-style: italic; font-size: 13.5px; }
+  @media (max-width: 1000px) { .pg { grid-template-columns: 1fr; } .pg__col + .pg__col { border-top: 1px solid var(--line); } }
+
+  .states { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .state { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 17px 19px; }
+  .state h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: -.015em; }
+  .state p { margin: 0 0 8px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .state .fix { padding-top: 9px; border-top: 1px solid var(--line); font-size: 12.5px; }
+  .state .fix b { color: var(--ink); }
+
+  .matrix { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: 13px; margin-top: 18px; }
+  .matrix th, .matrix td { padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .matrix th { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: #faf7f0; }
+  .matrix tr:last-child td { border-bottom: 0; }
+  .matrix td:first-child { font-weight: 600; width: 27%; }
+  .matrix td:last-child { color: var(--muted); }
+
+  .sims { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .sim { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .sim blockquote { margin: 0 0 8px; font-size: 15px; line-height: 1.4; letter-spacing: -.01em; }
+  .sim p { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--muted); }
+  .sim .tag-src { margin-bottom: 8px; }
+
+  .gaps { display: grid; grid-template-columns: 1.15fr .85fr; gap: 26px; margin-top: 18px; align-items: start; }
+  .gaps h3 { margin: 0 0 8px; font-size: 16px; letter-spacing: -.015em; }
+  .gaps p { margin: 0 0 10px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .qs { margin: 0; padding: 0; list-style: none; counter-reset: q; }
+  .qs li { counter-increment: q; position: relative; padding: 7px 0 7px 26px; font-size: 13px; line-height: 1.45; border-bottom: 1px solid var(--line); }
+  .qs li:last-child { border-bottom: 0; }
+  .qs li::before { content: counter(q); position: absolute; left: 0; top: 8px; width: 17px; height: 17px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+
+  .prompt {
+    margin: 18px 0 0;
+    padding: 20px 22px;
+    background: var(--ink);
+    color: #f7f2e7;
+    border-radius: 16px;
+    font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .prompt b { color: #8ec0ff; font-weight: 600; }
+
+  .sources { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+  .sources a { display: block; padding: 11px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; text-decoration: none; font-size: 12.5px; }
+  .sources a:hover { border-color: var(--accent); }
+  .sources a b { display: block; font-size: 13.5px; margin-bottom: 2px; }
+  .sources a span { color: var(--muted); font-size: 11.5px; }
+
+  .note b { display: inline; }
+
+  @media (max-width: 1000px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .quads { grid-template-columns: 1fr 1fr; }
+    .quad:nth-child(2) { border-right: 0; }
+    .quad:nth-child(1), .quad:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .map__head { display: block; }
+    .map__job { margin-top: 10px; max-width: none; }
+    .gaps, .states, .sims, .sources { grid-template-columns: 1fr; }
+    .notice { grid-template-columns: 1fr; gap: 6px; }
+  }
+  @media (max-width: 620px) {
+    .quads { grid-template-columns: 1fr; }
+    .quad { border-right: 0; border-bottom: 1px solid var(--line); }
+    .quad:nth-child(3) { border-bottom: 1px solid var(--line); }
+    .matrix { font-size: 12px; }
+    .matrix th:nth-child(3), .matrix td:nth-child(3) { display: none; }
+  }
+  @media print {
+    .map, .state, .sim, .matrix { break-inside: avoid; }
+    .prompt { background: #f2f2f5; color: var(--ink); }
+    .prompt b { color: #064ba6; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <strong>Киноплан · карта эмпатий</strong>
+    <nav>
+      <a href="hub.html">Хаб</a>
+      <a href="personas-board.html">Персоны</a>
+      <a href="audit-board-standalone.html">Аудит</a>
+      <a href="scope-board-standalone.html">Scope</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Предварительная карта · 26 ноября 2026</div>
+  <h1>Что зритель <em>говорит, думает и делает</em></h1>
+  <p class="lead">Карта собрана по аудиту живого виджета «Горизонт», конкурентным примерам и трём
+  публичным отзывам о покупке на сайте. Живых интервью не было: поэтому у каждого пункта стоит
+  источник, «Says» держит только дословные фрагменты, а «Thinks» и «Feels» помечены как гипотезы.</p>
+
+  <div class="notice">
+    <div class="notice__label">Статус</div>
+    <p><b>Предварительно, не исследование.</b> Интервью не проводились, событий по шагам нет,
+    отзывов именно об этом виджете — три, и частотность их неизвестна. Карта показывает, что мы
+    знаем, и оставляет пустые места там, где данных нет. Отзывы о чужих сборах сюда не переносим:
+    другой канал и другие условия.</p>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot dot--audit"></i>аудит — наблюдение в живом виджете, 20–23.11</span>
+    <span><i class="dot dot--rev"></i>отзыв — дословная публичная цитата о покупке</span>
+    <span><i class="dot dot--hyp"></i>H — гипотеза из <a href="HYPOTHESES.md">HYPOTHESES.md</a></span>
+    <span><i class="dot dot--sim"></i>симуляция — прогон персон, не доказательство</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>0</b><span>живых интервью</span></div>
+    <div class="stat"><b>8</b><span>узких мест аудита</span></div>
+    <div class="stat"><b>21</b><span>гипотеза</span></div>
+    <div class="stat"><b>3</b><span>публичных отзыва</span></div>
+  </div>
+
+  <div class="section" style="margin-top:44px">
+    <div class="section__head">
+      <h2>Два покупателя, две карты</h2>
+      <p>Делим по ситуации покупки, а не по возрасту. Один человек за вечер может попасть в обе.</p>
+    </div>
+
+    <div class="maps">
+
+      <!-- МАРИНА -->
+      <section class="map">
+        <div class="map__head">
+          <div>
+            <div class="map__id">A · покупатель определённого сеанса</div>
+            <h3 class="map__name">Марина</h3>
+            <p class="map__role">Собирает компанию на конкретный сеанс</p>
+          </div>
+          <p class="map__job"><b>Работа</b>Когда фильм и время выбраны компанией, взять соседние
+          места по понятной цене и закрыть организацию похода, чтобы не возвращаться к вопросу в чате.</p>
+        </div>
+        <div class="quads">
+
+          <div class="quad quad--says">
+            <h3>Says <span>говорит</span></h3>
+            <p class="quad__hint">Дословные фрагменты публичных отзывов о покупке на сайте кинотеатра.</p>
+            <ul class="items">
+              <li>
+                <div class="say"><p>«Ошибочно приобрела билеты, на сайте возврат не было возможности сделать.
+                Администрация кинотеатра быстро пошла на встречу».</p></div>
+                <div class="src"><a class="tag-src tag-src--rev" href="#sources">отзыв · Виктория Онищенко</a> ошибка при покупке, возврат только через кинотеатр</div>
+              </li>
+              <li>
+                <div class="say"><p>«Вежливый персонал, чистый и удобный кинозал с возможностью покупки
+                билетов онлайн».</p></div>
+                <div class="src"><a class="tag-src tag-src--rev" href="#sources">отзыв · Cs City spirit</a> онлайн-покупка названа удобством</div>
+              </li>
+              <li>
+                <div class="empty"><b>Чего не хватает</b>Ни одной цитаты про «взять места рядом» и
+                «показать их компании». Частотность отзывов неизвестна, переносить их выводы на весь
+                сценарий нельзя.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--thinks">
+            <h3>Thinks <span>думает</span></h3>
+            <p class="quad__hint">Интерпретации. Каждая — гипотеза с основанием.</p>
+            <ul class="items">
+              <li>
+                <p>«Успею ли я взять места рядом, пока компания не передумала?»</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">H7 · RATIONALE §9</a> таймер и лист выбора</div>
+              </li>
+              <li>
+                <p>«Если я отвлёкся на сообщение — мой выбор ещё жив?»</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">RATIONALE §5</a> прерывание как сценарий</div>
+              </li>
+              <li>
+                <p>«Я оплатил. Почему меня просят вернуться на какой-то экран?»</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · п. 6</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H9</a></div>
+              </li>
+              <li>
+                <p>«Точно ли это Горизонт и тот сеанс?»</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит A1–A2</a> дата и адрес обрезаны</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--does">
+            <h3>Does <span>делает</span></h3>
+            <p class="quad__hint">Только наблюдаемое: проход по живому виджету, шаги прототипа.</p>
+            <ul class="items">
+              <li>
+                <p>Открывает виджет с телефона: он приходит новой вкладкой поверх сайта, «назад» ведёт не туда.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · п. 7</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H5</a></div>
+              </li>
+              <li>
+                <p>Тапает по креслам ≈20 px, промахивается и снимает выбор.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит S1</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H6</a></div>
+              </li>
+              <li>
+                <p>Ищет цену: уходит из зала в афишу и обратно, потому что в зале цена в тултипе не читается.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит S17</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H16–H17</a></div>
+              </li>
+              <li>
+                <p>Вводит email и телефон, не видя ни фильма, ни мест, ни суммы.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · п. 2</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H2</a></div>
+              </li>
+              <li>
+                <p>Уходит в приложение банка и не возвращается в виджет.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит P2</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H9</a></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--feels">
+            <h3>Feels <span>чувствует</span></h3>
+            <p class="quad__hint">Эмоции — тоже гипотеза. Прямо мы их не замеряли.</p>
+            <ul class="items">
+              <li>
+                <p>Тревога «то ли я покупаю» — на шаге, где нет сводки заказа.</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H2 · гипотеза</a></div>
+              </li>
+              <li>
+                <p>Раздражение от трёх согласий и фразы «продолжая, вы принимаете…».</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит C2</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H3</a></div>
+              </li>
+              <li>
+                <p>Беспомощность у серой кнопки: нажатие не объясняет, чего не хватает.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · п. 4</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H4</a></div>
+              </li>
+              <li>
+                <p>Страх потерять места и заплатить дважды, если оплата «подвисла».</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит P2, P4</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H9</a></div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="pg">
+          <div class="pg__col pg--pains">
+            <div class="pg__label"><i></i>Боли · что отнимает покупку</div>
+            <ul>
+              <li>Компания уже решила идти, а места приходится собирать по одному — и в любой момент их может забрать кто-то другой.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит §2</a> подбора группы мест нет</div></li>
+              <li>Ошибка в дате стоит денег: возврат на сайте недоступен, идти к администратору.
+                <div class="src"><a class="tag-src tag-src--rev" href="#sources">отзыв Егора Панфилова</a> 900 ₽ и испорченный вечер</div></li>
+              <li>Закрыл виджет — потерял и места, и экран, и заказ.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · выход во время оформления</a></div></li>
+              <li>Ввод контактов без фильма, мест и суммы: непонятно, за что платишь.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит §2.2</a></div></li>
+            </ul>
+          </div>
+          <div class="pg__col pg--gains">
+            <div class="pg__label"><i></i>Выгоды · что вернёт зрителя</div>
+            <ul>
+              <li>Взять места рядом одним действием и видеть группу до оплаты.
+                <div class="src"><a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H12 · гипотеза</a></div></li>
+              <li>Убедиться в дате и сеансе на том экране, где выбираешь места.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · дата на схеме зала</a></div></li>
+              <li>Билет с QR сразу на экране успеха — не искать письмо у входа.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит живого экрана успеха</a></div></li>
+              <li>Вернуться к своему заказу после паузы, а не начинать с афиши.
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">RATIONALE §5</a></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ДЕНИС -->
+      <section class="map">
+        <div class="map__head">
+          <div>
+            <div class="map__id">B · покупатель, сравнивающий сеансы</div>
+            <h3 class="map__name">Денис</h3>
+            <p class="map__role">Выбирает между сеансами по цене и месту</p>
+          </div>
+          <p class="map__job"><b>Работа</b>Когда выбираю между сеансами одного фильма, сравнить цену
+          и места и вернуться к прежнему варианту, не начиная выбор заново.</p>
+        </div>
+        <div class="quads">
+
+          <div class="quad quad--says">
+            <h3>Says <span>говорит</span></h3>
+            <p class="quad__hint">Дословный фрагмент публичного отзыва о сбое при покупке на сайте.</p>
+            <ul class="items">
+              <li>
+                <div class="say"><p>«Из-за неправильной работы сайта кинотеатра я случайно купил билет
+                не на ту дату, а на дату за 1 день до планируемой... ни перезаписать меня на другой
+                день, ни вернуть деньги за билеты нельзя».</p></div>
+                <div class="src"><a class="tag-src tag-src--rev" href="#sources">отзыв · Егор Панфилов</a> сравнение сеансов и выбор даты</div>
+              </li>
+              <li>
+                <div class="empty"><b>Чего не хватает</b>Никто из отзывов не говорит про сравнение цены
+                между сеансами. Это остаётся гипотезой из аудита, а не словами зрителя.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--thinks">
+            <h3>Thinks <span>думает</span></h3>
+            <p class="quad__hint">Интерпретации с пометкой «гипотеза».</p>
+            <ul class="items">
+              <li>
+                <p>«450 — это за одного? А за двоих сколько?»</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="research/ai-native-usability-test.md">симуляция · гипотеза</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H17</a></div>
+              </li>
+              <li>
+                <p>«Вернусь к первому сеансу — выбор сохранится или всё заново?»</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">RATIONALE §4</a> <a class="tag-src" href="PERSONAS-FLOWS.md">PERSONAS-FLOWS</a></div>
+              </li>
+              <li>
+                <p>«Почему кресло у стены стоит почти как центр?»</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H16–H17 · гипотеза</a></div>
+              </li>
+              <li>
+                <p>«Может, в агрегаторе дешевле и понятнее?»</p>
+                <div class="src"><a class="tag-src" href="competitor_ux_patterns.md">конкуренты</a> цена в списке сеансов</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--does">
+            <h3>Does <span>делает</span></h3>
+            <p class="quad__hint">Наблюдаемое поведение в виджете и на рынке.</p>
+            <ul class="items">
+              <li>
+                <p>Прокликивает сеансы и возвращается в афишу, чтобы узнать цену, — выбор места при этом сбрасывается.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит S17</a></div>
+              </li>
+              <li>
+                <p>Смотрит легенду с одной ценой, хотя в больших залах три зоны.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит §2.1</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H17</a></div>
+              </li>
+              <li>
+                <p>Открывает карточку места: цена там одного веса с рядом и местом, поэтому не читается.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит §2.1</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H16</a></div>
+              </li>
+              <li>
+                <p>Сравнивает с Яндекс Афишей и КАРО, где цена «от» стоит прямо в сеансе.</p>
+                <div class="src"><a class="tag-src" href="BENCHMARK.md">бенчмарк</a> <a class="tag-src" href="competitor_ux_patterns.md">UX-паттерны</a></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="quad quad--feels">
+            <h3>Feels <span>чувствует</span></h3>
+            <p class="quad__hint">Гипотезы, выведенные из шагов и текстов интерфейса.</p>
+            <ul class="items">
+              <li>
+                <p>Раздражение: «сколько стоит» решается только входом в зал.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит A3</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H11</a></div>
+              </li>
+              <li>
+                <p>Тревога, что итог не совпадёт с ценой, которую увидел в сеансе.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит A3</a> <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H16 · гипотеза</a></div>
+              </li>
+              <li>
+                <p>Тревога потерять прошлый вариант при переключении сеанса.</p>
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">RATIONALE §4 · гипотеза</a></div>
+              </li>
+              <li>
+                <p>Усталость от лишних возвратов: сравнение стоит нескольких переходов.</p>
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит S17</a></div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="pg">
+          <div class="pg__col pg--pains">
+            <div class="pg__label"><i></i>Боли · что отнимает покупку</div>
+            <ul>
+              <li>Цену видно только внутри зала: чтобы сравнить два сеанса, нужно выйти и зайти снова, потеряв выбор.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит S17</a></div></li>
+              <li>Легенда с одной ценой при трёх зонах в большом зале: реальная сумма выясняется на оплате.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит §2.1</a></div></li>
+              <li>При переключении сеанса непонятно, сохранится ли выбор: ошибка стоит денег и вечера.
+                <div class="src"><a class="tag-src tag-src--rev" href="#sources">отзыв Егора Панфилова</a> не та дата</div></li>
+              <li>Время сеанса в переключателе не заметно — покупают не на тот день.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · переключение времени</a></div></li>
+            </ul>
+          </div>
+          <div class="pg__col pg--gains">
+            <div class="pg__label"><i></i>Выгоды · что вернёт зрителя</div>
+            <ul>
+              <li>Цена «от» прямо в переключателе: сеанс по бюджету находится без входа в зал.
+                <div class="src"><a class="tag-src" href="competitor_ux_patterns.md">паттерн конкурентов</a> KASSIR.RU, FreeTown</div></li>
+              <li>Легенда с зонами и ценой на тапе — выбор по деньгам без догадок.
+                <div class="src"><a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H16–H17 · гипотеза</a></div></li>
+              <li>Возврат к прежнему сеансу с сохранённым выбором — сравнивать, не теряя сделанное.
+                <div class="src"><a class="tag-src tag-src--hyp" href="RATIONALE.md">RATIONALE §4</a></div></li>
+              <li>Дата и время в шапке зала — ошибка в дне ловится до оплаты.
+                <div class="src"><a class="tag-src" href="AUDIT.md">аудит · дата на схеме зала</a></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Сквозные состояния</h2>
+      <p>Не персоны: случаются с обоими. Поэтому в картах их нет, а в решениях они есть.</p>
+    </div>
+    <div class="states">
+      <div class="state">
+        <h3>Гость по ссылке</h3>
+        <p>Кнопка «Войти или зарегистрироваться» обещает вход, но за ней ничего нет; при этом
+        гость проходит дальше и ставит три согласия.</p>
+        <div class="fix"><b>Из карты:</b> обещание без действия читается как обман. Нужен работающий
+        вход и гостевой путь без стены из галочек. <a class="tag-src" href="AUDIT.md">аудит U3</a>
+        <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H19</a></div>
+      </div>
+      <div class="state">
+        <h3>Покупку прервали</h3>
+        <p>Состояние не сохраняется: вернувшись, человек начинает заново и не понимает, действителен
+        ли прежний заказ.</p>
+        <div class="fix"><b>Из карты:</b> страх потери прогресса сильнее желания вернуться. Нужен
+        «Незавершённый заказ» с местами и сроком. <a class="tag-src" href="RATIONALE.md">RATIONALE §5</a></div>
+      </div>
+      <div class="state">
+        <h3>Места заняли</h3>
+        <p>Сценарий заканчивается тупиком: замена не предлагается, выбор приходится начинать заново.</p>
+        <div class="fix"><b>Из карты:</b> это не редкий случай, а норма популярного сеанса. Нужны
+        смежные альтернативы и честное «эти места только что купили». <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H12</a></div>
+      </div>
+      <div class="state">
+        <h3>Оплата и билет</h3>
+        <p>Виджет предупреждает вернуться после оплаты; экран успеха показывает QR и номер заказа,
+        но не фильм, сеанс и места.</p>
+        <div class="fix"><b>Из карты:</b> человек не знает, куда идти за билетом. Нужен возврат в
+        виджет и билет с деталями сеанса. <a class="tag-src" href="RATIONALE.md">RATIONALE §8</a>
+        <a class="tag-src tag-src--hyp" href="HYPOTHESES.md">H9</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Что из карты следует</h2>
+      <p>Каждая строка — наблюдение, решение и метрика, по которой гипотеза может провалиться.</p>
+    </div>
+    <table class="matrix">
+      <tr><th>Что видно в карте</th><th>Что меняем</th><th>Гипотеза</th><th>Чем мерим</th></tr>
+      <tr><td>Ввод контактов без фильма и суммы</td><td>Сводка заказа на оформлении</td><td>H2</td><td>CR оформления, возвраты назад к местам</td></tr>
+      <tr><td>Три согласия, одно противоречит себе</td><td>Одно согласие с раскрытием документов</td><td>H3</td><td>Доля сессий без согласия, обращения «зачем столько галочек»</td></tr>
+      <tr><td>Серая кнопка молчит</td><td>Активная кнопка, ошибка у поля</td><td>H4</td><td>Доля ошибок, исправленных с первой попытки</td></tr>
+      <tr><td>Кресла ≈20 px, тултип закрывает зал</td><td>Зал на весь экран, список выбранных в листе</td><td>H6–H7</td><td>Отмены мест на сессию, время до оформления</td></tr>
+      <tr><td>Цена только внутри зала, легенда с одной ценой</td><td>«от» в сеансе, зоны и цена на тапе</td><td>H11, H16–H17</td><td>Возвраты из зала в афишу, отказы на оплате</td></tr>
+      <tr><td>Таймер виден только на оплате</td><td>Таймер с первого экрана зала</td><td>H8</td><td>Истёкшие удержания, CR оплаты</td></tr>
+      <tr><td>Ушёл в банк и не вернулся</td><td>Возврат в виджет, экран «Билеты готовы»</td><td>H9</td><td>Доля оплат до экрана успеха, тикеты «билет не пришёл»</td></tr>
+      <tr><td>Вход обещан, но не работает</td><td>Вход по СМС, гость не блокируется</td><td>H19</td><td>Доля сессий со входом, CR авторизованных и гостей</td></tr>
+      <tr><td>Места заняли — тупик</td><td>Смежные альтернативы, замена в один шаг</td><td>H12</td><td>Доля восстановленных сессий после конфликта мест</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Слова из симуляции</h2>
+      <p>Не отзывы и не интервью. Прогон персон по кадрам — годится для гипотез, не для доказательств.</p>
+    </div>
+    <div class="sims">
+      <div class="sim">
+        <span class="tag-src tag-src--sim">симуляция · 23.11.2026</span>
+        <blockquote>«Ставлю все и не читаю. Но когда их три подряд, всегда ощущение, что где-то тут
+        прячется „подпишитесь на платное“».</blockquote>
+        <p>Марина, симуляция интервью. <a href="interview_marina.md">interview_marina.md</a>.
+        В «Says» не переносится: это сгенерированная реплика, а не слова зрителя.</p>
+      </div>
+      <div class="sim">
+        <span class="tag-src tag-src--sim">симуляция · 26.11.2026</span>
+        <blockquote>«Если нажму „Заменить“, места пропадут? А „Оставить“ — это остаться на 17:05?»</blockquote>
+        <p>Прогон сценария смены сеанса. <a href="research/ai-native-usability-test.md">ai-native-usability-test.md</a>.
+        Проверяет формулировку выбора, но не заменяет живого зрителя.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Чего в карте нет</h2>
+      <p>Пустые сектора — не ошибка, а честный статус. Вот чем их закрывать.</p>
+    </div>
+    <div class="gaps">
+      <div>
+        <h3>Что собрать</h3>
+        <p><b>«Says» почти пуст:</b> три цитаты на два сценария, и ни одна не про места рядом или
+        сравнение цены — то есть ровно про то, что мы переделываем. Чтобы сектор стал
+        доказательством, нужны:</p>
+        <ul class="qs">
+          <li>5–7 интервью по скрипту из <a href="PERSONAS-FLOWS.md">PERSONAS-FLOWS.md</a> — с записью последней покупки, а не с мнением о сайте.</li>
+          <li>Отзывы Афиши, Кинопоиска и 2ГИС за последний год — только те, где речь о покупке, цене, местах или билете.</li>
+          <li>Обращения поддержки: «деньги списались, билета нет», «места пропали», «не смогла оплатить».</li>
+          <li>Вопросы на кассе и возвраты — там, где сценарий уже сломался.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Вопросы, которые откроют «Thinks»</h3>
+        <ul class="qs">
+          <li>Вспомните последнюю покупку билетов. С чего всё началось?</li>
+          <li>Что вы знали заранее, а что выбирали на сайте?</li>
+          <li>Кто участвовал в решении и как согласовывали?</li>
+          <li>Был момент, когда хотели уйти или начать заново?</li>
+          <li>Что проверили перед оплатой?</li>
+          <li>Как потом нашли билет у входа?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Правило карты</h2>
+      <p>Промпт для следующей сборки. Главное — не заполнять пустоту правдоподобными цитатами.</p>
+    </div>
+    <div class="prompt"><b>Собери карту эмпатии на одного покупателя.</b>
+
+Says — только дословные цитаты из отзывов или интервью, с датой и ссылкой.
+Thinks и Feels — гипотезы: пометь «гипотеза» и назови наблюдение, из которого они выведены.
+Does — только наблюдаемые действия: аудит, запись сессии, шаги прототипа.
+
+Не придумывай цитаты. Для каждого пункта укажи источник или пометку «гипотеза».
+Если данных нет — оставь сектор пустым и напиши, чего не хватает.
+Карта предварительная, если интервью не проводились: подпиши это в заголовке.</div>
+  </div>
+
+  <div class="section">
+    <div class="section__head">
+      <h2>Источники</h2>
+      <p>Всё, на чём стоит карта. Цитаты — дословные фрагменты, гипотезы подписаны.</p>
+    </div>
+    <div class="sources" id="sources">
+      <a href="AUDIT.md"><b>Аудит виджета</b><span>8 узких мест, S1–S17, C, U, P — проход 20–23.11</span></a>
+      <a href="HYPOTHESES.md"><b>21 гипотеза</b><span>Проблема, эффект, метрика, риск</span></a>
+      <a href="RATIONALE.md"><b>Рамка кейса</b><span>Два покупателя, прерывание, цена, билет</span></a>
+      <a href="PERSONAS-FLOWS.md"><b>Режимы покупки</b><span>Ситуации и задания для проверки</span></a>
+      <a href="interview_marina.md"><b>Симуляция интервью</b><span>Помечена как симуляция, не доказательство</span></a>
+      <a href="research/ai-native-usability-test.md"><b>Прогон сценариев</b><span>Пять переделок, протокол реального теста</span></a>
+      <a href="WIDGET.md"><b>Границы виджета</b><span>Что входит, чего в нём нет, два режима входа</span></a>
+      <a href="personas-board.html"><b>Персоны</b><span>Те же два покупателя без демографии</span></a>
+      <a href="KINOPLAN-CASE.md"><b>Отзывы в кейсе</b><span>Три публичных отзыва: возврат, ошибка даты, онлайн-покупка</span></a>
+    </div>
+  </div>
+
+  <footer class="note">
+    <div><b>Статус.</b> Предварительная карта, 26.11.2026. Живых интервью нет, отзывов о покупке
+    три, численные эффекты гипотез — прогноз, а не замер.</div>
+    <div><b>Правило.</b> Цитата — только дословная и со ссылкой. Всё остальное — гипотеза с
+    основанием. Пустой сектор честнее придуманной фразы.</div>
+  </footer>
+
+</div>
+</body>
+</html>

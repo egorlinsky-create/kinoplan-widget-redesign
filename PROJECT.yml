@@ -1,0 +1,26 @@
+# Машиночитаемые факты проекта. Читают агенты и scripts/skills.ps1.
+id: kinoplan
+name: «Киноплан» — виджет продажи билетов (тестовое: аудит и редизайн)
+status: prototype
+updated: 2026-11-22
+
+code:
+  path: C:\Users\jonik\Documents\Проекты\Киноплан
+  repo: ""
+  run: открыть prototype/index.html в браузере
+  check: node _research/qa-redesign.cjs prototype/index.html; node _research/qa-dom.cjs; node tokens/build-tokens.mjs
+
+design:
+  system: нет
+  tokens: tokens/tokens.dtcg.json → node tokens/build-tokens.mjs → prototype/tokens.css
+  components: один HTML-прототип, без библиотеки
+  figma: vgDgIAeXyDavBWOQzSZLc4
+
+tracker:
+  kind: none
+  project: ""
+
+skills:
+  pack: нет
+  lead: product-pipeline
+  blocked: [nf-dsh, nf-agents, nf-repo, nf-prototype, nf-mechanics, nf-yougile, food-ai, trade-taxi-components, affectui-patterns]

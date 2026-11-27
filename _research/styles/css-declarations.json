@@ -1,0 +1,1009 @@
+{
+ "sheets": 4,
+ "rules": 1824,
+ "families": [
+  "vendors-C1wC-PTQ.css",
+  "kinowidget-core-BCuRMAy1.css",
+  "old-default-B4JLj57c.css",
+  "old-default-rf-LIvna.css"
+ ],
+ "out": {
+  "color": [
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 60,
+    "sel": [
+     ".g-vkgid .app-footer",
+     ".button--primary",
+     ".button--primary:hover:not(.disabled)",
+     ".button--primary:active:not(.disabled), .button--primary.act"
+    ]
+   },
+   {
+    "v": "rgb(38, 38, 38)",
+    "n": 40,
+    "sel": [
+     "body:not(.g-vkgid) ._wrapperCorrect_7uips_15",
+     "body:not(.g-vkgid) ._wrapperCorrect_7uips_15 input:focus",
+     "body:not(.g-vkgid) ._subInfoWrapper_7uips_89",
+     "body"
+    ]
+   },
+   {
+    "v": "rgb(114, 114, 118)",
+    "n": 29,
+    "sel": [
+     "body:not(.g-vkgid) ._input_7uips_12::placeholder",
+     ".app-header__address",
+     ".seance-tooltip",
+     ".order-info__genre"
+    ]
+   },
+   {
+    "v": "var(--color-text-primary)",
+    "n": 25,
+    "sel": [
+     ".bar-sale-header__container .popup-back-icon",
+     ".bar-sale-header__icon",
+     ".bar-sale__sort",
+     ".bar-sale__categories-item"
+    ]
+   },
+   {
+    "v": "rgb(10, 122, 255)",
+    "n": 19,
+    "sel": [
+     ".link--color--blue",
+     ".button--info",
+     ".button--info:hover:not(.disabled)",
+     ".button--info:active:not(.disabled), .button--info.active:no"
+    ]
+   },
+   {
+    "v": "rgb(255, 59, 48)",
+    "n": 11,
+    "sel": [
+     "body:not(.g-vkgid) ._wrapperHasError_7uips_15",
+     "body:not(.g-vkgid) ._wrapperHasError_7uips_15 input",
+     "body:not(.g-vkgid) ._errorWrapper_7uips_83",
+     ".order-total__table-discount-field"
+    ]
+   },
+   {
+    "v": "rgb(10, 10, 10)",
+    "n": 8,
+    "sel": [
+     ".g-vkgid ._wrapper_7uips_1",
+     ".g-vkgid ._input_7uips_12",
+     ".g-vkgid .order-info__release-wrapper .order-subtitle",
+     ".g-vkgid .popup-container__custom-close svg"
+    ]
+   },
+   {
+    "v": "rgb(129, 140, 153)",
+    "n": 8,
+    "sel": [
+     ".g-vkgid ._input_7uips_12::placeholder",
+     ".g-vkgid ._subInfoWrapper_7uips_89",
+     ".g-vkgid .order-info__release-wrapper",
+     ".g-vkgid .popup-container__custom-text"
+    ]
+   },
+   {
+    "v": "rgb(176, 176, 182)",
+    "n": 8,
+    "sel": [
+     ".button--primary.disabled",
+     ".button--success.disabled",
+     ".g-vkgid .button--secondary.disabled",
+     ".order-total__table th"
+    ]
+   },
+   {
+    "v": "rgb(60, 60, 67)",
+    "n": 8,
+    "sel": [
+     ".order-table__ticket-type-caption",
+     ".text--gray95",
+     ".hall-tier-list_item__free-seats",
+     ".seance-item__description"
+    ]
+   },
+   {
+    "v": "var(--color-text-secondary)",
+    "n": 8,
+    "sel": [
+     ".bar-sale-header__dash",
+     ".bar-sale__cinema-item-address",
+     ".bar-sale__cinema-place-address",
+     ".bar-sale .popup-card__subtitle"
+    ]
+   },
+   {
+    "v": "rgb(0, 119, 255)",
+    "n": 7,
+    "sel": [
+     ".g-vkgid .button--secondary",
+     ".g-vkgid .button--secondary:hover:not(.disabled)",
+     ".g-vkgid .button--secondary:active:not(.disabled), .g-vkgid ",
+     ".g-vkgid .button--secondary:active:not(.disabled):focus"
+    ]
+   },
+   {
+    "v": "var(--color-error-main)",
+    "n": 5,
+    "sel": [
+     ".bar-sale .popup-card__subtitle--error",
+     ".bar-choice-card--required .bar-choice-card__description",
+     ".bar-delivery-popup__time-error",
+     ".bar-delivery-popup__seat-qr-error"
+    ]
+   },
+   {
+    "v": "rgb(207, 121, 0)",
+    "n": 3,
+    "sel": [
+     "body:not(.g-vkgid) ._wrapperWarning_7uips_15",
+     "body:not(.g-vkgid) ._wrapperWarning_7uips_15 input",
+     "body:not(.g-vkgid) ._warningWrapper_7uips_86"
+    ]
+   }
+  ],
+  "background-color": [
+   {
+    "v": "rgb(255, 255, 255)",
+    "n": 84,
+    "sel": [
+     ".alice-carousel__play-btn-wrapper",
+     "body:not(.g-vkgid) ._wrapper_7uips_1",
+     "body:not(.g-vkgid) ._input_7uips_12::-webkit-credentials-aut",
+     ".g-vkgid ._wrapper_7uips_1"
+    ]
+   },
+   {
+    "v": "initial",
+    "n": 28,
+    "sel": [
+     ".app-footer__copy--image",
+     ".gradient_1",
+     ".gradient_2",
+     ".gradient_3"
+    ]
+   },
+   {
+    "v": "rgb(239, 239, 244)",
+    "n": 23,
+    "sel": [
+     ".order-wrapper",
+     ".order-email-wrapper",
+     ".promocode-success",
+     ".order-pushkin-form"
+    ]
+   },
+   {
+    "v": "transparent",
+    "n": 19,
+    "sel": [
+     "a",
+     ".alice-carousel__play-btn-item",
+     "body:not(.g-vkgid) ._input_7uips_12",
+     ".g-vkgid ._input_7uips_12"
+    ]
+   },
+   {
+    "v": "var(--color-bg-wb)",
+    "n": 19,
+    "sel": [
+     ".bar-sale-header__container .popup-back-icon",
+     ".bar-sale-header__icon",
+     ".bar-sale-header__icon--done",
+     ".bar-sale__sort"
+    ]
+   },
+   {
+    "v": "rgb(242, 242, 245)",
+    "n": 17,
+    "sel": [
+     ".seance-tooltip",
+     ".button--primary.disabled",
+     ".button--secondary.disabled",
+     ".button--success.disabled"
+    ]
+   },
+   {
+    "v": "rgb(249, 250, 251)",
+    "n": 15,
+    "sel": [
+     "body:not(.g-vkgid) ._wrapperDisabled_7uips_25",
+     ".order-info__release-format",
+     ".order-info__release-prop-item",
+     ".order-bonus__button"
+    ]
+   },
+   {
+    "v": "rgb(10, 122, 255)",
+    "n": 10,
+    "sel": [
+     ".button--primary",
+     ".calendar-mobile__date--active .calendar-mobile__date--day-m",
+     ".product-button-group__item:first-child",
+     ".product-button-group__item:last-child"
+    ]
+   },
+   {
+    "v": "rgb(231, 231, 236)",
+    "n": 9,
+    "sel": [
+     ".button--secondary",
+     ".order-payment-method_radio-item:hover",
+     ".seance-item--later",
+     ".seance-item__description"
+    ]
+   },
+   {
+    "v": "rgb(217, 217, 223)",
+    "n": 8,
+    "sel": [
+     ".spinner--line > div",
+     ".button--secondary:hover:not(.disabled)",
+     ".hallscheme-zooms_icon__disabled .hallscheme-zooms_icon-hor,",
+     ".seance-item--later:hover"
+    ]
+   },
+   {
+    "v": "rgb(0, 119, 255)",
+    "n": 7,
+    "sel": [
+     ".g-vkgid .button--primary",
+     ".g-vkgid .nearest-seance-item__content--chosen",
+     ".g-vkgid .product-button-group__item.product-button-group__b",
+     ".g-vkgid .law-documents__menu-control--active"
+    ]
+   },
+   {
+    "v": "var(--color-bg-gg)",
+    "n": 6,
+    "sel": [
+     ".bar-sale__content-choice",
+     ".bar-choice-card__image",
+     ".bar-delivery-popup__close:hover",
+     ".bar-sort-popup__close:hover"
+    ]
+   },
+   {
+    "v": "rgba(55, 136, 208, 0.9)",
+    "n": 5,
+    "sel": [
+     ".button--primary:active:not(.disabled), .button--primary.act",
+     ".button--primary:active:not(.disabled):focus",
+     ".product-button-group__item:first-child:active",
+     ".product-button-group__item:last-child:active"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.8)",
+    "n": 5,
+    "sel": [
+     ".button--black:hover:not(.disabled)",
+     ".button--black.disabled",
+     ".hall-schema__chosen-seats-error",
+     ".hall-schema-tooltip"
+    ]
+   }
+  ],
+  "font-family": [
+   {
+    "v": "monospace, monospace",
+    "n": 2,
+    "sel": [
+     "pre",
+     "code, kbd, samp"
+    ]
+   },
+   {
+    "v": "inherit",
+    "n": 2,
+    "sel": [
+     "button, input, optgroup, select, textarea",
+     "::-webkit-file-upload-button"
+    ]
+   },
+   {
+    "v": "BlinkMacSystemFont, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "n": 1,
+    "sel": [
+     "body"
+    ]
+   },
+   {
+    "v": "Roboto",
+    "n": 1,
+    "sel": [
+     ".sbp-payment_wrapper .kaspi-payment-desktop"
+    ]
+   },
+   {
+    "v": "system-ui, sans-serif",
+    "n": 1,
+    "sel": [
+     ".hall-schema-tooltip"
+    ]
+   },
+   {
+    "v": "\"VK Sans Display\", system-ui, sans-serif",
+    "n": 1,
+    "sel": [
+     ".hall-schema-tooltip--vkgid"
+    ]
+   },
+   {
+    "v": "Manrope, sans-serif",
+    "n": 1,
+    "sel": [
+     ".payment-response"
+    ]
+   }
+  ],
+  "font-size": [
+   {
+    "v": "15px",
+    "n": 36,
+    "sel": [
+     ".button",
+     ".order-total__table td",
+     ".order-bonus__amount-title, .order-bonus__change-amount-link",
+     ".order-payment-method_radio-item__content > div"
+    ]
+   },
+   {
+    "v": "14px",
+    "n": 31,
+    "sel": [
+     ".g-vkgid ._validWrapper_7uips_92, .g-vkgid ._errorWrapper_7u",
+     ".order-info__genre",
+     ".g-vkgid .order-info__release-wrapper",
+     ".g-vkgid .order-total__table td"
+    ]
+   },
+   {
+    "v": "12px",
+    "n": 28,
+    "sel": [
+     "body:not(.g-vkgid) ._validWrapper_7uips_92, body:not(.g-vkgi",
+     ".seance-tooltip",
+     ".order-info__release-prop-item",
+     ".order-total__table th"
+    ]
+   },
+   {
+    "v": "13px",
+    "n": 24,
+    "sel": [
+     "body:not(.g-vkgid) ._wrapper_7uips_1",
+     "._attention-message_xy24j_1",
+     ".app-footer",
+     ".order-info__release-wrapper"
+    ]
+   },
+   {
+    "v": "17px",
+    "n": 19,
+    "sel": [
+     ".order-subtitle",
+     ".sbp-payment_sum__number",
+     ".popup-header-choice__title",
+     ".popup-footer-col-subsale__main-content"
+    ]
+   },
+   {
+    "v": "var(--font-size-l-16)",
+    "n": 17,
+    "sel": [
+     ".bar-sale__categories-item",
+     ".bar-sale__cinema-item-title",
+     ".bar-sale__payment .order-subtitle",
+     ".bar-sale .popup-card__subtitle"
+    ]
+   },
+   {
+    "v": "20px",
+    "n": 16,
+    "sel": [
+     ".order-table-description td",
+     ".order-result__total-row--sum",
+     ".g-vkgid .order-result__total-row--sum",
+     ".order-service-fee-popup_header > div"
+    ]
+   },
+   {
+    "v": "16px",
+    "n": 10,
+    "sel": [
+     ".g-vkgid ._wrapper_7uips_1",
+     ".g-vkgid ._input_7uips_12::placeholder",
+     ".g-vkgid .order-email .text, .g-vkgid .order-phone .text",
+     ".g-vkgid .order-subtitle"
+    ]
+   },
+   {
+    "v": "11px",
+    "n": 9,
+    "sel": [
+     ".text--xx-small",
+     ".seance-item__description",
+     ".seance-item__hall",
+     ".seance-item--disabled:hover .seance-tooltip, .seance-item--"
+    ]
+   },
+   {
+    "v": "var(--font-size-m-12)",
+    "n": 9,
+    "sel": [
+     ".bar-sale__cinema-item-address",
+     ".bar-sale__cinema-place-title",
+     ".bar-sale__cinema-place-address",
+     ".bar-sale .df-filled-message .df-filled-message__text"
+    ]
+   },
+   {
+    "v": "var(--font-size-xl-24)",
+    "n": 7,
+    "sel": [
+     ".bar-sale__category-title",
+     ".bar-sale .product--card .product-sum",
+     ".bar-sale .popup-card__header-title",
+     ".bar-delivery-popup__title"
+    ]
+   },
+   {
+    "v": "24px",
+    "n": 5,
+    "sel": [
+     ".payment-response__title",
+     ".qr-code-popup__title, .delete-profile-popup__title",
+     ".account-order__menu",
+     ".bonus-card__discounts-item-value"
+    ]
+   },
+   {
+    "v": "var(--font-size-ml-14)",
+    "n": 4,
+    "sel": [
+     ".bar-sale .product--card .product__content-title",
+     ".bar-delivery-popup__time-error",
+     ".bar-delivery-popup__seat-qr-error",
+     ".bar-delivery-popup .bar-delivery-qr-scanner__error"
+    ]
+   },
+   {
+    "v": "22px",
+    "n": 3,
+    "sel": [
+     ".text--x-large",
+     ".product-button-group__item:first-child",
+     ".product-button-group__item:last-child"
+    ]
+   }
+  ],
+  "font-weight": [
+   {
+    "v": "500",
+    "n": 36,
+    "sel": [
+     ".g-vkgid .order-total__table td",
+     ".order-table-description td",
+     ".g-vkgid .order-email .text, .g-vkgid .order-phone .text",
+     ".g-vkgid .order-result__info-row, .g-vkgid .order-result__to"
+    ]
+   },
+   {
+    "v": "600",
+    "n": 21,
+    "sel": [
+     ".g-vkgid .button",
+     ".sbp-applist_header",
+     ".popup-container__custom-title",
+     ".g-vkgid .popup-container__custom-title"
+    ]
+   },
+   {
+    "v": "400",
+    "n": 17,
+    "sel": [
+     ".order-total__table th",
+     ".order-table-description th",
+     ".order-bonus__header-title",
+     ".hall-schema-popup__email"
+    ]
+   },
+   {
+    "v": "700",
+    "n": 17,
+    "sel": [
+     "._attention-message_xy24j_1 ._title_xy24j_16",
+     ".order-result__total-row--sum span:last-child",
+     ".g-vkgid .order-result__total-row--sum, .g-vkgid .order-resu",
+     ".order-payment-method_radio-item__kaspi-pay"
+    ]
+   },
+   {
+    "v": "var(--font-weight-bold)",
+    "n": 10,
+    "sel": [
+     ".bar-sale__payment .order-subtitle",
+     ".bar-sale__category-title",
+     ".bar-sale .product--card .product-sum",
+     ".bar-footer__price-wrapper"
+    ]
+   },
+   {
+    "v": "300",
+    "n": 7,
+    "sel": [
+     ".seance-tooltip",
+     ".payment-response__error-description",
+     ".nearest-seance-item__tooltip",
+     ".product__confidentiality"
+    ]
+   },
+   {
+    "v": "800",
+    "n": 1,
+    "sel": [
+     ".kiosk_header"
+    ]
+   },
+   {
+    "v": "bolder",
+    "n": 1,
+    "sel": [
+     "b, strong"
+    ]
+   },
+   {
+    "v": "inherit",
+    "n": 1,
+    "sel": [
+     "::-webkit-file-upload-button"
+    ]
+   },
+   {
+    "v": "var(--font-weight-medium)",
+    "n": 1,
+    "sel": [
+     ".bar-sale__categories-item"
+    ]
+   }
+  ],
+  "line-height": [
+   {
+    "v": "20px",
+    "n": 36,
+    "sel": [
+     ".g-vkgid ._validWrapper_7uips_92, .g-vkgid ._errorWrapper_7u",
+     ".button",
+     ".order-total",
+     ".order-bonus__card-number"
+    ]
+   },
+   {
+    "v": "18px",
+    "n": 20,
+    "sel": [
+     "._attention-message_xy24j_1",
+     ".order-info__release-cinema, .order-info__release-hall, .ord",
+     ".order-bonus__description",
+     ".order-result__info-row, .order-result__total-row"
+    ]
+   },
+   {
+    "v": "16px",
+    "n": 18,
+    "sel": [
+     ".order-info__release-prop-item",
+     ".order-table__ticket-type-caption",
+     ".order-pincode-popup__info-title",
+     ".sbp [data-tooltip]::after"
+    ]
+   },
+   {
+    "v": "var(--line-height-l-24)",
+    "n": 16,
+    "sel": [
+     ".bar-sale__categories-item",
+     ".bar-sale__cinema-item-title",
+     ".bar-sale__payment .order-subtitle",
+     ".bar-sale .popup-card__subtitle"
+    ]
+   },
+   {
+    "v": "22px",
+    "n": 12,
+    "sel": [
+     ".order-subtitle",
+     ".sbp-payment_sum__number",
+     ".popup-header-choice__title",
+     ".popup-container__custom-title"
+    ]
+   },
+   {
+    "v": "1.43em",
+    "n": 9,
+    "sel": [
+     ".g-vkgid .order-result__info-row, .g-vkgid .order-result__to",
+     ".g-vkgid .order-payment-method_radio-item__content > div",
+     ".g-vkgid .popup-container__custom-text",
+     ".g-vkgid .payment-response__error-description"
+    ]
+   },
+   {
+    "v": "var(--line-height-m-16)",
+    "n": 9,
+    "sel": [
+     ".bar-sale__cinema-item-address",
+     ".bar-sale__cinema-place-title",
+     ".bar-sale__cinema-place-address",
+     ".bar-sale .df-filled-message .df-filled-message__text"
+    ]
+   },
+   {
+    "v": "var(--line-height-xl-32)",
+    "n": 7,
+    "sel": [
+     ".bar-sale__category-title",
+     ".bar-sale .product--card .product-sum",
+     ".bar-sale .popup-card__header-title",
+     ".bar-delivery-popup__title"
+    ]
+   },
+   {
+    "v": "1.2em",
+    "n": 5,
+    "sel": [
+     ".order-result__total-row--sum",
+     ".g-vkgid .order-result__total-row--sum",
+     ".g-vkgid .popup-container__custom-title",
+     ".g-vkgid .law-documents__content.s-law-documents-content h2"
+    ]
+   },
+   {
+    "v": "13px",
+    "n": 5,
+    "sel": [
+     ".hall-tier-list_item__free-seats",
+     ".seance-item__hall",
+     ".product__confidentiality",
+     ".ticket-card__mobile-button__content > span"
+    ]
+   },
+   {
+    "v": "0",
+    "n": 4,
+    "sel": [
+     "sub, sup",
+     ".alice-carousel__stage-item",
+     ".alice-carousel__slide-info-item",
+     ".product-page__description-box-img"
+    ]
+   },
+   {
+    "v": "1.5em",
+    "n": 4,
+    "sel": [
+     ".g-vkgid ._wrapper_7uips_1, .g-vkgid ._wrapper_7uips_1 ._inp",
+     ".g-vkgid ._input_7uips_12::placeholder",
+     ".g-vkgid .order-email .text, .g-vkgid .order-phone .text",
+     ".g-vkgid .law-documents__content"
+    ]
+   },
+   {
+    "v": "24px",
+    "n": 4,
+    "sel": [
+     ".payment-response__error-text",
+     ".seance-item__time",
+     ".bonus-card__number",
+     ".confirmation-popup__title"
+    ]
+   },
+   {
+    "v": "14px",
+    "n": 4,
+    "sel": [
+     ".payment-response__info-support",
+     ".release-page .release-description__age",
+     ".seance-item__description",
+     ".bonus-card__discounts-item .text--xxx-small"
+    ]
+   }
+  ],
+  "border-radius": [
+   {
+    "v": "8px",
+    "n": 42,
+    "sel": [
+     "._attention-message_xy24j_1",
+     ".button",
+     ".order-poster__img",
+     ".order-info__release"
+    ]
+   },
+   {
+    "v": "50%",
+    "n": 28,
+    "sel": [
+     ".alice-carousel__play-btn-wrapper",
+     ".alice-carousel__dots-item:not(.__custom)",
+     ".spinner--ring > div",
+     ".vkgid-spinner__icon"
+    ]
+   },
+   {
+    "v": "4px",
+    "n": 21,
+    "sel": [
+     ".seance-tooltip",
+     ".order-poster__siderbar",
+     ".order-info__release-prop-item",
+     ".order-certificate .order-bonus__input"
+    ]
+   },
+   {
+    "v": "16px",
+    "n": 13,
+    "sel": [
+     ".g-vkgid .button",
+     ".payment-response__icon--qr-code",
+     ".seance-item__container--hall",
+     ".nearest-seance-item__content"
+    ]
+   },
+   {
+    "v": "10px",
+    "n": 12,
+    "sel": [
+     ".g-vkgid .order-info__release",
+     ".g-vkgid .order-total__table-container",
+     ".g-vkgid .order-table-description",
+     ".g-vkgid .order-bonus"
+    ]
+   },
+   {
+    "v": "var(--radius-m-12)",
+    "n": 8,
+    "sel": [
+     ".bar-sale__banner-item img",
+     ".bar-sale__sort",
+     ".bar-sale__categories-item",
+     ".bar-choice-card__image"
+    ]
+   },
+   {
+    "v": "var(--radius-l-16)",
+    "n": 8,
+    "sel": [
+     ".bar-sale__cinema-item",
+     ".bar-sale__delivery-option",
+     ".bar-sale .product--card",
+     ".bar-sale .product--card .product__box-img"
+    ]
+   },
+   {
+    "v": "0px",
+    "n": 7,
+    "sel": [
+     "input[type=\"email\"], input[type=\"number\"], input[type=\"searc",
+     ".seance-item__description--has-language-info",
+     ".bar-sale__payment-section .order-total__table-container, .b",
+     ".bar-sale .popup-card"
+    ]
+   },
+   {
+    "v": "8px 8px 0px 0px",
+    "n": 7,
+    "sel": [
+     ".order-payment-method_radio-item:first-child",
+     ".overlay-choice",
+     ".popup-card",
+     ".ticket-type__header"
+    ]
+   },
+   {
+    "v": "var(--radius-2xl-24)",
+    "n": 6,
+    "sel": [
+     ".bar-sale__payment-section",
+     ".bar-delivery-popup",
+     ".bar-delivery-popup .bar-delivery-qr-scanner",
+     ".bar-delivery-popup .bar-delivery-qr-scanner__frame"
+    ]
+   },
+   {
+    "v": "100%",
+    "n": 5,
+    "sel": [
+     "body:not(.g-vkgid) ._delimiter_7uips_43",
+     ".g-vkgid ._delimiter_7uips_43",
+     ".popup-close-icon__photo",
+     ".hallscheme-button__round"
+    ]
+   },
+   {
+    "v": "12px",
+    "n": 5,
+    "sel": [
+     ".g-vkgid .nearest-seance-item__tooltip",
+     ".g-vkgid .product-button",
+     ".g-vkgid .ticket-type-popup .ticket-type__body .ticket-type_",
+     "._trigger_kztai_16"
+    ]
+   },
+   {
+    "v": "6px",
+    "n": 4,
+    "sel": [
+     ".bar-sale-skeleton__header",
+     ".bar-sale-skeleton__category-title-node",
+     ".input-checkbox div",
+     ".bonus-card__discounts"
+    ]
+   },
+   {
+    "v": "5px",
+    "n": 3,
+    "sel": [
+     ".alice-carousel__slide-info",
+     ".hall-schema-tooltip",
+     ".payment-response__order-number"
+    ]
+   }
+  ],
+  "box-shadow": [
+   {
+    "v": "rgba(0, 0, 0, 0.08) 0px 8px 24px, rgba(0, 0, 0, 0.08) 0px 0px 2px",
+    "n": 2,
+    "sel": [
+     ".vkgid-spinner",
+     ".g-vkgid .logger-log"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.25) 0px 0px 3px",
+    "n": 1,
+    "sel": [
+     ".app-header"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px",
+    "n": 1,
+    "sel": [
+     ".order-bonus__toggle::after"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.4) 2px 4px 5px",
+    "n": 1,
+    "sel": [
+     ".sbp [data-tooltip]::after"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.4) 0px 1px 3px",
+    "n": 1,
+    "sel": [
+     ".popup-container__custom-button"
+    ]
+   },
+   {
+    "v": "initial",
+    "n": 1,
+    "sel": [
+     ".g-vkgid .popup-container__custom-button"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.14) 0px 24px 38px, rgba(0, 0, 0, 0.12) 0px 9px 46px, rgba(0, 0, 0, 0.2) 0px 11px 15px",
+    "n": 1,
+    "sel": [
+     ".popover"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.3) 0px 2px 4px",
+    "n": 1,
+    "sel": [
+     ".hall-schema__chosen-seats-error"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.08) 0px 8px 24px",
+    "n": 1,
+    "sel": [
+     ".hall-schema-tooltip--vkgid"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.08) 0px 0px 2px, rgba(0, 0, 0, 0.08) 0px 4px 16px",
+    "n": 1,
+    "sel": [
+     ".g-vkgid .hall-legend"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.2) 0px 2px 4px",
+    "n": 1,
+    "sel": [
+     ".hallscheme-button"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.04) 0px 0px 4px",
+    "n": 1,
+    "sel": [
+     ".g-vkgid .nearest-seances-list__scroll-button svg"
+    ]
+   },
+   {
+    "v": "rgb(231, 231, 236) 0px 0px 0px 1px inset",
+    "n": 1,
+    "sel": [
+     ".calendar"
+    ]
+   },
+   {
+    "v": "rgba(0, 0, 0, 0.15) 0px 0px 4px",
+    "n": 1,
+    "sel": [
+     ".logger-log--inline"
+    ]
+   }
+  ],
+  "letter-spacing": [
+   {
+    "v": "-0.34px",
+    "n": 3,
+    "sel": [
+     ".release-description__genre",
+     ".release-description__age",
+     ".release-page .release-description__genre"
+    ]
+   },
+   {
+    "v": "-0.39px",
+    "n": 1,
+    "sel": [
+     ".app-header__address"
+    ]
+   },
+   {
+    "v": "-0.24px",
+    "n": 1,
+    "sel": [
+     ".sbp-payment_instruction-text"
+    ]
+   },
+   {
+    "v": "-0.58px",
+    "n": 1,
+    "sel": [
+     ".release-description__title"
+    ]
+   },
+   {
+    "v": "-0.51px",
+    "n": 1,
+    "sel": [
+     ".release-page .release-description__title"
+    ]
+   },
+   {
+    "v": "-0.29px",
+    "n": 1,
+    "sel": [
+     ".release-page .release-description__age"
+    ]
+   }
+  ]
+ }
+}
