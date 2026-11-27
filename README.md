@@ -3,6 +3,12 @@
 Результат работы по сценарию: сайт кинотеатра → сеанс → виджет → оплата.
 Проверено на живом виджете `kinowidget.kinoplan.ru`, встроенном в https://gorizontcinema.ru/ (кинотеатр «Горизонт Cinema & Emotion», Ростов-на-Дону, 20 ноября 2026).
 
+## Ссылки для команды
+
+- Прототип в браузере: https://egorlinsky-create.github.io/kinoplan-widget-redesign/prototype/index.html
+- Репозиторий: https://github.com/egorlinsky-create/kinoplan-widget-redesign
+- Один файл для пересылки: `KINOPLAN-PROTOTYPE.html` в репозитории
+
 ## С чего начать
 
 Три файла закрывают контекст, остальное — точечно по вопросу.

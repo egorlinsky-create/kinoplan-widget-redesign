@@ -6,7 +6,7 @@ updated: 2026-11-22
 
 code:
   path: C:\Users\jonik\Documents\Проекты\Киноплан
-  repo: ""
+  repo: "https://github.com/egorlinsky-create/kinoplan-widget-redesign"
   run: открыть prototype/index.html в браузере
   check: node _research/qa-redesign.cjs prototype/index.html; node _research/qa-dom.cjs; node tokens/build-tokens.mjs
 

@@ -49,7 +49,7 @@
 - **Сборка в один файл:** `KINOPLAN-PROTOTYPE.html` — сгенерированный бандл той же версии прототипа (`_research/package-redesign.cjs`), не источник.
 - **Живой виджет:** `kinowidget.kinoplan.ru` внутри `gorizontcinema.ru`, проход и снимки — CDP-скриптами в `_research/`.
 - **Figma:** файл `vgDgIAeXyDavBWOQzSZLc4`, запись и чтение — MCP `figma_remote`; REST по токену `~/.nf-secrets/figma.json` нужен только для чтения без сессии.
-- **Git:** нет. История — в `memory/journal.jsonl` и датах в шапках файлов.
+- **Git:** репозиторий https://github.com/egorlinsky-create/kinoplan-widget-redesign, ветка `main`, хостинг GitHub Pages из корня. Живой прототип: `https://egorlinsky-create.github.io/kinoplan-widget-redesign/prototype/index.html`. История решений — в `memory/journal.jsonl`. Push из этой среды требует `git config http.sslBackend openssl` (schannel падает) и токена gh в заголовке.
 
 ## Правила
 
