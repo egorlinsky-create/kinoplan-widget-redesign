@@ -4469,6 +4469,13 @@ body { font-size: 15px; }
 /* В десктопном режиме нативного каркаса нет: это уже не телефон */
 .stage[data-mode="desktop"] .device-chrome,
 .stage[data-mode="desktop"] .device-home { display: none; }
+/* Модалки: выше шапки и полосы брони, затемнение не зависит от data-open.
+   Иначе при открытии модалка оказывалась под липкими слоями экрана и без затемнения. */
+.overlay { z-index: 120; }
+.overlay:not([hidden]) .overlay__backdrop { opacity: 1; }
+.overlay:not([hidden]) .overlay__sheet { transform: none; }
+.overlay:not([hidden]) .interrupt__card,
+.overlay:not([hidden]) .resume__card { opacity: 1; transform: none; }
 /* Ant Design 5 token layer for the prototype.
    Values mirror the Ant Design seed/map tokens; the prototype's local aliases
    point at them so existing components inherit the system without a rebuild. */
