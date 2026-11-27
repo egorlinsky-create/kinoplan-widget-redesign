@@ -4432,6 +4432,43 @@ body { font-size: 15px; }
     border: 1px solid #24211c; border-radius: 12px; box-shadow: var(--shadow-device);
   }
 }
+/* Нативный каркас телефона: статус-бар, адресная строка, home indicator */
+.device { display: flex; flex-direction: column; }
+.device-chrome { flex: none; }
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 24px;
+  background: #fff;
+  color: #262626;
+}
+.statusbar__time { font-size: 15px; font-weight: 600; letter-spacing: 0.1px; }
+.statusbar__icons { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.statusbar__signal { width: 18px; height: 12px; }
+.statusbar__wifi { width: 16px; height: 12px; }
+.statusbar__battery { width: 26px; height: 13px; }
+.browserbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  background: #F2F2F6;
+  border-top: 1px solid #E7E7EC;
+  border-bottom: 1px solid #E7E7EC;
+  color: #727276;
+  font-size: 13px;
+}
+.browserbar__lock { width: 10px; height: 12px; flex: none; }
+.browserbar__url { flex: 1; text-align: center; margin-right: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.device-home { flex: none; height: 34px; display: grid; place-items: center; background: var(--bg-1); }
+.device-home span { width: 134px; height: 5px; border-radius: 3px; background: #111; }
+
+/* В десктопном режиме нативного каркаса нет: это уже не телефон */
+.stage[data-mode="desktop"] .device-chrome,
+.stage[data-mode="desktop"] .device-home { display: none; }
 /* Ant Design 5 token layer for the prototype.
    Values mirror the Ant Design seed/map tokens; the prototype's local aliases
    point at them so existing components inherit the system without a rebuild. */
@@ -4679,6 +4716,20 @@ svg { stroke-width: 1.6; }
 
   <div class="device-fit">
         <div class="device">
+      <div class="device-chrome">
+        <div class="statusbar" aria-label="Статус-бар iOS">
+          <span class="statusbar__time">9:41</span>
+          <span class="statusbar__icons">
+            <svg class="statusbar__signal" viewBox="0 0 18 12" fill="currentColor" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="4" width="3" height="8" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/></svg>
+            <svg class="statusbar__wifi" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M1.5 4.2a10 10 0 0 1 13 0"/><path d="M4 6.8a6.4 6.4 0 0 1 8 0"/><path d="M6.6 9.3a2.8 2.8 0 0 1 2.8 0"/><circle cx="8" cy="11" r="0.7" fill="currentColor" stroke="none"/></svg>
+            <svg class="statusbar__battery" viewBox="0 0 26 13" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="22" height="12" rx="3.2" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="9" rx="2.2" fill="currentColor"/><path d="M24.4 4.4c1 .5 1 3.7 0 4.2V4.4Z" fill="currentColor" fill-opacity="0.45"/></svg>
+          </span>
+        </div>
+        <div class="browserbar" aria-label="Адресная строка Safari">
+          <svg class="browserbar__lock" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><rect x="0.5" y="5" width="9" height="7" rx="1.6"/><path d="M2.4 5V3.4a2.6 2.6 0 0 1 5.2 0V5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span class="browserbar__url">gorizontcinema.ru/kinoplan</span>
+        </div>
+      </div>
     <div class="app">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="icon-card" viewBox="0 0 24 24">
@@ -5460,6 +5511,7 @@ svg { stroke-width: 1.6; }
       </footer>
 
     </div>
+      <div class="device-home" aria-hidden="true"><span></span></div>
   </div>
       </div>
 

@@ -4224,3 +4224,40 @@ body { font-size: 15px; }
     border: 1px solid #24211c; border-radius: 12px; box-shadow: var(--shadow-device);
   }
 }
+/* Нативный каркас телефона: статус-бар, адресная строка, home indicator */
+.device { display: flex; flex-direction: column; }
+.device-chrome { flex: none; }
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 24px;
+  background: #fff;
+  color: #262626;
+}
+.statusbar__time { font-size: 15px; font-weight: 600; letter-spacing: 0.1px; }
+.statusbar__icons { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.statusbar__signal { width: 18px; height: 12px; }
+.statusbar__wifi { width: 16px; height: 12px; }
+.statusbar__battery { width: 26px; height: 13px; }
+.browserbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  background: #F2F2F6;
+  border-top: 1px solid #E7E7EC;
+  border-bottom: 1px solid #E7E7EC;
+  color: #727276;
+  font-size: 13px;
+}
+.browserbar__lock { width: 10px; height: 12px; flex: none; }
+.browserbar__url { flex: 1; text-align: center; margin-right: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.device-home { flex: none; height: 34px; display: grid; place-items: center; background: var(--bg-1); }
+.device-home span { width: 134px; height: 5px; border-radius: 3px; background: #111; }
+
+/* В десктопном режиме нативного каркаса нет: это уже не телефон */
+.stage[data-mode="desktop"] .device-chrome,
+.stage[data-mode="desktop"] .device-home { display: none; }
