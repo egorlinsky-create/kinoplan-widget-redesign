@@ -4268,3 +4268,8 @@ body { font-size: 15px; }
 .overlay:not([hidden]) .overlay__sheet { transform: none; }
 .overlay:not([hidden]) .interrupt__card,
 .overlay:not([hidden]) .resume__card { opacity: 1; transform: none; }
+/* Карточки модалок были без position, поэтому затемнение (position: absolute) рисовалось ПОВЕРХ них:
+   модалка выглядела как фон, а кнопки — как элементы поверх страницы. */
+.overlay .interrupt__card,
+.overlay .resume__card,
+.overlay .overlay__sheet { position: relative; z-index: 1; }
