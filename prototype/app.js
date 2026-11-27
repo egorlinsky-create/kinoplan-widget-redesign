@@ -1709,19 +1709,71 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 
+    // Узкое окно: десктопную рамку 1180×820 вписываем в экран масштабом,
+    // иначе переключатель «Десктоп» при ширине < 940 не давал видимых изменений.
+    function fitDesktopFrame() {
+      const stage = $("#stage");
+      const device = $(".device");
+      const fit = device && device.parentElement;
+      if (!stage || !device || !fit || !fit.classList.contains("device-fit")) return;
+      const reset = () => {
+        device.style.transform = "";
+        device.style.transformOrigin = "";
+        fit.style.width = "";
+        fit.style.height = "";
+        fit.style.overflow = "";
+      };
+      // мобильный режим масштабировать нечем: рамка и так 100% ширины
+      if (stage.dataset.mode !== "desktop") {
+        reset();
+        return;
+      }
+      const DESKTOP_W = 1180;
+      const DESKTOP_H = 820;
+      const narrow = stage.clientWidth < 940;
+      const k = narrow
+        ? Math.min(1, (stage.clientWidth - 24) / DESKTOP_W, (stage.clientHeight - 48) / DESKTOP_H)
+        : 1;
+      if (k >= 0.999) {
+        device.style.transform = "";
+        device.style.transformOrigin = "";
+        fit.style.width = "";
+        fit.style.height = "";
+        fit.style.overflow = "";
+        return;
+      }
+      device.style.transformOrigin = "top left";
+      device.style.transform = `scale(${k})`;
+      fit.style.width = `${Math.round(DESKTOP_W * k)}px`;
+      fit.style.height = `${Math.round(DESKTOP_H * k)}px`;
+      fit.style.overflow = "hidden";
+    }
+
     $$("[data-mode-btn]").forEach((b) =>
       b.addEventListener("click", () => {
         $$("[data-mode-btn]").forEach((x) => x.setAttribute("aria-pressed", "false"));
         b.setAttribute("aria-pressed", "true");
         $("#stage").dataset.mode = b.dataset.modeBtn;
+        fitDesktopFrame();
         // ширина рамки меняется с переходом — пересчитываем после него
         setTimeout(() => {
+          fitDesktopFrame();
           window.__syncSessionCollapse && window.__syncSessionCollapse();
           if (state.screen === "payment") renderPayment(paymentPhase);
         }, 320);
         hideTip();
       })
     );
+
+    if (!window.__fitDesktopWired) {
+      window.__fitDesktopWired = true;
+      let fitTimer = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(fitTimer);
+        fitTimer = setTimeout(fitDesktopFrame, 120);
+      });
+      fitDesktopFrame();
+    }
 
     $("#restart").addEventListener("click", () => {
       clearPendingOrder();

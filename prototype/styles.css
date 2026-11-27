@@ -263,6 +263,14 @@ a { color: var(--accent); }
   max-width: 540px;
 }
 
+.device-fit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
 .device {
   container-type: inline-size;
   container-name: device;
@@ -4174,3 +4182,30 @@ body { font-size: 15px; }
   background: #F6F7FA; color: #17140F; font: inherit; font-size: 20px; font-weight: 600; cursor: pointer;
 }
 .suggest__qty button[aria-pressed="true"] { border-color: #0A7AFF; background: rgba(10, 122, 255, 0.1); color: #0A5ED0; }
+/* Десктопный режим на узком окне: рамка остаётся 1180×820, JS масштабирует её под экран.
+   Без этого при ширине < 940 переключатель «Десктоп» не давал видимых изменений. */
+@media (max-width: 939px) {
+  .stage[data-mode="desktop"] .device {
+    width: 1180px;
+    height: 820px;
+    flex: none;
+    border: 1px solid #24211c;
+    border-radius: 12px;
+    box-shadow: var(--shadow-device);
+  }
+  .stage[data-mode="desktop"] .device-fit { width: 100%; }
+  .stage[data-mode="desktop"] { overflow: hidden; }
+}
+/* Обёртка .device-fit приняла на себя гибкость рамки на телефоне */
+@media (max-width: 600px) {
+  .stage .device-fit { width: 100%; flex: 1 1 auto; min-height: 0; }
+  .stage .device-fit > .device {
+    width: 100%; height: 100%; flex: 1 1 auto; min-height: 0;
+    border: 0; border-radius: 0; box-shadow: none;
+  }
+  .stage[data-mode="desktop"] .device-fit { width: auto; flex: none; }
+  .stage[data-mode="desktop"] .device {
+    width: 1180px; height: 820px; flex: none;
+    border: 1px solid #24211c; border-radius: 12px; box-shadow: var(--shadow-device);
+  }
+}

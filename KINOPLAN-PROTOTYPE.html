@@ -471,6 +471,14 @@ a { color: var(--accent); }
   max-width: 540px;
 }
 
+.device-fit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
 .device {
   container-type: inline-size;
   container-name: device;
@@ -4382,6 +4390,33 @@ body { font-size: 15px; }
   background: #F6F7FA; color: #17140F; font: inherit; font-size: 20px; font-weight: 600; cursor: pointer;
 }
 .suggest__qty button[aria-pressed="true"] { border-color: #0A7AFF; background: rgba(10, 122, 255, 0.1); color: #0A5ED0; }
+/* Десктопный режим на узком окне: рамка остаётся 1180×820, JS масштабирует её под экран.
+   Без этого при ширине < 940 переключатель «Десктоп» не давал видимых изменений. */
+@media (max-width: 939px) {
+  .stage[data-mode="desktop"] .device {
+    width: 1180px;
+    height: 820px;
+    flex: none;
+    border: 1px solid #24211c;
+    border-radius: 12px;
+    box-shadow: var(--shadow-device);
+  }
+  .stage[data-mode="desktop"] .device-fit { width: 100%; }
+  .stage[data-mode="desktop"] { overflow: hidden; }
+}
+/* Обёртка .device-fit приняла на себя гибкость рамки на телефоне */
+@media (max-width: 600px) {
+  .stage .device-fit { width: 100%; flex: 1 1 auto; min-height: 0; }
+  .stage .device-fit > .device {
+    width: 100%; height: 100%; flex: 1 1 auto; min-height: 0;
+    border: 0; border-radius: 0; box-shadow: none;
+  }
+  .stage[data-mode="desktop"] .device-fit { width: auto; flex: none; }
+  .stage[data-mode="desktop"] .device {
+    width: 1180px; height: 820px; flex: none;
+    border: 1px solid #24211c; border-radius: 12px; box-shadow: var(--shadow-device);
+  }
+}
 /* Ant Design 5 token layer for the prototype.
    Values mirror the Ant Design seed/map tokens; the prototype's local aliases
    point at them so existing components inherit the system without a rebuild. */
@@ -4627,7 +4662,8 @@ svg { stroke-width: 1.6; }
     </details>
   </div>
 
-  <div class="device">
+  <div class="device-fit">
+        <div class="device">
     <div class="app">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="icon-card" viewBox="0 0 24 24">
@@ -5409,6 +5445,7 @@ svg { stroke-width: 1.6; }
 
     </div>
   </div>
+      </div>
 
   <p class="stage__note">Демо покупки: платежи, СМС, отправка билетов и QR имитируются. Для оформления подойдут любые тестовые контакты.</p>
 </div>
@@ -7125,19 +7162,71 @@ svg { stroke-width: 1.6; }
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 
+    // Узкое окно: десктопную рамку 1180×820 вписываем в экран масштабом,
+    // иначе переключатель «Десктоп» при ширине < 940 не давал видимых изменений.
+    function fitDesktopFrame() {
+      const stage = $("#stage");
+      const device = $(".device");
+      const fit = device && device.parentElement;
+      if (!stage || !device || !fit || !fit.classList.contains("device-fit")) return;
+      const reset = () => {
+        device.style.transform = "";
+        device.style.transformOrigin = "";
+        fit.style.width = "";
+        fit.style.height = "";
+        fit.style.overflow = "";
+      };
+      // мобильный режим масштабировать нечем: рамка и так 100% ширины
+      if (stage.dataset.mode !== "desktop") {
+        reset();
+        return;
+      }
+      const DESKTOP_W = 1180;
+      const DESKTOP_H = 820;
+      const narrow = stage.clientWidth < 940;
+      const k = narrow
+        ? Math.min(1, (stage.clientWidth - 24) / DESKTOP_W, (stage.clientHeight - 48) / DESKTOP_H)
+        : 1;
+      if (k >= 0.999) {
+        device.style.transform = "";
+        device.style.transformOrigin = "";
+        fit.style.width = "";
+        fit.style.height = "";
+        fit.style.overflow = "";
+        return;
+      }
+      device.style.transformOrigin = "top left";
+      device.style.transform = `scale(${k})`;
+      fit.style.width = `${Math.round(DESKTOP_W * k)}px`;
+      fit.style.height = `${Math.round(DESKTOP_H * k)}px`;
+      fit.style.overflow = "hidden";
+    }
+
     $$("[data-mode-btn]").forEach((b) =>
       b.addEventListener("click", () => {
         $$("[data-mode-btn]").forEach((x) => x.setAttribute("aria-pressed", "false"));
         b.setAttribute("aria-pressed", "true");
         $("#stage").dataset.mode = b.dataset.modeBtn;
+        fitDesktopFrame();
         // ширина рамки меняется с переходом — пересчитываем после него
         setTimeout(() => {
+          fitDesktopFrame();
           window.__syncSessionCollapse && window.__syncSessionCollapse();
           if (state.screen === "payment") renderPayment(paymentPhase);
         }, 320);
         hideTip();
       })
     );
+
+    if (!window.__fitDesktopWired) {
+      window.__fitDesktopWired = true;
+      let fitTimer = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(fitTimer);
+        fitTimer = setTimeout(fitDesktopFrame, 120);
+      });
+      fitDesktopFrame();
+    }
 
     $("#restart").addEventListener("click", () => {
       clearPendingOrder();
