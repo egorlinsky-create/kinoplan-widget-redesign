@@ -216,10 +216,12 @@
     if (heldSelection) {
       pendingSeat = btn;
       const confirm = $("#switchConfirm");
-      $("#switchConfirmText").textContent = `${heldSelection.session.time} · ${heldSelection.session.hall}`;
+      const heldCount = heldSelection.seats.length;
+      $("#switchConfirmText").textContent = `Сейчас держим ${heldCount} ${heldCount === 1 ? "место" : heldCount < 5 ? "места" : "мест"} в сеансе ${heldSelection.session.time} · ${heldSelection.session.hall}. Заменить их на место в этом сеансе?`;
       $("#switchConfirmYes").textContent = "Заменить";
       $("#switchConfirmNo").textContent = `Оставить ${heldSelection.session.time}`;
       confirm.hidden = false;
+      $("#switchConfirmYes")?.focus();
       return;
     }
     const key = btn.dataset.key;
@@ -1503,8 +1505,18 @@
     }
     applySeatSize();
 
-    const yes = $("#switchConfirmYes");
-    if (yes) {
+    const switchModal = $("#switchConfirm");
+    if (switchModal && !switchModal.dataset.wired) {
+      switchModal.dataset.wired = "1";
+      switchModal.addEventListener("click", (event) => {
+        if (event.target === switchModal) $("#switchConfirmNo")?.click();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !switchModal.hidden) $("#switchConfirmNo")?.click();
+      });
+    }
+
+    const yes = $("#switchConfirmYes");    if (yes) {
       yes.addEventListener("click", () => {
         heldSelection = null;
         $("#switchConfirm").hidden = true;
