@@ -2395,7 +2395,8 @@ a { color: var(--accent); }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin: 8px 0 10px;
+  flex: none;
+  margin: 10px 0 0;
 }
 
 .hall-photo {
