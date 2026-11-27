@@ -4336,17 +4336,18 @@ body { font-size: 15px; }
    Полоса брони (Figma «Таймер брони», 26.11) и подбор мест рядом
    --------------------------------------------------------------- */
 .holdbar {
-  display: flex; align-items: center; gap: 8px;
-  height: 32px; padding: 0 16px; flex: none;
-  background: #F1F5FB; border-bottom: 1px solid rgba(23, 20, 15, 0.06);
-  color: #55617A; font-size: 12.5px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  height: 32px; padding: 7px 12px; flex: none;
+  border: 0; border-radius: 0;
+  background: #1B54F0; color: #FFFFFF;
+  font-size: 15px; font-weight: 400; line-height: 1;
+  white-space: nowrap; overflow: hidden;
 }
 .holdbar[hidden] { display: none; }
-.holdbar__icon { width: 14px; height: 14px; flex: none; opacity: 0.75; }
-.holdbar__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.holdbar__value { font-weight: 600; font-variant-numeric: tabular-nums; color: #17140F; }
-.holdbar--expired { background: #FDF1F1; color: #8A1C1C; border-bottom-color: rgba(138, 28, 28, 0.12); }
-.holdbar--expired .holdbar__value { color: #8A1C1C; }
+.holdbar__icon { width: 16px; height: 16px; flex: none; }
+.holdbar__label { overflow: hidden; text-overflow: ellipsis; }
+.holdbar__value { font-variant-numeric: tabular-nums; }
+.holdbar--expired { background: #55617A; }
 
 .hall-suggest {
   display: inline-flex; align-items: center; gap: 6px;
@@ -4917,9 +4918,9 @@ svg { stroke-width: 1.6; }
 
         <div class="sessionbar" id="sessionBar" aria-label="Другие сеансы этого фильма"></div>
 
-        <div class="timer holdbar" hidden>
+        <div class="holdbar" hidden>
           <svg class="holdbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
-          <span class="holdbar__label">Держим выбранные места 15 минут</span>
+          <span class="holdbar__label">Держим места ещё</span>
           <span class="holdbar__value" data-timer>14:32</span>
         </div>
         <div class="switch-confirm" id="switchConfirm" hidden>
@@ -5022,9 +5023,9 @@ svg { stroke-width: 1.6; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </header>
-        <div class="timer holdbar" hidden>
+        <div class="holdbar" hidden>
           <svg class="holdbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
-          <span class="holdbar__label">Держим выбранные места 15 минут</span>
+          <span class="holdbar__label">Держим места ещё</span>
           <span class="holdbar__value" data-timer>14:32</span>
         </div>
 
@@ -5169,9 +5170,9 @@ svg { stroke-width: 1.6; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </header>
-        <div class="timer holdbar" hidden>
+        <div class="holdbar" hidden>
           <svg class="holdbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
-          <span class="holdbar__label">Держим выбранные места 15 минут</span>
+          <span class="holdbar__label">Держим места ещё</span>
           <span class="holdbar__value" data-timer>14:32</span>
         </div>
 
@@ -5262,7 +5263,7 @@ svg { stroke-width: 1.6; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </header>
-        <div class="timer holdbar holdbar--expired">
+        <div class="holdbar holdbar--expired">
           <svg class="holdbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
           <span class="holdbar__label">Уже не держим: места освободились</span>
           <span class="holdbar__value">00:00</span>
@@ -5334,9 +5335,9 @@ svg { stroke-width: 1.6; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </header>
-        <div class="timer holdbar" hidden>
+        <div class="holdbar" hidden>
           <svg class="holdbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
-          <span class="holdbar__label">Держим выбранные места 15 минут</span>
+          <span class="holdbar__label">Держим места ещё</span>
           <span class="holdbar__value" data-timer>14:32</span>
         </div>
         <div class="screen__scroll">
@@ -7243,7 +7244,7 @@ svg { stroke-width: 1.6; }
     const s = String(remaining % 60).padStart(2, "0");
     $$("[data-timer]").forEach((el) => {
       el.textContent = `${m}:${s}`;
-      const wrap = el.closest(".timer") || el.closest(".whead__timer") || el.closest(".payment-sbp__timer");
+      const wrap = el.closest(".holdbar") || el.closest(".timer") || el.closest(".whead__timer") || el.closest(".payment-sbp__timer");
       if (wrap) wrap.hidden = !active;
     });
     const holdHint = $("#holdHint");

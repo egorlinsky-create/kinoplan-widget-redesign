@@ -19,8 +19,8 @@ const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
 (async () => {
   check(screen(),'afisha','general entry');
   tap('#directEntry'); check(screen(),'seats','direct entry');
-  check(q('[data-timer]').closest('.timer').hidden,true,'clock empty');
-  tap('.seat:not([data-taken=true])'); check(q('[data-timer]').closest('.timer').hidden,false,'clock selected');
+  check(q('[data-timer]').closest('.holdbar').hidden,true,'clock empty');
+  tap('.seat:not([data-taken=true])'); check(q('[data-timer]').closest('.holdbar').hidden,false,'clock selected');
   tap('#toCheckout'); check(screen(),'checkout','order');
   tap('#toPayment'); check(document.activeElement.id,'email','validation focus');
   for(const [id,value] of [['email','kino@example.com'],['phone','9001234567']]){

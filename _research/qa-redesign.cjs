@@ -49,9 +49,9 @@ const send = (method, params = {}, sessionId) => new Promise((resolve, reject) =
   assert.equal(await screen(), "afisha");
   await click("#directEntry");
   assert.equal(await screen(), "seats");
-  assert.equal(await run("document.querySelector('[data-timer]').closest('.timer').hidden"), true);
+  assert.equal(await run("document.querySelector('[data-timer]').closest('.holdbar').hidden"), true);
   await click(".seat:not([data-taken=true])");
-  assert.equal(await run("document.querySelector('[data-timer]').closest('.timer').hidden"), false);
+  assert.equal(await run("document.querySelector('[data-timer]').closest('.holdbar').hidden"), false);
   await click("#toCheckout");
   assert.equal(await screen(), "checkout");
   await click("#toPayment");

@@ -1831,7 +1831,7 @@
     const s = String(remaining % 60).padStart(2, "0");
     $$("[data-timer]").forEach((el) => {
       el.textContent = `${m}:${s}`;
-      const wrap = el.closest(".timer") || el.closest(".whead__timer") || el.closest(".payment-sbp__timer");
+      const wrap = el.closest(".holdbar") || el.closest(".timer") || el.closest(".whead__timer") || el.closest(".payment-sbp__timer");
       if (wrap) wrap.hidden = !active;
     });
     const holdHint = $("#holdHint");
