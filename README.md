@@ -5,7 +5,8 @@
 
 ## Ссылки для команды
 
-- Прототип в браузере: https://egorlinsky-create.github.io/kinoplan-widget-redesign/prototype/index.html
+- Прототип в браузере: https://egorlinsky-create.github.io/kinoplan-widget-redesign/ (корень ведёт на прототип)
+- Прямая ссылка на прототип: https://egorlinsky-create.github.io/kinoplan-widget-redesign/prototype/index.html
 - Репозиторий: https://github.com/egorlinsky-create/kinoplan-widget-redesign
 - Один файл для пересылки: `KINOPLAN-PROTOTYPE.html` в репозитории
 
